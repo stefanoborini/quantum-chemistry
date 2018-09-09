@@ -1,0 +1,111 @@
+! this program rotates orbitals. It uses an R matrix to perform the
+! transformation R*S^(1/2)*C with C orbital coeff and S^(1/2) AO overlap
+! matrix to the power of 1/2 (because CSC = 1)
+program orbrot
+    use mod_lirorb ! from daniel
+    use orbrot_mod
+    implicit none
+
+    integer, parameter :: maxSym = 8
+    integer :: norb, nsym, isym(maxSym),curSym
+    integer :: fileOrb_unit = 50
+    integer :: fileOverlap_unit = 51
+    integer :: fileLabel_unit = 52
+    integer :: fileOccup_unit = 53
+    integer :: length
+    integer :: i, j, k, idx,numOrb
+    integer :: orbIndex1,orbIndex2
+    real(8), allocatable :: overlapArray(:)
+    real(8), allocatable :: s(:,:),orbMat(:,:),sm1_2(:,:)
+    real(8), allocatable :: rotMat(:,:),rotFinal(:,:)
+    real(8) :: angle
+
+    character(len=1024) :: fileOrb, fileOverlap
+    character(len=80) :: string
+
+    print *, 'orbital file path (in molcas 5.4 format)?'
+    read (*,*) fileOrb
+    
+    print *, 'overlap file path (in molcas 5.4 format)?'
+    read (*,*) fileOverlap
+
+    write (*,*) 'Parsing orbital file ',trim(fileOrb)
+    call lirorb(fileOrb,norb,nsym,isym,fileOrb_unit,1,ifiloc=fileOccup_unit, &
+     ifillab=fileLabel_unit)
+    close(1)
+    print*,'Total number of orbitals found : ',norb
+    print*,'Number of available symmetries : ',nsym
+    print*,'Orbitals for each symmetry : ',isym
+    
+    open(fileOverlap_unit,file=fileOverlap,status='old',form='unformatted')
+    do
+        read(fileOverlap_unit)
+        read(fileOverlap_unit) string
+        if(index(string,'OVERLAP').ne.0.and.index(string,'SYM').ne.0) then
+            read(fileOverlap_unit) length
+            allocate(overlapArray(length))
+            read(fileOverlap_unit) overlapArray
+            exit
+        endif
+    enddo
+
+    close(fileOverlap_unit)
+    print *, "Read ",length," values from ",trim(fileOverlap)
+
+   
+    ! ok.. time to roll the orbitals
+
+    idx=0
+    rewind(fileOrb_unit)
+    do curSym = 1,1
+        numOrb = isym(curSym)
+        print *, 'Doing symmetry ',curSym, ' with ',numOrb,' orbitals'
+        if (numOrb == 0) cycle
+        allocate(s(numOrb,numOrb))
+        allocate(sm1_2(numOrb,numOrb))
+        allocate(orbMat(numOrb,numOrb))
+        allocate(rotMat(numOrb,numOrb))
+        allocate(rotFinal(numOrb,numOrb))
+
+        do i=1,numOrb
+            do j=1,i
+               idx=idx+1
+               s(i,j)=overlapArray(idx)
+               s(j,i)=overlapArray(idx)
+            enddo
+        enddo
+
+        call sqrtMatrix(s,sm1_2)
+        read(fileOrb_unit) orbMat
+
+        print *, 'orbMat before'
+        print *, orbMat
+        
+        print *,'Rotate which orbitals?'
+        print *,'[index1 index2 angle_in_deg] (index1 = 0 to finish)'
+
+        call identityMatrix(rotFinal)
+        
+        do
+            read (*,*) orbIndex1,orbIndex2,angle
+            if (orbIndex1 == 0) exit
+            call rotMatrix(rotMat,orbIndex1,orbIndex2,angle)
+
+            orbMat = matmul(rotMat, orbMat)
+        enddo
+            
+        !print *, 'rotFinal'
+        !print *, rotFinal
+        
+        print *,'orbMat after'
+        print *,orbMat
+        
+        
+        deallocate(s)
+        deallocate(orbMat)
+        deallocate(rotMat)
+        deallocate(rotFinal)
+    enddo 
+
+end program orbrot
+

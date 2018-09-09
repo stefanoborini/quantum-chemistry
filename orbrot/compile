@@ -1,0 +1,3 @@
+ifort -c orbrot_mod.f90
+ifort -static -I ../../cost-loc/biblio/ orbrot.f90 orbrot_mod.o ../../cost-loc/biblio/mod_lirorb.o  /home/stef/tmp/LAPACK/lapack_LINUX.a /home/stef/tmp/LAPACK/blas_LINUX.a
+cp a.out orbrot
