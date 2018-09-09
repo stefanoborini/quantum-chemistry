@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="urn:uuid:d195be0c-200a-40a4-9d05-35fdf42eb29f" version="1.0.0">
+    <Meta>
+        <Description>Computes the second hyperpolarizability (gamma) for a mol file</Description>
+        <DefaultExecutableGroupEntryPoint>compute20090203</DefaultExecutableGroupEntryPoint>
+    </Meta>
+    <Contents>
+        <ExecutableGroup entryPoint="compute20090203" description="known good set of parameters as of 2009-02-03">
+            <Executable>
+                <Platform>noarch</Platform>
+                <Interpreter>bash</Interpreter>
+                <Path type="standard">compute20090203.py</Path>
+            </Executable>
+        </ExecutableGroup>
+    </Contents>
+</Package>
+
