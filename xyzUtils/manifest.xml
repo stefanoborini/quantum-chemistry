@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="urn:uuid:d195be0c-200a-40a4-9d05-35fdf42eb29f" version="1.0.0">
+    <Meta>
+        <Description>Various handling tools for xyz files</Description>
+    </Meta>
+    <Contents>
+        <ExecutableGroup entryPoint="center" description="Center each molecule to its center of mass">
+            <Executable>
+                <Platform>noarch</Platform>
+                <Interpreter>python</Interpreter>
+                <Path type="standard">center.py</Path>
+            </Executable>
+        </ExecutableGroup>
+    </Contents>
+</Package>

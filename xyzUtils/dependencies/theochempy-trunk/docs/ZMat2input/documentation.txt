@@ -1,0 +1,85 @@
+* Kindly helpful documentation *
+--------------------------------
+
+This is documentation for ZMat2XYZ, a python code that accepts a zmatrix input file
+and output a dalton .mol file.
+
+The code works as this: at the prompt type
+
+./zmat2xyz-1.0.1.py infile.zmat outfile.mol
+
+The simplest input file is given in example1 (i suggest you to open the file while
+reading this document). Only the [zmatrix] section is given. Please note that
+the atomidentifier must be a valid atom symbol, so H, C, and so on are accepted, not
+personalized labels like H1 and so on. Case is not important. H and h refer at the hydrogen
+in any case. The .mol output produced by ZMat2XYZ contains the given symbol
+plus a progressive numeric code. Check the output created by example1.  Also,
+note that angles must be given in degrees and distances in atomic units (bohr).
+Future version (in development) will provide the possibility to place data in
+radians and angstrom as well.
+A comment is denoted by a hash (#) mark as the first char. "inline" comments
+are not possible at the moment, so you cannot do
+
+O 1 # our smart atom
+
+The final output for dalton always have the first atom in the origin, the
+second atom on the z axis, the third atom on the yz plane.
+
+Next step is adding a basis set. The output is not useful for dalton, since it
+contains ATOMBASIS specification but no basis set for each atom. So we add a
+basis set (example2). Please accept it as an example. Doing a calculation with that
+basis set chioce is not correct.
+
+You can use three kinds of specificator here: first is the atom specifier given
+in the zmatrix (see oxygen, example2). Second is an atomsymbol, like H. It puts
+the basis on each atom of the given type.
+The last identifier you can use is a *. This is the basis for all atoms. Please note that
+the order is important: every line sets a basis for the given atom (or class of atoms)
+only if a basis hasn't been set yet. If, for example, you place the * identifier at the
+first line, subsequent lines won't have effect at all, and every atom will have the 6-31G*
+basis set.
+
+ok. Let's add a parameter section. example 3 gives an overview.
+Please note that you can also use parameters inside parameters section, and also
+equations, so a line
+
+rch=5.0
+rco=(2.30*2)/rch
+
+is perfectly legal (apart from its physical sense, of course). Example 4 is suited to
+catch this possibility. You can aso use mathematical functions as defined in the math
+python module (Warn! if you use math.cos and so on, note that accepts angles in radians,
+so you have to convert them. You can do this inline, of course)
+
+Let's add some symmetry. formaldehyde is a C2v molecule. So it has 2 symmetry elements.
+The specification is done as in dalton, so i will not linger here. just take a look at
+example5. The only thing you should keep in account is that now zmatrix needs only
+the generator atoms.
+
+And now, the last example. What if you want to define a bent formaldehyde, with
+the hch system bent out of the plane? Since the third atom is placed on the yz
+plane, the remaining xz plane that characterizes the Cs symmetry for the bent formaldehyde
+is not along the axes. Solution is using dummy atoms. They are denoted by X atom symbol.
+You can use as much as you like, and they are not printed out in the final dalton output.
+
+* Future enhancements *
+-----------------------
+
+version 1.2 is currently in development. It will provide
+
+* ability to translate and rotate the molecule after the definition
+* will accept different units (angstroms, or radians)
+* zmatrix will be accepted in other formats, like the dalton format
+  and gaussian one.
+* autodetection of symmetry?
+* ability to "survive" selected dummy atoms (to center rydberg basis, for example)
+* Change input to xml? I like this INI like format. xml is too bloat for this kind of stuff,
+  but it can be useful in case of grid computing, using this code as a wrapper filter.
+* Outputs for other quantum chem programs?
+* Automatical analytical resolution of the Schrodinger equation on the given system....
+* Other ? Suggestions are needed. i like coding in python.
+
+* Contact *
+-----------
+
+Bug reports, thanks, patches and so on are very appreciated. 
