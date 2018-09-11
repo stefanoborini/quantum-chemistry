@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="urn:uuid:d195be0c-200a-40a4-9d05-35fdf42eb29f" version="1.0.0">
+    <Meta>
+        <Description>Parses a .zmat file and generates dalton mol input file</Description>
+        <DefaultExecutableGroupEntryPoint>zmat2input</DefaultExecutableGroupEntryPoint>
+    </Meta>
+    <Contents>
+        <ExecutableGroup entryPoint="zmat2input" description="Parses a .zmat file and generates dalton mol input file">
+            <Executable>
+                <Platform>noarch</Platform>
+                <Interpreter>python</Interpreter>
+                <Path type="standard">zmat2input.py</Path>
+            </Executable>
+        </ExecutableGroup>
+    </Contents>
+</Package>
+

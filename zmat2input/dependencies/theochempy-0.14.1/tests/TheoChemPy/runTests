@@ -1,0 +1,43 @@
+#!/usr/bin/env python
+# @author Stefano Borini - using bazaar now
+
+import os; import sys; script_path=sys.path[0]; sys.path.append(os.path.join(script_path, "../..")); 
+import unittest
+
+from FileParsers import TestFileParsers
+from Databases import TestDatabases
+from Engines import TestEngines
+from Chemistry import TestChemistry
+from Math import TestMath
+from GraphDataModel import TestGraphDataModel
+from IO import TestIO
+from InputGenerators import TestInputGenerators
+from Molecules import TestMolecules
+from Net import TestNet
+import TestMeasure
+import TestUnits
+
+all_test_suite=unittest.TestSuite()
+
+for test_case_class in [
+                TestUnits.TestUnits,
+                TestMeasure.TestMeasure,
+                ]:
+    all_test_suite.addTest(unittest.TestLoader().loadTestsFromTestCase(test_case_class))
+
+all_test_suite.addTest(TestMath.suite)
+all_test_suite.addTest(TestChemistry.suite)
+all_test_suite.addTest(TestDatabases.suite)
+all_test_suite.addTest(TestEngines.suite)
+all_test_suite.addTest(TestFileParsers.suite)
+all_test_suite.addTest(TestGraphDataModel.suite)
+all_test_suite.addTest(TestIO.suite)
+all_test_suite.addTest(TestInputGenerators.suite)
+all_test_suite.addTest(TestMolecules.suite)
+all_test_suite.addTest(TestNet.suite)
+
+unittest.TextTestRunner().run(all_test_suite)
+
+
+    
+

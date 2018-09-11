@@ -1,0 +1,18 @@
+[parameters]
+RNO=1.177
+RCN=1.464
+RCH1=1.082
+RCH2=1.084
+ACNO=113.8
+ANCH1=111.2
+ANCH2=107.3
+AH2CH3=107.9
+[zmatrix distance_unit="Angstrom" angle_unit="degrees" ]
+O 1
+N 2 1 RNO
+C 3 2 RCN 1 ACNO
+H 4 3 RCH1 2 ANCH1 1 0.0
+H 5 3 RCH2 2 ANCH2 1 120.0
+H 6 3 RCH2 2 ANCH2 1 -120.0
+[basis]
+* 6-31G*

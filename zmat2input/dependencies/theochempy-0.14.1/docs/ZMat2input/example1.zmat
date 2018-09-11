@@ -1,0 +1,8 @@
+# this is a comment
+[zmatrix]
+# our smart oxygen atom
+O 1
+C 2 1 2.6213
+H 3 2 2.0377 1 113.36
+H 4 2 2.0377 1 113.36 3 180.0
+
