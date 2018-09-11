@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="urn:uuid:d195be0c-200a-40a4-9d05-35fdf42eb29f" version="1.0.0">
+    <Meta>
+        <Description>Computation methods via Dalton</Description>
+    </Meta>
+    <Contents>
+        <ExecutableGroup entryPoint="computeFirstHyperpol20090203" description="computes first hyperpolarizability (set of parameters as of 2009-02-03)">
+            <Executable>
+                <Platform>noarch</Platform>
+                <Interpreter>python</Interpreter>
+                <Path type="standard">computeFirstHyperpol20090203.py</Path>
+            </Executable>
+        </ExecutableGroup>
+        <ExecutableGroup entryPoint="computeSecondHyperpol20090203" description="computes second hyperpolarizability (set of parameters as of 2009-02-03)">
+            <Executable>
+                <Platform>noarch</Platform>
+                <Interpreter>python</Interpreter>
+                <Path type="standard">computeSecondHyperpol20090203.py</Path>
+            </Executable>
+        </ExecutableGroup>
+        <ExecutableGroup entryPoint="computeFirstHyperpol20090314" description="AO removal thr 10-2 and SCF convergence 10-7">
+            <Executable>
+                <Platform>noarch</Platform>
+                <Interpreter>python</Interpreter>
+                <Path type="standard">computeFirstHyperpol20090314.py</Path>
+            </Executable>
+        </ExecutableGroup>
+        <ExecutableGroup entryPoint="computeSecondHyperpol20090314" description="AO removal thr 10-2 and SCF convergence 10-7">
+            <Executable>
+                <Platform>noarch</Platform>
+                <Interpreter>python</Interpreter>
+                <Path type="standard">computeSecondHyperpol20090314.py</Path>
+            </Executable>
+        </ExecutableGroup>
+        <ExecutableGroup entryPoint="computeFirstHyperpolHF20090928" description="Using no thresholds and HF wavefunction">
+            <Executable>
+                <Platform>noarch</Platform>
+                <Interpreter>python</Interpreter>
+                <Path type="standard">computeFirstHyperpolHF20090928.py</Path>
+            </Executable>
+        </ExecutableGroup>
+        <ExecutableGroup entryPoint="computeSecondHyperpolHF20090928" description="Using no thresholds and HF wavefunction">
+            <Executable>
+                <Platform>noarch</Platform>
+                <Interpreter>python</Interpreter>
+                <Path type="standard">computeSecondHyperpolHF20090928.py</Path>
+            </Executable>
+        </ExecutableGroup>
+
+        <ExecutableGroup entryPoint="optimizeGeometryCAMB3LYP20090307" description="performs geometry optimization with CAM-B3LYP (set of parameters as of 2009-03-07)">
+            <Executable>
+                <Platform>noarch</Platform>
+                <Interpreter>python</Interpreter>
+                <Path type="standard">optimizeGeometryCAMB3LYP20090307.py</Path>
+            </Executable>
+        </ExecutableGroup>
+        <ExecutableGroup entryPoint="computeDipole20090413" description="Compute the dipole with CAM-B3LYP (set of parameters as of 2009-04-13)">
+            <Executable>
+                <Platform>noarch</Platform>
+                <Interpreter>python</Interpreter>
+                <Path type="standard">computeDipole20090413.py</Path>
+            </Executable>
+        </ExecutableGroup>
+        <ExecutableGroup entryPoint="computeDipole20090413-2" description="AO removal thr 1e-2 and SCF convergence 1e-7">
+            <Executable>
+                <Platform>noarch</Platform>
+                <Interpreter>python</Interpreter>
+                <Path type="standard">computeDipole20090413-2.py</Path>
+            </Executable>
+        </ExecutableGroup>
+        <ExecutableGroup entryPoint="optimizeGeometryCAMB3LYP20090717" description="performs geometry optimization with CAM-B3LYP (set of parameters as of 2009-07-17)">
+            <Executable>
+                <Platform>noarch</Platform>
+                <Interpreter>python</Interpreter>
+                <Path type="standard">optimizeGeometryCAMB3LYP20090717.py</Path>
+            </Executable>
+        </ExecutableGroup>
+        <ExecutableGroup entryPoint="vibanaCAMB3LYP20090818" description="performs vibrational analysis with CAM-B3LYP (set of parameters as of 2009-08-18)">
+            <Executable>
+                <Platform>noarch</Platform>
+                <Interpreter>python</Interpreter>
+                <Path type="standard">vibanaCAMB3LYP20090818.py</Path>
+            </Executable>
+        </ExecutableGroup>
+        <ExecutableGroup entryPoint="linearResponseExcitationCAMB3LYP20090903" description="performs linear response excited states evaluation CAM-B3LYP (set of parameters as of 2009-09-03)">
+            <Executable>
+                <Platform>noarch</Platform>
+                <Interpreter>python</Interpreter>
+                <Path type="standard">linearResponseExcitationCAMB3LYP20090903.py</Path>
+            </Executable>
+        </ExecutableGroup>
+    </Contents>
+</Package>
