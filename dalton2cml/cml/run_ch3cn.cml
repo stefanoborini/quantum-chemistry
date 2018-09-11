@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<cml xmlns="http://www.xml-cml.org/schema" xmlns:sb="http://forthescience.org/NS/mycml">
+	<molecule>
+		<name>
+			run_ch3cn
+		</name>
+		<atomArray>
+			<atom id="a1" sb:atomicNumber="1" x3="-1.9445837911" y3="-0.0000003700" z3="-3.4474443633">
+				<label value="H"/>
+			</atom>
+			<atom id="a2" sb:atomicNumber="1" x3="0.9796478480" y3="1.6882960380" z3="-3.4439475248">
+				<label value="H"/>
+			</atom>
+			<atom id="a3" sb:atomicNumber="1" x3="0.9796480649" y3="-1.6882971753" z3="-3.4439332378">
+				<label value="H"/>
+			</atom>
+			<atom id="a4" sb:atomicNumber="7" x3="-0.0015904370" y3="-0.0000102995" z3="2.2096879980">
+				<label value="N"/>
+			</atom>
+			<atom id="a5" sb:atomicNumber="6" x3="0.0007880088" y3="0.0000093435" z3="0.0266413826">
+				<label value="C"/>
+			</atom>
+			<atom id="a6" sb:atomicNumber="6" x3="0.0040294765" y3="0.0000024634" z3="-2.7310039413">
+				<label value="C"/>
+			</atom>
+		</atomArray>
+	</molecule>
+</cml>
+
