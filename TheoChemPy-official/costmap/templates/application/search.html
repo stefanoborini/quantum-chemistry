@@ -1,0 +1,10 @@
+{% extends "application/base.html" %}
+{% block content %}
+<div>
+    Search
+    <form method="post" action="{{this_url}}">
+        Molecule name : <input type="text" name="molecule_name" />
+    </form>
+</div>
+{% endblock %}
+

@@ -1,0 +1,16 @@
+{% extends "application/base.html" %}
+{% block content %}
+<div>
+    <table id="dbtable">
+    <tr><th>Name</th><th>Molecules</th><th>Creation date</th><th>Notes</th></tr>
+{% for database in available_databases %}
+    <tr class="r{% cycle 0,1 %}">
+        <td><a href="browsedb/{{database.name}}">{{database.name}}</a></td>
+        <td style="text-align: center">{{database.num_molecules}}</td>
+        <td style="text-align: center">{{database.creation_date}}</td>
+        <td>{{database.comment}}</td>
+    <tr>
+{% endfor %}
+</div>
+{% endblock %}
+

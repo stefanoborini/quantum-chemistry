@@ -1,0 +1,42 @@
+{% extends "application/base.html" %}
+{% block javascript %}
+{% endblock %}
+{% block content %}
+<div>
+
+    Database {{ dbname }}, molecule {{ molname }}<br />
+
+    <applet width="400" height="400" code="JmolApplet" archive="/applets/jmol/JmolApplet.jar">
+        <param name="progressbar" value="true">
+        <param name="load" value="/cache/jmol/{{uuid}}.xyz">
+    </applet>
+    
+    <br />
+    Graph Infosets:<br />
+    <table border>
+        <tr><td>Name</td><td>Type</td><td>Value</td></tr>
+    {% for name,value, uri in graph_infosets_data %}
+        <tr><td>{{ name }}</td><td>{{ uri }}</td><td>{{ value }}</td></tr>
+    {% endfor %}
+    </table>
+    <br />
+    Entity Infosets:<br />
+    <table border>
+        <tr><td>Name</td><td>Dimensionality</td><td>Type</td><td>Size</td></tr>
+    {% for name, dimensionality, uri, size in infosets_data %}
+        <tr><td>{{ name }}</td><td>{{ dimensionality }}</td><td>{{ uri }}</td><td>{{ size }}</td></tr>
+    {% endfor %}
+    </table>
+    <br />
+    <div>
+    {% if angle_data %}
+        Data for angle infoset:<br />
+        <ol>
+        {% for entity, value in angle_data %}
+            <li>{{ entity }}: {{ value }}</li>
+        {% endfor %}
+        </ol>
+    {% endif %}
+    </div>
+</div>
+{% endblock %}

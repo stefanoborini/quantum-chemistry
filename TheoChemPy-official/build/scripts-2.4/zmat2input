@@ -1,0 +1,16 @@
+#!/home2/borinis/runtime/runtime/bin/python
+import zmatmodule
+
+# ZMat2XYZ 1.0.1 - By Stefano Borini
+if __name__ == '__main__':
+    import os
+    import sys
+
+    if len(sys.argv) < 3:
+        print 'Usage: %s inputfile outputfile' % sys.argv[0]
+        sys.exit()
+    a=ZMat2XYZ()
+    a.parseFile(sys.argv[1])
+    a.writeDalton20(sys.argv[2])
+
+

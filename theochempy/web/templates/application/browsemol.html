@@ -1,0 +1,66 @@
+{% extends "application/base.html" %}
+{% block stylesheet %}
+<link rel="stylesheet" type="text/css" href="/css/jBreadCrumb.css" />
+{% endblock %}
+{% block javascript %}
+<script type="text/javascript" src="/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery/jquery.jBreadCrumb.js"></script>
+<script type="text/javascript">
+$(function() { 
+});
+
+jQuery(document).ready(function() {
+    jQuery("#breadcrumbs").jBreadCrumb({easing:'swing'});
+})
+
+</script>
+{% endblock %}
+{% block content %}
+<div>
+    <div class="breadCrumbHolder module">
+        <div id="breadCrumb0" class="breadCrumb module">
+            <ul>
+                <li><a href="/">COSTMAP</a></li>
+                <li><a href="/browsedb/{{dbname}}">{{dbname}}</a></li>
+                <li>{{molname}}</li>
+            </ul>
+        </div>
+    </div>
+    
+
+    <applet width="400" height="400" code="JmolApplet" archive="/applets/jmol/JmolApplet.jar">
+        <param name="progressbar" value="true">
+        <param name="load" value="/cache/jmol/{{uuid}}.xyz">
+    </applet>
+    
+    <br />
+
+    <h1>Molecular info</h1>
+    <table>
+        <tr><td>Molecule code</td><td>{{ molecule.MoleculeCode }}</td></tr>
+    </table>
+    <h1>GRRM info</h1>
+    <table>
+        <tr><td>Structure type</td><td>{{ grrm.StructureType }}</td></tr>
+        <tr><td>Spin</td><td>{{ grrm.Spin }}</td></tr>
+        <tr><td>HFEnergy</td><td>{{ grrm.HFEnergy }}</td></tr>
+        <tr><td>Zero Point Vibrational Energy</td><td>{{ grrm.ZeroPointVibrationalEnergy }}</td></tr>
+        <tr><td>Normal Modes Eigenvalues</td><td>{{ grrm.NormalModesEigenvalues }}</td></tr>
+        <tr><td>Reaction Connectivity Markers</td><td>{{ grrm.ReactionConnectivityMarker }}</td></tr>
+        <tr><td>Reaction Connectivity Codes</td><td>{{ grrm.ReactionConnectivityCodes }}</td></tr>
+        {% if grrm.first_code %}
+        <tr><td>First Reaction Connectivity Code</td><td><a href="/browsedb/{{dbname}}/{{ grrm.first_code }}">{{ grrm.first_code }}</a></td></tr>
+        {% endif %}
+        {% if grrm.second_code %}
+        <tr><td>Second Reaction Connectivity Code</td><td><a href="/browsedb/{{dbname}}/{{ grrm.second_code }}">{{ grrm.second_code }}</a></td></tr>
+        {% endif %}
+    </table>
+    <h1>Unrecognized</h1>
+    <table>
+    {% for uri, dimensionality in unrecognized %}
+        <tr><td>{{ uri }}</td><td>{{ dimensionality }}</td></tr>
+    {% endfor %}
+    </table>
+</div>
+{% endblock %}
+

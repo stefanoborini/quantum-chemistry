@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+   xmlns:_3="http://ontologies.wavemol.org/moldb/v1/#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+>
+  <rdf:Description rdf:nodeID="ZhdHjQBK15">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag"/>
+    <rdf:_1 rdf:resource="urn:uuid:a44e675d-9add-4b52-852c-19dad4a61b55"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="ZhdHjQBK19">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag"/>
+    <rdf:_1 rdf:resource="urn:uuid:2b032dc8-162d-4318-98af-2a01671a36e5"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:uuid:a4010e5c-d3dc-440f-8525-f83d833604f0">
+    <_3:GRRM_Options_nrun rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</_3:GRRM_Options_nrun>
+    <_3:Run_Input rdf:resource="urn:uuid:bfaa8c2a-f6fb-4e89-bf27-6bdfaad12471"/>
+    <_3:GRRM_BasisSet>6-31+G*</_3:GRRM_BasisSet>
+    <_3:Run_Type rdf:resource="http://ontologies.wavemol.org/moldb/v1/runtypes/#GRRM"/>
+    <_3:GRRM_Method>RHF</_3:GRRM_Method>
+    <_3:Run_Output rdf:resource="urn:uuid:97cb53be-ed8a-493e-b68a-3f483b32b007"/>
+    <rdf:type rdf:resource="http://ontologies.wavemol.org/moldb/v1/nodetypes/#Run"/>
+    <_3:GRRM_Job>grrm</_3:GRRM_Job>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="ZhdHjQBK14">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag"/>
+    <rdf:_2 rdf:resource="urn:uuid:e61e7c94-0ccf-4e46-b10b-7fa80359f776"/>
+    <rdf:_1 rdf:resource="urn:uuid:b4dbc59d-b05f-45e3-b4d9-2bed7b2f7452"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="ZhdHjQBK6">
+    <rdf:_4 rdf:resource="urn:uuid:f228554b-2112-4280-8e1d-796e93da7b65"/>
+    <rdf:_2 rdf:resource="urn:uuid:e47b6df0-7f10-4036-b9d6-b1e225ec2111"/>
+    <rdf:_6 rdf:resource="urn:uuid:f674ec2d-187e-4cd8-ba5c-aa0deb88dad1"/>
+    <rdf:_1 rdf:resource="urn:uuid:34fe2ddf-da1c-4275-8ff9-8539e5e3ca8e"/>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag"/>
+    <rdf:_5 rdf:resource="urn:uuid:427fc622-69bb-4c04-a7a8-2f8f8afb2cc8"/>
+    <rdf:_3 rdf:resource="urn:uuid:e47b6df0-7f10-4036-b9d6-b1e225ec2111"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:uuid:71d57954-bf56-40b5-a360-29d15f363c25">
+    <_3:GRRM_ZeroPointVibrationalEnergy rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.016923954097</_3:GRRM_ZeroPointVibrationalEnergy>
+    <_3:GRRM_Energy rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-113.526040013</_3:GRRM_Energy>
+    <_3:GRRM_StructureNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</_3:GRRM_StructureNumber>
+    <_3:GRRM_Connections rdf:nodeID="ZhdHjQBK11"/>
+    <_3:GRRM_Spin rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</_3:GRRM_Spin>
+    <_3:GRRM_NormalModesEigenvalues>[0.011868467000000001, 0.012695718, 0.037571713999999999, 0.086378259999999998, 0.54139170400000003]</_3:GRRM_NormalModesEigenvalues>
+    <_3:Molecule_Geometry>{"symbols": ["C", "O", "H", "H"], "labels": ["C", "O", "H", "H"], "coordinates": [[-0.318530063217, -0.290379706919, -0.0084579378110000002], [0.56500624758399998, 0.59971913028299995, 0.0074285458080000002], [1.516138402468, 0.447434132112, 0.017763947567000001], [-2.5745852501909998, 1.2698908846250001, -0.025667612635999999]]}</_3:Molecule_Geometry>
+    <rdf:type rdf:resource="http://ontologies.wavemol.org/moldb/v1/nodetypes/#Molecule"/>
+    <_3:GRRM_StructureType>dc</_3:GRRM_StructureType>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:uuid:34fe2ddf-da1c-4275-8ff9-8539e5e3ca8e">
+    <_3:GRRM_ZeroPointVibrationalEnergy rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.01779771546</_3:GRRM_ZeroPointVibrationalEnergy>
+    <_3:GRRM_Energy rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-113.542983189</_3:GRRM_Energy>
+    <_3:GRRM_StructureNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</_3:GRRM_StructureNumber>
+    <_3:GRRM_Connections rdf:nodeID="ZhdHjQBK4"/>
+    <_3:GRRM_Spin rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</_3:GRRM_Spin>
+    <_3:GRRM_NormalModesEigenvalues>[0.011129012000000001, 0.020499263, 0.045245517999999998, 0.093324679999999993, 0.56683956300000005]</_3:GRRM_NormalModesEigenvalues>
+    <_3:Molecule_Geometry>{"symbols": ["C", "O", "H", "H"], "labels": ["C", "O", "H", "H"], "coordinates": [[-0.69459570864200004, 0.17460461863400001, 0.17867704693100001], [0.52026730170400004, -0.043075740440000003, 0.0097319129589999998], [0.90492049825700005, -0.63649550846299996, -0.64063867330599999], [-1.6138541373090001, -1.461905338095, -1.7433235598229999]]}</_3:Molecule_Geometry>
+    <rdf:type rdf:resource="http://ontologies.wavemol.org/moldb/v1/nodetypes/#Molecule"/>
+    <_3:GRRM_StructureType>dc</_3:GRRM_StructureType>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="ZhdHjQBK2">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag"/>
+    <rdf:_2 rdf:resource="urn:uuid:b4dbc59d-b05f-45e3-b4d9-2bed7b2f7452"/>
+    <rdf:_1 rdf:resource="urn:uuid:b4dbc59d-b05f-45e3-b4d9-2bed7b2f7452"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="ZhdHjQBK8">
+    <rdf:_4 rdf:resource="urn:uuid:427fc622-69bb-4c04-a7a8-2f8f8afb2cc8"/>
+    <rdf:_2 rdf:resource="urn:uuid:a421b8d0-303a-4fa6-8fad-ef314fad4854"/>
+    <rdf:_6 rdf:resource="urn:uuid:72a72670-6945-4760-bcb9-ad061a46ed96"/>
+    <rdf:_1 rdf:resource="urn:uuid:71d57954-bf56-40b5-a360-29d15f363c25"/>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag"/>
+    <rdf:_5 rdf:resource="urn:uuid:f674ec2d-187e-4cd8-ba5c-aa0deb88dad1"/>
+    <rdf:_3 rdf:resource="urn:uuid:917a4673-e1e9-498e-be6e-67c6d6944c21"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:uuid:b4dbc59d-b05f-45e3-b4d9-2bed7b2f7452">
+    <_3:GRRM_ZeroPointVibrationalEnergy rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.027411213857</_3:GRRM_ZeroPointVibrationalEnergy>
+    <_3:GRRM_Energy rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-113.717429201</_3:GRRM_Energy>
+    <_3:GRRM_StructureNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</_3:GRRM_StructureNumber>
+    <_3:GRRM_Connections rdf:nodeID="ZhdHjQBK6"/>
+    <_3:GRRM_Spin rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</_3:GRRM_Spin>
+    <_3:GRRM_NormalModesEigenvalues>[0.038407166, 0.064227157000000007, 0.066860259000000005, 0.091732011000000002, 0.32445282399999997, 0.577901687]</_3:GRRM_NormalModesEigenvalues>
+    <_3:Molecule_Geometry>{"symbols": ["C", "O", "H", "H"], "labels": ["C", "O", "H", "H"], "coordinates": [[-0.77082211990500005, 0.096413940724000002, 0.084750441814000002], [0.54933104033799995, -0.041878255757000001, 0.012980193748], [0.955773404381, -0.62602202346900004, -0.62543000153299999], [-1.2183548465130001, -0.56038076746599996, -0.69171680896099996]]}</_3:Molecule_Geometry>
+    <rdf:type rdf:resource="http://ontologies.wavemol.org/moldb/v1/nodetypes/#Molecule"/>
+    <_3:GRRM_StructureType>EQ</_3:GRRM_StructureType>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:uuid:97cb53be-ed8a-493e-b68a-3f483b32b007">
+    <rdf:type rdf:resource="http://ontologies.wavemol.org/moldb/v1/nodetypes/#Collection"/>
+    <_3:Collection_Contents rdf:nodeID="ZhdHjQBK20"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:uuid:e61e7c94-0ccf-4e46-b10b-7fa80359f776">
+    <_3:GRRM_ZeroPointVibrationalEnergy rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.028276906244</_3:GRRM_ZeroPointVibrationalEnergy>
+    <_3:GRRM_Energy rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-113.728878117</_3:GRRM_Energy>
+    <_3:GRRM_StructureNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</_3:GRRM_StructureNumber>
+    <_3:GRRM_Connections rdf:nodeID="ZhdHjQBK8"/>
+    <_3:GRRM_Spin rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</_3:GRRM_Spin>
+    <_3:GRRM_NormalModesEigenvalues>[0.045535414000000003, 0.062483261999999998, 0.066735826999999998, 0.096430809000000006, 0.36224644299999997, 0.60916608900000002]</_3:GRRM_NormalModesEigenvalues>
+    <_3:Molecule_Geometry>{"symbols": ["C", "O", "H", "H"], "labels": ["C", "O", "H", "H"], "coordinates": [[-0.42991795636500002, -0.24131567099000001, -0.0094780621469999996], [0.57465588067399997, 0.63146885466400005, 0.0077362624599999997], [1.4392023377859999, 0.23475759757799999, 0.015557148812], [-1.324519304047, 0.394479182697, -0.016198054736999999]]}</_3:Molecule_Geometry>
+    <rdf:type rdf:resource="http://ontologies.wavemol.org/moldb/v1/nodetypes/#Molecule"/>
+    <_3:GRRM_StructureType>EQ</_3:GRRM_StructureType>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:uuid:2cfd732e-b1cf-46ab-970e-8362ec83bcca">
+    <_3:GRRM_ZeroPointVibrationalEnergy rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.019404680595</_3:GRRM_ZeroPointVibrationalEnergy>
+    <_3:GRRM_Energy rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-113.524181416</_3:GRRM_Energy>
+    <_3:GRRM_StructureNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</_3:GRRM_StructureNumber>
+    <_3:GRRM_Connections rdf:nodeID="ZhdHjQBK19"/>
+    <_3:GRRM_Spin rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</_3:GRRM_Spin>
+    <_3:GRRM_NormalModesEigenvalues>[0.0024007189999999999, 0.0072220699999999997, 0.084814558999999998, 0.36836429300000001, 0.39042294500000002]</_3:GRRM_NormalModesEigenvalues>
+    <_3:Molecule_Geometry>{"symbols": ["C", "O", "H", "H"], "labels": ["C", "O", "H", "H"], "coordinates": [[-0.80322605164000005, -0.81889978400999996, -0.017418052948000001], [1.017560140839, 1.27074191326, 0.016876303692000001], [-0.559188259844, -1.886728371859, -0.02103441461], [-1.89433567444, -0.72323192740499997, -0.029756201563999999]]}</_3:Molecule_Geometry>
+    <rdf:type rdf:resource="http://ontologies.wavemol.org/moldb/v1/nodetypes/#Molecule"/>
+    <_3:GRRM_StructureType>dc</_3:GRRM_StructureType>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="ZhdHjQBK5">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag"/>
+    <rdf:_1 rdf:resource="urn:uuid:72a72670-6945-4760-bcb9-ad061a46ed96"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="ZhdHjQBK20">
+    <rdf:_7 rdf:resource="urn:uuid:34fe2ddf-da1c-4275-8ff9-8539e5e3ca8e"/>
+    <rdf:_13 rdf:resource="urn:uuid:e47b6df0-7f10-4036-b9d6-b1e225ec2111"/>
+    <rdf:_4 rdf:resource="urn:uuid:2cfd732e-b1cf-46ab-970e-8362ec83bcca"/>
+    <rdf:_10 rdf:resource="urn:uuid:b4dbc59d-b05f-45e3-b4d9-2bed7b2f7452"/>
+    <rdf:_16 rdf:resource="urn:uuid:427fc622-69bb-4c04-a7a8-2f8f8afb2cc8"/>
+    <rdf:_8 rdf:resource="urn:uuid:2b032dc8-162d-4318-98af-2a01671a36e5"/>
+    <rdf:_18 rdf:resource="urn:uuid:72a72670-6945-4760-bcb9-ad061a46ed96"/>
+    <rdf:_9 rdf:resource="urn:uuid:e61e7c94-0ccf-4e46-b10b-7fa80359f776"/>
+    <rdf:_2 rdf:resource="urn:uuid:6e35686b-b18e-4ef0-a372-e12d952cd0c4"/>
+    <rdf:_11 rdf:resource="urn:uuid:6280a2d9-7108-4572-8505-e4faffce01cb"/>
+    <rdf:_6 rdf:resource="urn:uuid:a421b8d0-303a-4fa6-8fad-ef314fad4854"/>
+    <rdf:_17 rdf:resource="urn:uuid:f674ec2d-187e-4cd8-ba5c-aa0deb88dad1"/>
+    <rdf:_1 rdf:resource="urn:uuid:150f32f6-9ed5-4fe8-9c4c-6f0af84bbecc"/>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag"/>
+    <rdf:_14 rdf:resource="urn:uuid:a44e675d-9add-4b52-852c-19dad4a61b55"/>
+    <rdf:_5 rdf:resource="urn:uuid:71d57954-bf56-40b5-a360-29d15f363c25"/>
+    <rdf:_15 rdf:resource="urn:uuid:f228554b-2112-4280-8e1d-796e93da7b65"/>
+    <rdf:_3 rdf:resource="urn:uuid:5c46b189-37b9-4041-9f7b-8509013c9ed5"/>
+    <rdf:_12 rdf:resource="urn:uuid:917a4673-e1e9-498e-be6e-67c6d6944c21"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:uuid:a421b8d0-303a-4fa6-8fad-ef314fad4854">
+    <_3:GRRM_ZeroPointVibrationalEnergy rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.016218358148</_3:GRRM_ZeroPointVibrationalEnergy>
+    <_3:GRRM_Energy rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-113.522145779</_3:GRRM_Energy>
+    <_3:GRRM_StructureNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</_3:GRRM_StructureNumber>
+    <_3:GRRM_Connections rdf:nodeID="ZhdHjQBK9"/>
+    <_3:GRRM_Spin rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</_3:GRRM_Spin>
+    <_3:GRRM_NormalModesEigenvalues>[0.013442301, 0.013657387999999999, 0.028324255999999999, 0.14124030300000001, 0.36963041099999999]</_3:GRRM_NormalModesEigenvalues>
+    <_3:Molecule_Geometry>{"symbols": ["C", "O", "H", "H"], "labels": ["C", "O", "H", "H"], "coordinates": [[-0.39507495164700002, -0.14844699523400001, -0.0084995962539999997], [0.47792926782400003, 0.62060558475500005, 0.006524600163], [2.7110932378950001, -0.30528233088700002, 0.027328799558000001], [-1.4761583534539999, 0.0011556755869999999, -0.020390171317000001]]}</_3:Molecule_Geometry>
+    <rdf:type rdf:resource="http://ontologies.wavemol.org/moldb/v1/nodetypes/#Molecule"/>
+    <_3:GRRM_StructureType>dc</_3:GRRM_StructureType>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:uuid:e47b6df0-7f10-4036-b9d6-b1e225ec2111">
+    <_3:GRRM_ZeroPointVibrationalEnergy rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.024887964859</_3:GRRM_ZeroPointVibrationalEnergy>
+    <_3:GRRM_Energy rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-113.577133771</_3:GRRM_Energy>
+    <_3:GRRM_StructureNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</_3:GRRM_StructureNumber>
+    <_3:GRRM_Connections rdf:nodeID="ZhdHjQBK2"/>
+    <_3:GRRM_Spin rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</_3:GRRM_Spin>
+    <_3:GRRM_NormalModesEigenvalues>[-0.110038358, 0.025478891, 0.042659250000000003, 0.068439520000000004, 0.50547686300000005, 0.61851655000000005]</_3:GRRM_NormalModesEigenvalues>
+    <_3:Molecule_Geometry>{"symbols": ["C", "O", "H", "H"], "labels": ["C", "O", "H", "H"], "coordinates": [[-0.77867754861600003, 0.0034999983690000001, -0.012116796753], [0.58757914719399995, 0.000186936749, 0.0040423662540000002], [1.0257667975039999, -0.84450752283200003, 0.0040866422940000003], [-1.8271783087110001, 0.113473427761, -0.023863483902999999]]}</_3:Molecule_Geometry>
+    <rdf:type rdf:resource="http://ontologies.wavemol.org/moldb/v1/nodetypes/#Molecule"/>
+    <_3:GRRM_StructureType>TS</_3:GRRM_StructureType>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:uuid:5c46b189-37b9-4041-9f7b-8509013c9ed5">
+    <_3:GRRM_ZeroPointVibrationalEnergy rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.017786789362</_3:GRRM_ZeroPointVibrationalEnergy>
+    <_3:GRRM_Energy rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-113.589722341</_3:GRRM_Energy>
+    <_3:GRRM_StructureNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</_3:GRRM_StructureNumber>
+    <_3:GRRM_Connections rdf:nodeID="ZhdHjQBK17"/>
+    <_3:GRRM_Spin rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</_3:GRRM_Spin>
+    <_3:GRRM_NormalModesEigenvalues>[0.015001894999999999, 0.024941995000000002, 0.038887736999999999, 0.157702445, 0.41485850600000002]</_3:GRRM_NormalModesEigenvalues>
+    <_3:Molecule_Geometry>{"symbols": ["C", "O", "H", "H"], "labels": ["C", "O", "H", "H"], "coordinates": [[-0.29539623208100002, -0.069441663368000006, -0.0068377554200000001], [0.54198545020199995, 0.71977965242700004, 0.0078874265979999997], [0.41757091942199998, -2.6386235908420002, -0.014048832434], [-1.370022059191, -0.150835253635, -0.020059571291]]}</_3:Molecule_Geometry>
+    <rdf:type rdf:resource="http://ontologies.wavemol.org/moldb/v1/nodetypes/#Molecule"/>
+    <_3:GRRM_StructureType>dc</_3:GRRM_StructureType>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="ZhdHjQBK10">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag"/>
+    <rdf:_1 rdf:resource="urn:uuid:f228554b-2112-4280-8e1d-796e93da7b65"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:uuid:f228554b-2112-4280-8e1d-796e93da7b65">
+    <_3:GRRM_ZeroPointVibrationalEnergy rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.015431733166</_3:GRRM_ZeroPointVibrationalEnergy>
+    <_3:GRRM_Energy rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-113.576840816</_3:GRRM_Energy>
+    <_3:GRRM_StructureNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</_3:GRRM_StructureNumber>
+    <_3:GRRM_Connections rdf:nodeID="ZhdHjQBK3"/>
+    <_3:GRRM_Spin rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</_3:GRRM_Spin>
+    <_3:GRRM_NormalModesEigenvalues>[-0.47327490799999999, 0.0095129240000000007, 0.041765482999999999, 0.086148002000000001, 0.10112705399999999, 0.16346697499999999]</_3:GRRM_NormalModesEigenvalues>
+    <_3:Molecule_Geometry>{"symbols": ["C", "O", "H", "H"], "labels": ["C", "O", "H", "H"], "coordinates": [[0.31299096651800001, -0.32362093261500002, 0.32700057078099998], [-0.011152679975, 0.81774048079999995, -0.064125924293], [-0.485805420273, -1.0082972102150001, -0.96820011693800001], [-0.52087836060399995, 0.196456434672, -0.90814028390599999]]}</_3:Molecule_Geometry>
+    <rdf:type rdf:resource="http://ontologies.wavemol.org/moldb/v1/nodetypes/#Molecule"/>
+    <_3:GRRM_StructureType>TS</_3:GRRM_StructureType>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="ZhdHjQBK18">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag"/>
+    <rdf:_2 rdf:resource="urn:uuid:2b032dc8-162d-4318-98af-2a01671a36e5"/>
+    <rdf:_1 rdf:resource="urn:uuid:e61e7c94-0ccf-4e46-b10b-7fa80359f776"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="ZhdHjQBK16">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag"/>
+    <rdf:_2 rdf:resource="urn:uuid:e61e7c94-0ccf-4e46-b10b-7fa80359f776"/>
+    <rdf:_1 rdf:resource="urn:uuid:b4dbc59d-b05f-45e3-b4d9-2bed7b2f7452"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="ZhdHjQBK11">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag"/>
+    <rdf:_1 rdf:resource="urn:uuid:e61e7c94-0ccf-4e46-b10b-7fa80359f776"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:uuid:6e35686b-b18e-4ef0-a372-e12d952cd0c4">
+    <_3:GRRM_ZeroPointVibrationalEnergy rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.016884714588</_3:GRRM_ZeroPointVibrationalEnergy>
+    <_3:GRRM_Energy rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-113.791735902</_3:GRRM_Energy>
+    <_3:GRRM_StructureNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</_3:GRRM_StructureNumber>
+    <_3:GRRM_Connections rdf:nodeID="ZhdHjQBK10"/>
+    <_3:GRRM_Spin rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</_3:GRRM_Spin>
+    <_3:GRRM_NormalModesEigenvalues>[0.00032253300000000001, 0.00036074000000000002, 0.002684203, 0.19746894000000001, 0.82566284300000004]</_3:GRRM_NormalModesEigenvalues>
+    <_3:Molecule_Geometry>{"symbols": ["C", "O", "H", "H"], "labels": ["C", "O", "H", "H"], "coordinates": [[0.34464863772999998, -0.21259758643900001, 0.38628153131300003], [0.038222989382, 0.80911461400200002, 0.011108683777], [-1.017502230998, -1.349806677838, -1.819529527042], [-1.1497517212320001, -0.64707129477400005, -1.9566869415549999]]}</_3:Molecule_Geometry>
+    <rdf:type rdf:resource="http://ontologies.wavemol.org/moldb/v1/nodetypes/#Molecule"/>
+    <_3:GRRM_StructureType>DC</_3:GRRM_StructureType>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="ZhdHjQBK17">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag"/>
+    <rdf:_1 rdf:resource="urn:uuid:2b032dc8-162d-4318-98af-2a01671a36e5"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:uuid:72a72670-6945-4760-bcb9-ad061a46ed96">
+    <_3:GRRM_ZeroPointVibrationalEnergy rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.019200087994</_3:GRRM_ZeroPointVibrationalEnergy>
+    <_3:GRRM_Energy rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-113.549288646</_3:GRRM_Energy>
+    <_3:GRRM_StructureNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6</_3:GRRM_StructureNumber>
+    <_3:GRRM_Connections rdf:nodeID="ZhdHjQBK7"/>
+    <_3:GRRM_Spin rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</_3:GRRM_Spin>
+    <_3:GRRM_NormalModesEigenvalues>[-0.141805079, 0.0086578680000000009, 0.016410053000000001, 0.039181087000000003, 0.190171323, 0.61517299800000003]</_3:GRRM_NormalModesEigenvalues>
+    <_3:Molecule_Geometry>{"symbols": ["C", "O", "H", "H"], "labels": ["C", "O", "H", "H"], "coordinates": [[-0.68745895741700003, -0.48824740582199999, 0.031517728900999999], [0.673481233299, 0.72833089440300003, 0.116967869473], [1.48473113105, 0.48895626529500003, -0.31960939875900002], [-0.36571625410300002, 0.80062802960799995, -0.294802202239]]}</_3:Molecule_Geometry>
+    <rdf:type rdf:resource="http://ontologies.wavemol.org/moldb/v1/nodetypes/#Molecule"/>
+    <_3:GRRM_StructureType>TS</_3:GRRM_StructureType>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="ZhdHjQBK7">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag"/>
+    <rdf:_2 rdf:resource="urn:uuid:6280a2d9-7108-4572-8505-e4faffce01cb"/>
+    <rdf:_1 rdf:resource="urn:uuid:e61e7c94-0ccf-4e46-b10b-7fa80359f776"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="ZhdHjQBK12">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag"/>
+    <rdf:_4 rdf:resource="urn:uuid:a44e675d-9add-4b52-852c-19dad4a61b55"/>
+    <rdf:_2 rdf:resource="urn:uuid:2cfd732e-b1cf-46ab-970e-8362ec83bcca"/>
+    <rdf:_3 rdf:resource="urn:uuid:917a4673-e1e9-498e-be6e-67c6d6944c21"/>
+    <rdf:_1 rdf:resource="urn:uuid:5c46b189-37b9-4041-9f7b-8509013c9ed5"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="ZhdHjQBK4">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag"/>
+    <rdf:_1 rdf:resource="urn:uuid:b4dbc59d-b05f-45e3-b4d9-2bed7b2f7452"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:uuid:a44e675d-9add-4b52-852c-19dad4a61b55">
+    <_3:GRRM_ZeroPointVibrationalEnergy rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.018952308858</_3:GRRM_ZeroPointVibrationalEnergy>
+    <_3:GRRM_Energy rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-113.62988317</_3:GRRM_Energy>
+    <_3:GRRM_StructureNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</_3:GRRM_StructureNumber>
+    <_3:GRRM_Connections rdf:nodeID="ZhdHjQBK13"/>
+    <_3:GRRM_Spin rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</_3:GRRM_Spin>
+    <_3:GRRM_NormalModesEigenvalues>[-0.18073916500000001, 0.023125157, 0.041245556000000003, 0.065237249999999997, 0.149532104, 0.38574071799999998]</_3:GRRM_NormalModesEigenvalues>
+    <_3:Molecule_Geometry>{"symbols": ["C", "O", "H", "H"], "labels": ["C", "O", "H", "H"], "coordinates": [[-0.052793014015, -0.22196641640600001, -0.0048733705159999998], [0.68411541733199999, 0.66973876975000002, 0.0092069381510000003], [-0.966945872569, -0.82642474030299995, -0.019267209418999998], [-1.7214881531549999, 0.247008643886, -0.021517008869000001]]}</_3:Molecule_Geometry>
+    <rdf:type rdf:resource="http://ontologies.wavemol.org/moldb/v1/nodetypes/#Molecule"/>
+    <_3:GRRM_StructureType>TS</_3:GRRM_StructureType>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:uuid:f674ec2d-187e-4cd8-ba5c-aa0deb88dad1">
+    <_3:GRRM_ZeroPointVibrationalEnergy rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.025888211778</_3:GRRM_ZeroPointVibrationalEnergy>
+    <_3:GRRM_Energy rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-113.623289209</_3:GRRM_Energy>
+    <_3:GRRM_StructureNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">5</_3:GRRM_StructureNumber>
+    <_3:GRRM_Connections rdf:nodeID="ZhdHjQBK16"/>
+    <_3:GRRM_Spin rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</_3:GRRM_Spin>
+    <_3:GRRM_NormalModesEigenvalues>[-0.10103133, 0.034387205999999997, 0.076640547000000003, 0.091554252000000003, 0.514166601, 0.53100225599999995]</_3:GRRM_NormalModesEigenvalues>
+    <_3:Molecule_Geometry>{"symbols": ["C", "O", "H", "H"], "labels": ["C", "O", "H", "H"], "coordinates": [[-0.46812664898599998, -0.121015532016, -0.0092815051349999997], [0.60721977120199999, 0.61122031361899998, 0.0080661635520000007], [1.4384603304850001, 0.12980689862, 0.014580721316], [-1.333184397581, -0.71837367743699998, -0.023291933194000001]]}</_3:Molecule_Geometry>
+    <rdf:type rdf:resource="http://ontologies.wavemol.org/moldb/v1/nodetypes/#Molecule"/>
+    <_3:GRRM_StructureType>TS</_3:GRRM_StructureType>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:uuid:150f32f6-9ed5-4fe8-9c4c-6f0af84bbecc">
+    <_3:GRRM_ZeroPointVibrationalEnergy rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.016761446949</_3:GRRM_ZeroPointVibrationalEnergy>
+    <_3:GRRM_Energy rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-113.791954405</_3:GRRM_Energy>
+    <_3:GRRM_StructureNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</_3:GRRM_StructureNumber>
+    <_3:GRRM_Connections rdf:nodeID="ZhdHjQBK15"/>
+    <_3:GRRM_Spin rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</_3:GRRM_Spin>
+    <_3:GRRM_NormalModesEigenvalues>[-0.00011743000000000001, 0.001244738, 0.0023052630000000001, 0.19765811999999999, 0.81611145699999998]</_3:GRRM_NormalModesEigenvalues>
+    <_3:Molecule_Geometry>{"symbols": ["C", "O", "H", "H"], "labels": ["C", "O", "H", "H"], "coordinates": [[0.159000297545, -0.29688858795299999, -0.0028552582380000002], [0.68037840475199995, 0.70611135880700004, 0.0093860195699999992], [-2.3982891262670001, -0.45074305225299999, -0.033706333717999998], [-2.7526224750330002, 0.18615303373700001, -0.033949353820999999]]}</_3:Molecule_Geometry>
+    <rdf:type rdf:resource="http://ontologies.wavemol.org/moldb/v1/nodetypes/#Molecule"/>
+    <_3:GRRM_StructureType>DC</_3:GRRM_StructureType>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="ZhdHjQBK13">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag"/>
+    <rdf:_2 rdf:resource="urn:uuid:150f32f6-9ed5-4fe8-9c4c-6f0af84bbecc"/>
+    <rdf:_1 rdf:resource="urn:uuid:2b032dc8-162d-4318-98af-2a01671a36e5"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:uuid:bfaa8c2a-f6fb-4e89-bf27-6bdfaad12471">
+    <_3:Molecule_Geometry>{"symbols": ["C", "O", "H", "H"], "labels": ["C", "O", "H", "H"], "coordinates": [[0.15340087703300001, -0.47205043767799998, 0.39769001460600001], [0.153399721839, -0.47205043767799998, 1.5331878259130001], [-0.35580504425699999, -1.354024025422, -1.436752410884], [1.1718180272609999, -0.47205043609000003, -1.4367509503539999]]}</_3:Molecule_Geometry>
+    <_3:Molecule_Spin rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</_3:Molecule_Spin>
+    <rdf:type rdf:resource="http://ontologies.wavemol.org/moldb/v1/nodetypes/#Molecule"/>
+    <_3:Molecule_Charge rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</_3:Molecule_Charge>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:uuid:2b032dc8-162d-4318-98af-2a01671a36e5">
+    <_3:GRRM_ZeroPointVibrationalEnergy rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.029145280689</_3:GRRM_ZeroPointVibrationalEnergy>
+    <_3:GRRM_Energy rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-113.808366542</_3:GRRM_Energy>
+    <_3:GRRM_StructureNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</_3:GRRM_StructureNumber>
+    <_3:GRRM_Connections rdf:nodeID="ZhdHjQBK12"/>
+    <_3:GRRM_Spin rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</_3:GRRM_Spin>
+    <_3:GRRM_NormalModesEigenvalues>[0.066847302999999997, 0.071405257999999999, 0.105997999, 0.13803774399999999, 0.38938445700000002, 0.41197563500000001]</_3:GRRM_NormalModesEigenvalues>
+    <_3:Molecule_Geometry>{"symbols": ["C", "O", "H", "H"], "labels": ["C", "O", "H", "H"], "coordinates": [[-0.25982637939600001, -0.195263162135, -0.0071831657840000004], [0.53508374842299999, 0.71702369226499996, 0.0077889026219999996], [0.060458908858000003, -1.2282955582670001, -0.0096846175129999997], [-1.3268991751820001, -0.019289167951, -0.01874739718]]}</_3:Molecule_Geometry>
+    <rdf:type rdf:resource="http://ontologies.wavemol.org/moldb/v1/nodetypes/#Molecule"/>
+    <_3:GRRM_StructureType>EQ</_3:GRRM_StructureType>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="ZhdHjQBK9">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag"/>
+    <rdf:_1 rdf:resource="urn:uuid:e61e7c94-0ccf-4e46-b10b-7fa80359f776"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="ZhdHjQBK3">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag"/>
+    <rdf:_2 rdf:resource="urn:uuid:6e35686b-b18e-4ef0-a372-e12d952cd0c4"/>
+    <rdf:_1 rdf:resource="urn:uuid:b4dbc59d-b05f-45e3-b4d9-2bed7b2f7452"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:uuid:917a4673-e1e9-498e-be6e-67c6d6944c21">
+    <_3:GRRM_ZeroPointVibrationalEnergy rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.021480819989</_3:GRRM_ZeroPointVibrationalEnergy>
+    <_3:GRRM_Energy rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-113.634503706</_3:GRRM_Energy>
+    <_3:GRRM_StructureNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</_3:GRRM_StructureNumber>
+    <_3:GRRM_Connections rdf:nodeID="ZhdHjQBK18"/>
+    <_3:GRRM_Spin rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</_3:GRRM_Spin>
+    <_3:GRRM_NormalModesEigenvalues>[-0.28149133500000001, 0.017952137, 0.069577546000000004, 0.085541402000000002, 0.26908380500000001, 0.39099012900000002]</_3:GRRM_NormalModesEigenvalues>
+    <_3:Molecule_Geometry>{"symbols": ["C", "O", "H", "H"], "labels": ["C", "O", "H", "H"], "coordinates": [[-0.33771371661100003, -0.220008072079, -0.0082549666869999993], [0.576698441412, 0.71472855636599997, 0.0082678394459999999], [0.90447448758100002, -0.42777110158499998, 0.005187458176], [-1.373809326105, 0.106812579484, -0.018535150604]]}</_3:Molecule_Geometry>
+    <rdf:type rdf:resource="http://ontologies.wavemol.org/moldb/v1/nodetypes/#Molecule"/>
+    <_3:GRRM_StructureType>TS</_3:GRRM_StructureType>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:uuid:6280a2d9-7108-4572-8505-e4faffce01cb">
+    <_3:GRRM_ZeroPointVibrationalEnergy rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.02501083137</_3:GRRM_ZeroPointVibrationalEnergy>
+    <_3:GRRM_Energy rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-113.588727915</_3:GRRM_Energy>
+    <_3:GRRM_StructureNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</_3:GRRM_StructureNumber>
+    <_3:GRRM_Connections rdf:nodeID="ZhdHjQBK5"/>
+    <_3:GRRM_Spin rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</_3:GRRM_Spin>
+    <_3:GRRM_NormalModesEigenvalues>[0.002897513, 0.0037498470000000002, 0.0087323539999999995, 0.11269211799999999, 0.60808425899999996, 0.65883239699999996]</_3:GRRM_NormalModesEigenvalues>
+    <_3:Molecule_Geometry>{"symbols": ["C", "O", "H", "H"], "labels": ["C", "O", "H", "H"], "coordinates": [[-0.65706369999500003, -0.60702901963099998, -0.014401866128000001], [0.62981396182799998, 0.79778942968300004, 0.0094036735390000004], [1.5630029352820001, 0.62943680096700005, 0.019436733433000002], [0.38056764178000002, 1.712750815123, 0.012022291652]]}</_3:Molecule_Geometry>
+    <rdf:type rdf:resource="http://ontologies.wavemol.org/moldb/v1/nodetypes/#Molecule"/>
+    <_3:GRRM_StructureType>EQ</_3:GRRM_StructureType>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:uuid:427fc622-69bb-4c04-a7a8-2f8f8afb2cc8">
+    <_3:GRRM_ZeroPointVibrationalEnergy rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.023844868915</_3:GRRM_ZeroPointVibrationalEnergy>
+    <_3:GRRM_Energy rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-113.689325316</_3:GRRM_Energy>
+    <_3:GRRM_StructureNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</_3:GRRM_StructureNumber>
+    <_3:GRRM_Connections rdf:nodeID="ZhdHjQBK14"/>
+    <_3:GRRM_Spin rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</_3:GRRM_Spin>
+    <_3:GRRM_NormalModesEigenvalues>[-0.060083878, 0.019463772000000001, 0.057229540000000002, 0.085244212, 0.32556492300000001, 0.63177003799999998]</_3:GRRM_NormalModesEigenvalues>
+    <_3:Molecule_Geometry>{"symbols": ["C", "O", "H", "H"], "labels": ["C", "O", "H", "H"], "coordinates": [[-0.46901825419199999, -0.23558998357399999, -0.043543015653999997], [0.60991116787800004, 0.60332593510300003, -0.034481005597999999], [1.288553434649, 0.69471415213200005, 0.62173498342800004], [-1.2762156094870001, 0.32445811293600002, 0.47523691077500002]]}</_3:Molecule_Geometry>
+    <rdf:type rdf:resource="http://ontologies.wavemol.org/moldb/v1/nodetypes/#Molecule"/>
+    <_3:GRRM_StructureType>TS</_3:GRRM_StructureType>
+  </rdf:Description>
+</rdf:RDF>

@@ -1,0 +1,62 @@
+{% extends "application/base.html" %}
+
+{% block stylesheet %}
+<link rel="stylesheet" type="text/css" href="/css/jBreadCrumb.css" />
+<link rel="stylesheet" type="text/css" href="/css/flexigrid.css" />
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery/jquery.dadasuggest.js"></script>
+<script type="text/javascript" src="/js/jquery/jquery.jBreadCrumb.js"></script>
+<script type="text/javascript" src="/js/jquery/jquery.flexigrid.js"></script>
+<script type="text/javascript">
+$(function() { 
+});
+
+jQuery(document).ready(function() {
+    jQuery("#breadcrumbs").jBreadCrumb({easing:'swing'});
+    jQuery('#search').dadasuggest({
+        "suggestURL"      : "/json/searchdb/",
+    });
+    $('.flexme').flexigrid({
+            colModel : [
+                {display: 'Code', name : 'code', width : 130, sortable : true, align: 'center'},
+                {display: 'Conventional Name', name : 'conventional_name', width : 180, sortable : true, align: 'left'},
+                {display: 'Chemical Formula', name : 'chemical_formula', width : 120, sortable : true, align: 'left'},
+                {display: 'Number of Atoms', name : 'num_of_atoms', width : 130, sortable : true, align: 'left'},
+                {display: 'HF Energy', name : 'hf_energy', width : 130, sortable : true, align: 'left'},
+                {display: 'Creation date', name : 'creation_date', width : 80, sortable : true, align: 'left'}
+                ],
+            url: '/json/searchdb/',
+            dataType: 'json',
+            sortname: "code",
+            sortorder: "asc",
+            usepager: true,
+            params : [ { name : 'db_name', value : '{{ database.name }}' } ],
+            useRp: true,
+            rp: 15,
+            width: "100%",
+            height: "300"
+        });
+
+})
+
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="breadCrumbHolder module">
+    <div id="breadCrumb0" class="breadCrumb module">
+        <ul>
+            <li><a href="/">COSTMAP</a></li>
+            <li>{{database.name}}</li>
+        </ul>
+    </div>
+</div>
+
+<div>
+    <table class="flexme"></table>
+</div>
+{% endblock %}
+

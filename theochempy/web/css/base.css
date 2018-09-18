@@ -1,0 +1,88 @@
+/* css Zen Garden default style v1.02 */
+/* css released under Creative Commons License - http://creativecommons.org/licenses/by-nc-sa/1.0/  */
+
+/* This file based on 'Tranquille' by Dave Shea */
+/* You may use this file as a foundation for any new work, but you may find it easier to start from scratch. */
+/* Not all elements are defined in this file, so you'll most likely want to refer to the xhtml as well. */
+
+/* Your images should be linked as if the CSS file sits in the same folder as the images. ie. no paths. */
+
+
+/* basic elements */
+html {
+    margin: 0;
+    padding: 0;
+    }
+body { 
+    font: 75% georgia, sans-serif;
+    line-height: 1.88889;
+    color: #000000; 
+    margin: 0; 
+    padding: 0;
+    }
+
+#header {
+    background: #316241;
+}
+#header h1 { 
+    color: #C0FFC0;
+    background: #092020 none repeat scroll 0 0;
+    letter-spacing: 1px; 
+    margin-bottom: 0; 
+    margin-top: 0px;
+    }
+
+
+#dbtable {
+    margin-left:auto; 
+    margin-right:auto;
+    border-collapse: collapse;
+    margin: 10 10 10 10;
+}
+
+#dbtable tr.r0 td {
+    background-color: #C0FFC0; 
+    color: black;
+}
+#dbtable tr.r1 td {
+    background-color: #E0FFE0; 
+    color: black;
+}
+
+#moltable {
+    margin-left:auto; 
+    margin-right:auto;
+    border-collapse: collapse;
+    margin: 10 10 10 10;
+}
+
+#moltable tr.r0 td {
+    background-color: #C0FFC0; 
+    color: black;
+}
+#moltable tr.r1 td {
+    background-color: #E0FFE0; 
+    color: black;
+}
+
+
+
+
+
+
+
+p { 
+    margin-top: 0; 
+    text-align: justify;
+    }
+a:link { 
+    font-weight: bold; 
+    text-decoration: none; 
+    }
+a:visited { 
+    font-weight: bold; 
+    text-decoration: none; 
+    }
+a:hover, a:active { 
+    text-decoration: underline; 
+    }

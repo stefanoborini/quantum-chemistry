@@ -1,0 +1,6 @@
+trunk/tests/FileParsers/Dalton/testfile-TestTokenizer
+trunk/tests/FileParsers/Dalton/testfile-TestTokens
+build
+MANIFEST
+tests/TheoChemPy/FileParsers/Dalton/testfile-TestTokenizer
+tests/TheoChemPy/FileParsers/Dalton/testfile-TestTokens
