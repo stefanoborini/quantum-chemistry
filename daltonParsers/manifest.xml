@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="urn:uuid:d195be0c-200a-40a4-9d05-35fdf42eb29f" version="1.0.0">
+    <Meta>
+        <Description>Contains utilities for extracting information from dalton output files</Description>
+    </Meta>
+    <Contents>
+        <ExecutableGroup entryPoint="CCbondLengths" description="provides the Carbon-Carbon bond lengths of the converged geometry, as from final report">
+            <Executable>
+                <Platform>noarch</Platform>
+                <Interpreter>python</Interpreter>
+                <Path type="standard">CCbondLengths.py</Path>
+            </Executable>
+        </ExecutableGroup>
+        <ExecutableGroup entryPoint="dalOut2dalIn" description="extracts the converged geometry from a dalton out. From this, creates a dalton .mol file">
+            <Executable>
+                <Platform>noarch</Platform>
+                <Interpreter>python</Interpreter>
+                <Path type="standard">dalOut2dalIn.py</Path>
+            </Executable>
+        </ExecutableGroup>
+        <ExecutableGroup entryPoint="dalton2rawcml" description="converts a dalton output in a raw CML file">
+            <Executable>
+                <Platform>noarch</Platform>
+                <Interpreter>python</Interpreter>
+                <Path type="standard">dalton2rawcml.py</Path>
+            </Executable>
+        </ExecutableGroup>
+        <ExecutableGroup entryPoint="checkError" description="checks the presence of a fatal error in the output file">
+            <Executable>
+                <Platform>noarch</Platform>
+                <Interpreter>python</Interpreter>
+                <Path type="standard">checkError.py</Path>
+            </Executable>
+        </ExecutableGroup>
+        <ExecutableGroup entryPoint="alphaPol" description="Extracts the polarizability values">
+            <Executable>
+                <Platform>noarch</Platform>
+                <Interpreter>python</Interpreter>
+                <Path type="standard">alphaPol.py</Path>
+            </Executable>
+        </ExecutableGroup>
+        <ExecutableGroup entryPoint="betaPol" description="Extracts the first hyperpolarizability values">
+            <Executable>
+                <Platform>noarch</Platform>
+                <Interpreter>python</Interpreter>
+                <Path type="standard">betaPol.py</Path>
+            </Executable>
+        </ExecutableGroup>
+        <ExecutableGroup entryPoint="gammaPol" description="Extracts the second hyperpolarizability values">
+            <Executable>
+                <Platform>noarch</Platform>
+                <Interpreter>python</Interpreter>
+                <Path type="standard">gammaPol.py</Path>
+            </Executable>
+        </ExecutableGroup>
+        <ExecutableGroup entryPoint="dipole" description="Extracts the dipole">
+            <Executable>
+                <Platform>noarch</Platform>
+                <Interpreter>python</Interpreter>
+                <Path type="standard">dipole.py</Path>
+            </Executable>
+        </ExecutableGroup>
+    </Contents>
+</Package>
+

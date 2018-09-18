@@ -1,0 +1,13 @@
+3.4.1
+- fixed bug in dalOut2dalIn: the center of mass was not moved to the origin as specified.
+- reorganized tests
+
+3.4.0
+- added dipole
+
+3.3.0
+- added checkError, betaPol, alphaPol, and gammaPol.
+
+3.1.0
+
+- added relabel-symbols option to handle a different relabeling strategy in case of loss of symmetry
