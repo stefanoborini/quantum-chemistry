@@ -1,0 +1,11 @@
+Initialization
+--------------
+
+You need to init two databases: 
+- rdf database
+- django model database
+
+change the settings in settings.py, then
+
+- init the rdf database using init_rdf_db.py script in executables
+- init django model database running python manage.py syncdb

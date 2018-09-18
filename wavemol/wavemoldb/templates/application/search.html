@@ -1,0 +1,109 @@
+{% extends "application/base.html" %}
+
+{% block stylesheet %}
+    <link type="text/css" rel="stylesheet" href="http://yui.yahooapis.com/2.8.0r4/build/datatable/assets/skins/sam/datatable.css">
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/paginator/assets/skins/sam/paginator.css">
+<style>
+#myMarkedUpContainer {
+text-align:center;
+}
+#myMarkedUpContainer table {
+margin-left:auto;
+margin-right:auto;
+}
+#result0 div, #result2 div, #result4 div, #result6 div, #result8 div {
+    background-color: #f0f0f0;
+}
+#result1 div, #result3 div, #result5 div, #result7 div, #result9 div {
+    background-color: #DEEDF7;
+}
+#paginator {
+    margin-left: auto;
+    margin-right: auto;
+    text-align:center;
+}
+#paginator2 {
+    margin-left: auto;
+    margin-right: auto;
+    text-align:center;
+}
+
+</style>
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/element/element-min.js"></script>
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/datasource/datasource-min.js"></script>
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/paginator/paginator-min.js"></script>
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/json/json-min.js"></script>
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/connection/connection-min.js"></script>
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/get/get-min.js"></script>
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/dragdrop/dragdrop-min.js"></script>
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/calendar/calendar-min.js"></script>
+
+    <script type="text/javascript" src="/js/application/searchfilters.js"></script>
+    <script type="text/javascript" src="/js/application/search.js"></script>
+<script type="text/javascript">
+
+var search_visible = false;
+
+function toggleSearch() {
+    if (search_visible) {
+        jQuery("#search").slideUp( 1000 );
+        search_visible = false;
+    } else {
+        jQuery("#search").slideDown( 1000 );
+        search_visible = true;
+    }
+} 
+jQuery(document).ready(function() {
+    toggleSearch();
+});
+</script>
+
+{% endblock %}
+
+{% block headericons %}
+<ul>
+    <li><a href="javascript:void(0)" onclick='toggleSearch();'><img src="/images/search.png" /></a></li>
+</ul>
+{% endblock%}
+
+{% block content %}
+<div id="search" style="display: none">
+    <h3>Show results matching all of the following</h3>
+    <form id="search_form">
+        <ul id="filters"></ul>
+        <input id="submit" type="submit" name="Search" value="Search" />
+    </form>
+</div>
+<div class="yui-skin-sam"><div id="paginator" /></div>
+<table style="width:928px; border-collapse: collapse; border: 0px; padding:0px; margin-left:auto; margin-right:auto;">
+    <tbody>
+        <tr>
+            <td id="result0"></td>
+            <td id="result5"></td>
+        </tr>
+        <tr >
+            <td id="result1"></td>
+            <td id="result6"></td>
+        </tr>
+        <tr >
+            <td id="result2"></td>
+            <td id="result7"></td>
+        </tr>
+        <tr >
+            <td id="result3"></td>
+            <td id="result8"></td>
+        </tr>
+        <tr >
+            <td id="result4"></td>
+            <td id="result9"></td>
+        </tr>
+    </tbody>
+</table>
+<div class="yui-skin-sam"><div id="paginator2" /></div>
+
+{% endblock %}
+

@@ -1,0 +1,15 @@
+diff -Naur readline-5.2/support/shobj-conf readline-5.2.new/support/shobj-conf
+--- readline-5.2/support/shobj-conf	2006-04-11 15:15:43.000000000 +0200
++++ readline-5.2.new/support/shobj-conf	2009-09-15 21:40:44.000000000 +0200
+@@ -171,7 +171,10 @@
+ 	SHLIB_LIBSUFF='dylib'
+ 
+ 	case "${host_os}" in
+-	darwin[78]*)	SHOBJ_LDFLAGS=''
++	darwin10*)	SHOBJ_LDFLAGS=''
++			SHLIB_XLDFLAGS='-dynamiclib -arch_only `/usr/bin/arch` -install_name $(libdir)/$@ -current_version $(SHLIB_MAJOR)$(SHLIB_MINOR) -compatibility_version $(SHLIB_MAJOR) -v'
++			;;
++	darwin[789]*)	SHOBJ_LDFLAGS=''
+ 			SHLIB_XLDFLAGS='-dynamiclib -arch_only `/usr/bin/arch` -install_name $(libdir)/$@ -current_version $(SHLIB_MAJOR)$(SHLIB_MINOR) -compatibility_version $(SHLIB_MAJOR) -v'
+ 			;;
+ 	*)		SHOBJ_LDFLAGS='-dynamic'

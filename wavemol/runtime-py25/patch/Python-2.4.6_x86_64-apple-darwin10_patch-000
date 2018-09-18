@@ -1,0 +1,216 @@
+diff -Naur Python-2.4.6/Include/pyport.h Python-2.4.6.new/Include/pyport.h
+--- Python-2.4.6/Include/pyport.h	2008-03-02 20:20:32.000000000 +0100
++++ Python-2.4.6.new/Include/pyport.h	2009-09-16 21:06:58.000000000 +0200
+@@ -156,11 +156,24 @@
+ #if defined(PYOS_OS2) && defined(PYCC_GCC)
+ #include <sys/types.h>
+ #endif
++
++#if (defined __APPLE__) && (!defined _POSIX_C_SOURCE)
++#define TEMPORARILY_DEFINING__POSIX_C_SOURCE    /* so we can #undef it later */
++#define _POSIX_C_SOURCE   /* avoid deprecated struct ostat in sys/stat.h */
++#endif
++
+ #include <sys/stat.h>
+ #elif defined(HAVE_STAT_H)
+ #include <stat.h>
+ #endif
+ 
++/* Mac OS X: undefine _POSIX_C_SOURCE if it wasn't defined before */
++#ifdef TEMPORARILY_DEFINING__POSIX_C_SOURCE
++#undef _POSIX_C_SOURCE
++#undef TEMPORARILY_DEFINING__POSIX_C_SOURCE
++#endif
++
++
+ #if defined(PYCC_VACPP)
+ /* VisualAge C/C++ Failed to Define MountType Field in sys/stat.h */
+ #define S_IFMT (S_IFDIR|S_IFCHR|S_IFREG)
+@@ -397,6 +410,7 @@
+ /* BSDI does not supply a prototype for the 'openpty' and 'forkpty'
+    functions, even though they are included in libutil. */
+ #include <termios.h>
++struct winsize;
+ extern int openpty(int *, int *, char *, struct termios *, struct winsize *);
+ extern int forkpty(int *, char *, struct termios *, struct winsize *);
+ #endif /* !defined(HAVE_PTY_H) && !defined(HAVE_LIBUTIL_H) */
+diff -Naur Python-2.4.6/Lib/cgi.py Python-2.4.6.new/Lib/cgi.py
+--- Python-2.4.6/Lib/cgi.py	2006-08-11 09:14:38.000000000 +0200
++++ Python-2.4.6.new/Lib/cgi.py	2009-09-16 21:08:15.000000000 +0200
+@@ -1,13 +1,6 @@
+-#! /usr/local/bin/python
++#! __PREFIX__/bin/python
+ 
+-# NOTE: the above "/usr/local/bin/python" is NOT a mistake.  It is
+-# intentionally NOT "/usr/bin/env python".  On many systems
+-# (e.g. Solaris), /usr/local/bin is not in $PATH as passed to CGI
+-# scripts, and /usr/local/bin is the default directory where Python is
+-# installed, so /usr/bin/env would be unable to find python.  Granted,
+-# binary installations by Linux vendors often install Python in
+-# /usr/bin.  So let those vendors patch cgi.py to match their choice
+-# of installation.
++# NOTE: /usr/local/bin/python patched for MacPorts installation
+ 
+ """Support module for CGI (Common Gateway Interface) scripts.
+ 
+diff -Naur Python-2.4.6/Lib/site.py Python-2.4.6.new/Lib/site.py
+--- Python-2.4.6/Lib/site.py	2004-07-20 04:28:28.000000000 +0200
++++ Python-2.4.6.new/Lib/site.py	2009-09-16 21:09:16.000000000 +0200
+@@ -186,6 +186,7 @@
+             else:
+                 sitedirs = [prefix, os.path.join(prefix, "lib", "site-packages")]
+             if sys.platform == 'darwin':
++                sitedirs.append( os.path.join('__PREFIX__', 'lib', 'python2.4', 'site-packages') )
+                 # for framework builds *only* we add the standard Apple
+                 # locations. Currently only per-user, but /Library and
+                 # /Network/Library could be added too
+diff -Naur Python-2.4.6/Mac/OSX/IDLE/Makefile.in Python-2.4.6.new/Mac/OSX/IDLE/Makefile.in
+--- Python-2.4.6/Mac/OSX/IDLE/Makefile.in	2006-10-08 19:41:25.000000000 +0200
++++ Python-2.4.6.new/Mac/OSX/IDLE/Makefile.in	2009-09-16 21:10:07.000000000 +0200
+@@ -21,7 +21,7 @@
+ 
+ BUNDLEBULDER=$(srcdir)/../../../Lib/plat-mac/bundlebuilder.py
+ 
+-PYTHONAPPSDIR=/Applications/MacPython $(VERSION)
++PYTHONAPPSDIR=__APPLICATIONS_DIR__/MacPython $(VERSION)
+ 
+ all: IDLE.app
+ 
+diff -Naur Python-2.4.6/Mac/OSX/Makefile.in Python-2.4.6.new/Mac/OSX/Makefile.in
+--- Python-2.4.6/Mac/OSX/Makefile.in	2006-10-08 19:41:25.000000000 +0200
++++ Python-2.4.6.new/Mac/OSX/Makefile.in	2009-09-16 21:11:13.000000000 +0200
+@@ -5,7 +5,7 @@
+ VERSION=@VERSION@
+ builddir = ../..
+ srcdir = @srcdir@
+-prefix=/Library/Frameworks/Python.framework/Versions/$(VERSION)
++prefix=__FRAMEWORKS_DIR__/Python.framework/Versions/$(VERSION)
+ LIBDEST=$(prefix)/lib/python$(VERSION)
+ BUILDPYTHON=$(builddir)/python.exe
+ RUNSHARED=       @RUNSHARED@
+@@ -16,7 +16,7 @@
+ 
+ # These are normally glimpsed from the previous set
+ bindir=@exec_prefix@/bin
+-PYTHONAPPSPATH=/Applications/MacPython $(VERSION)
++PYTHONAPPSPATH=__APPLICATIONS_DIR__/MacPython $(VERSION)
+ PYTHONAPPSDIR=$(PYTHONAPPSPATH)
+ APPINSTALLDIR=$(prefix)/Resources/Python.app
+ 
+diff -Naur Python-2.4.6/Mac/OSX/PythonLauncher/Makefile.in Python-2.4.6.new/Mac/OSX/PythonLauncher/Makefile.in
+--- Python-2.4.6/Mac/OSX/PythonLauncher/Makefile.in	2006-10-08 19:41:25.000000000 +0200
++++ Python-2.4.6.new/Mac/OSX/PythonLauncher/Makefile.in	2009-09-16 21:12:24.000000000 +0200
+@@ -20,7 +20,7 @@
+ 
+ BUNDLEBULDER=$(srcdir)/../../../Lib/plat-mac/bundlebuilder.py
+ 
+-PYTHONAPPSDIR=/Applications/MacPython $(VERSION)
++PYTHONAPPSDIR=__APPLICATIONS_DIR__/MacPython $(VERSION)
+ OBJECTS=FileSettings.o MyAppDelegate.o MyDocument.o PreferencesWindowController.o doscript.o main.o
+ 
+ all: PythonLauncher.app
+@@ -56,7 +56,7 @@
+ 		--resource=$(srcdir)/factorySettings.plist \
+ 		--plist=$(srcdir)/Info.plist \
+ 		build
+-	find "PythonLauncher.app" -name '.svn' -print0 | xargs -0 rm -r
++	find "PythonLauncher.app" -name '.svn' -print0 | xargs -0 rm -r || :
+ 		
+ 
+ FileSettings.o: $(srcdir)/FileSettings.m
+diff -Naur Python-2.4.6/Makefile.pre.in Python-2.4.6.new/Makefile.pre.in
+--- Python-2.4.6/Makefile.pre.in	2006-10-08 19:41:25.000000000 +0200
++++ Python-2.4.6.new/Makefile.pre.in	2009-09-16 21:13:19.000000000 +0200
+@@ -56,7 +56,7 @@
+ OPT=		@OPT@
+ BASECFLAGS=	@BASECFLAGS@
+ CFLAGS=		$(BASECFLAGS) $(OPT)
+-CPPFLAGS=	-I. -I$(srcdir)/Include
++CPPFLAGS=  @CPPFLAGS@ -I. -I$(srcdir)/Include
+ LDFLAGS=	@LDFLAGS@
+ LDLAST=		@LDLAST@
+ SGI_ABI=	@SGI_ABI@
+diff -Naur Python-2.4.6/configure Python-2.4.6.new/configure
+--- Python-2.4.6/configure	2006-10-17 18:03:36.000000000 +0200
++++ Python-2.4.6.new/configure	2009-09-16 21:17:46.000000000 +0200
+@@ -3907,7 +3907,13 @@
+ 	    ;;
+ 	# is there any other compiler on Darwin besides gcc?
+ 	Darwin*)
+-	    BASECFLAGS="$BASECFLAGS -Wno-long-double -no-cpp-precomp -mno-fused-madd"
++        if [[ `/usr/bin/arch` = 'ppc' ]]
++         then
++           BASECFLAGS="$BASECFLAGS -mno-fused-madd -fno-common"
++         else
++           BASECFLAGS="$BASECFLAGS -fno-common"
++         fi
++
+ 	    if test "${enable_universalsdk}"; then
+ 		BASECFLAGS="-arch ppc -arch i386 -isysroot ${UNIVERSALSDK} ${BASECFLAGS}"
+ 	    fi
+@@ -10316,7 +10322,7 @@
+   Darwin/[01234567].*)
+     LIBTOOL_CRUFT="-framework System -lcc_dynamic"
+     if test -z "${enable_universalsdk}"; then
+-	    LIBTOOL_CRUFT="${LIBTOOL_CRUFT} -arch_only `arch`"
++        LIBTOOL_CRUFT="${LIBTOOL_CRUFT}"
+     fi
+     LIBTOOL_CRUFT=$LIBTOOL_CRUFT' -install_name $(PYTHONFRAMEWORKINSTALLDIR)/Versions/$(VERSION)/$(PYTHONFRAMEWORK)'
+     LIBTOOL_CRUFT=$LIBTOOL_CRUFT' -compatibility_version $(VERSION) -current_version $(VERSION)';;
+@@ -10328,7 +10334,7 @@
+         else
+             LIBTOOL_CRUFT=""
+     fi
+-    LIBTOOL_CRUFT=$LIBTOOL_CRUFT' -lSystem -lSystemStubs -arch_only ppc'
++    LIBTOOL_CRUFT=$LIBTOOL_CRUFT' -lSystem -lSystemStubs'
+     LIBTOOL_CRUFT=$LIBTOOL_CRUFT' -install_name $(PYTHONFRAMEWORKINSTALLDIR)/Versions/$(VERSION)/$(PYTHONFRAMEWORK)'
+     LIBTOOL_CRUFT=$LIBTOOL_CRUFT' -compatibility_version $(VERSION) -current_version $(VERSION)';;
+ esac
+diff -Naur Python-2.4.6/setup.py Python-2.4.6.new/setup.py
+--- Python-2.4.6/setup.py	2006-10-08 19:41:25.000000000 +0200
++++ Python-2.4.6.new/setup.py	2009-09-16 21:20:29.000000000 +0200
+@@ -15,7 +15,7 @@
+ from distutils.command.install_lib import install_lib
+ 
+ # This global variable is used to hold the list of modules to be disabled.
+-disabled_module_list = []
++disabled_module_list = []
+ 
+ def add_dir_to_list(dirlist, dir):
+     """Add the directory 'dir' to the list 'dirlist' (at the front) if
+@@ -246,11 +246,11 @@
+         # Add paths to popular package managers on OS X/darwin
+         if sys.platform == "darwin":
+             # Fink installs into /sw by default
+-            add_dir_to_list(self.compiler.library_dirs, '/sw/lib')
+-            add_dir_to_list(self.compiler.include_dirs, '/sw/include')
++            #add_dir_to_list(self.compiler.library_dirs, '/sw/lib')
++            #add_dir_to_list(self.compiler.include_dirs, '/sw/include')
+             # DarwinPorts installs into /opt/local by default
+-            #add_dir_to_list(self.compiler.library_dirs, '/opt/local/lib')
+-            #add_dir_to_list(self.compiler.include_dirs, '/opt/local/include')
++            add_dir_to_list(self.compiler.library_dirs, '/opt/local/lib')
++            add_dir_to_list(self.compiler.include_dirs, '/opt/local/include')
+ 
+         if os.path.normpath(sys.prefix) != '/usr':
+             add_dir_to_list(self.compiler.library_dirs,
+@@ -357,7 +357,7 @@
+             exts.append( Extension('unicodedata', ['unicodedata.c']) )
+         # access to ISO C locale support
+         data = open('pyconfig.h').read()
+-        m = re.search(r"#s*define\s+WITH_LIBINTL\s+1\s*", data)
++        m = re.search(r"#\s*define\s+(HAVE_LIBINTL_H|WITH_LIBINTL)\s+1\s*", data)
+         if m is not None:
+             locale_libs = ['intl']
+         else:
+@@ -954,7 +954,9 @@
+         self.extensions.extend(exts)
+ 
+         # Call the method for detecting whether _tkinter can be compiled
+-        self.detect_tkinter(inc_dirs, lib_dirs)
++        if ("--disable-tk" not in sysconfig.get_config_var("CONFIG_ARGS")):
++            self.detect_tkinter(inc_dirs, lib_dirs)
++
+ 
+     def detect_tkinter_darwin(self, inc_dirs, lib_dirs):
+         # The _tkinter module, using frameworks. Since frameworks are quite

@@ -1,0 +1,17 @@
+<div id="moleculegeometry">
+    <h1>Geometry</h1>
+    {% if pluginContext.moleculegeometry.xyzFilePath %}
+    <div id="moleculegeometry_jmol">
+        <script type="text/javascript">
+        jmolApplet(400, "load {{ pluginContext.moleculegeometry.xyzFilePath }}");
+        </script>
+    </div>
+    <div id="moleculegeometry_download">
+        <a href="{{ pluginContext.moleculegeometry.xyzFilePath }}">Download XYZ file</a>
+    </div>
+    {% else %}
+        Unable to find xyz file. 
+    {% endif %}
+</div>
+
+

@@ -1,0 +1,21 @@
+diff -Naur lapack-3.2/Makefile lapack-3.2.new/Makefile
+--- lapack-3.2/Makefile	2008-11-07 18:20:55.000000000 +0100
++++ lapack-3.2.new/Makefile	2009-10-22 08:30:11.000000000 +0200
+@@ -6,7 +6,7 @@
+ 
+ include make.inc
+ 
+-all: lapack_install lib lapack_testing blas_testing
++all: lapacklib tmglib blaslib
+ 
+ lib: lapacklib tmglib
+ #lib: blaslib variants lapacklib tmglib
+@@ -20,7 +20,7 @@
+ blaslib:
+ 	( cd BLAS/SRC; $(MAKE) )
+ 
+-lapacklib:	lapack_install
++lapacklib:
+ 	( cd SRC; $(MAKE) )
+ 
+ variants:

@@ -1,0 +1,39 @@
+** Search query protocol **
+
+we use a GET query to obtain the uri's of the entities matching the criteria. The GET endpoint is at /search
+
+The following parameters must be passed in the GET query (here shown in a non-encoded form)
+
+type=ajax 
+filters=n:filter_id:arg1:arg2,n:filter_id:arg1:arg2,...
+limit=number
+offset=number
+
+where n are incrementing numbers, filter_id is a string that identifies the filter to use for the query, and arg1,arg2 etc are the arguments for that particular filter.
+multiple filters can be chained using a comma separator.
+
+example (non-encoded for clarity): type=ajax&filters=0:rdf__type:wmnt__Molecule,1:wm__structure_type:wmst__ts
+
+** returned information **
+
+A JSON encoded entity is returned, with two keys:
+
+total
+    contains the total number of matches in the database
+
+uri_list
+    a list of strings, each being a urn:uuid: of the entity that matched.
+    Note that the length of this entity can be different from total. While total
+    represents the total matching entries in the database, uri_list can be limited.
+
+offset
+    reports the offset in the database where the entries are found. This entry is optional.
+
+limit 
+    reports the max number of entries reported (requested or imposed by the server). 
+    note that the length of uri_list can be at maximum the length of this limit, but it
+    can be shorter if less data are available. Also note that limit can be smaller than the 
+    requested if the server consider the request to be larger than appropriate.
+
+
+

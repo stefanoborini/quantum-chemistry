@@ -1,0 +1,26 @@
+<div id="moleculedata">
+    <div id="moleculedata_data">
+        <h1>Basic Information</h1>
+        {% if pluginContext.moleculedata.moleculeInfo %}
+            <table>
+            {% for key, value, link in pluginContext.moleculedata.moleculeInfo %}
+                {% ifnotequal value None %}
+                    <tr><td style="font-weight: bold;">{{key}}</td><td>
+                        {% ifnotequal link None %}
+                            <a href="{{link}}">
+                        {% endifnotequal %}
+                        {{value}}
+                        {% ifnotequal link None %}
+                            </a>
+                        {% endifnotequal %}
+                    </td></tr>
+                {% endifnotequal %}
+            {% endfor %}
+            </table>
+        {% else %}
+            No information available
+        {% endif %}
+    </div>
+</div>
+
+

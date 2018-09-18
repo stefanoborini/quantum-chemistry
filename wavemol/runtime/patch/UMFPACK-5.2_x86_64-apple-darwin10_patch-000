@@ -1,0 +1,29 @@
+diff -Naur UFconfig/UFconfig.mk UFconfig.new/UFconfig.mk
+--- UFconfig/UFconfig.mk	2009-05-20 20:06:04.000000000 +0200
++++ UFconfig.new/UFconfig.mk	2009-09-16 15:19:42.000000000 +0200
+@@ -48,7 +48,7 @@
+ MV = mv -f
+ 
+ # Fortran compiler (not normally required)
+-F77 = f77
++F77 = gfortran
+ F77FLAGS = -O
+ F77LIB =
+ 
+@@ -296,11 +296,11 @@
+ # Macintosh
+ #------------------------------------------------------------------------------
+ 
+-# CC = gcc
+-# CFLAGS = -O3 -fno-common -no-cpp-precomp -fexceptions
+-# LIB = -lstdc++
+-# BLAS = -framework Accelerate
+-# LAPACK = -framework Accelerate
++CC = gcc
++CFLAGS = -O3 -fno-common -no-cpp-precomp -fexceptions
++LIB = -lstdc++
++BLAS = -framework Accelerate
++LAPACK = -framework Accelerate
+ 
+ #------------------------------------------------------------------------------
+ # IBM RS 6000

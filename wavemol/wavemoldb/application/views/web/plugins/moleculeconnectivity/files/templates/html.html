@@ -1,0 +1,60 @@
+<div id="moleculeconnectivity">
+    <h1>Connectivity</h1>
+        {% if pluginContext.moleculeconnectivity.moleculeInfo.isInterconversionStep %}
+            <div class="threepanes">
+                <div class="leftpane">
+                    <div style="display: table-row">
+                        <div style="width: 300px; vertical-align: middle; text-align: center; font-size:180%"><a href="{{pluginContext.moleculeconnectivity.prevStepInfo.link}}"><img src="{{pluginContext.moleculeconnectivity.prevStepInfo.icon}}" /></a><br />{{pluginContext.moleculeconnectivity.prevStepInfo.structureLabel}}<br></div>
+                        <div style="width: 150px; text-align: center; vertical-align: middle; font-size:200%; display: table-cell;">&#x2192;</div>
+                    </div>
+                </div>
+                <div class="centerpane">
+                        <div style="width: 300px; vertical-align: middle; text-align: center; font-size:180%"><img src="{{pluginContext.moleculeconnectivity.moleculeInfo.icon}}" /><br />{{pluginContext.moleculeconnectivity.moleculeInfo.structureLabel}}<br><span style="font-size: 9pt;">(this step)</span></div>
+                </div>
+                <div class="rightpane">
+                    <div style="display: table-row;">
+                        <div style="width: 150px; text-align: center; vertical-align: middle; font-size:200%; display: table-cell;">&#x2192;</div>
+                        <div style="width: 300px; vertical-align: middle; text-align: center; font-size:180%"><a href="{{pluginContext.moleculeconnectivity.nextStepInfo.link}}"><img src="{{pluginContext.moleculeconnectivity.nextStepInfo.icon}}" /></a><br />{{pluginContext.moleculeconnectivity.nextStepInfo.structureLabel}}<br></div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="threepanes">
+                <div class="leftpane">
+                    {% for route in pluginContext.moleculeconnectivity.fromRoutes %}
+                        <div style="display: table-row;">
+                            <div style="display: table-cell">
+                                <div class="dogtag">
+                                    <div class="dogtag-image"><a href="{{route.targetLink}}"><img src="{{route.targetIcon}}"/></a></div>
+                                    <div class="dogtag-text"><a href="{{route.targetLink}}">{{route.targetStructureLabel}}</a></div>
+                                </div>
+                            </div>
+                            <div style="width: 150px; text-align: center; vertical-align: middle; font-size:200%; display: table-cell;">&#x2192;</div>
+                            <div style="width: 64px; display: table-cell;"><a href="{{route.link}}"><img src="{{route.icon}}"></a></div>
+                            <div style="width: 150px; text-align: center; vertical-align: middle; font-size:200%; display: table-cell;">&#x2192;</div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="centerpane">
+                        <div style="width: 300px; vertical-align: middle; text-align: center; font-size:180%"><img src="{{pluginContext.moleculeconnectivity.moleculeInfo.icon}}" /><br />{{pluginContext.moleculeconnectivity.moleculeInfo.structureLabel}}<br><span style="font-size: 9pt;">(this molecule)</span></div>
+                </div>
+                <div class="rightpane">
+                    {% for route in pluginContext.moleculeconnectivity.toRoutes %}
+                        <div style="display: table-row;">
+                            <div style="width: 150px; text-align: center; vertical-align: middle; font-size:200%; display: table-cell;">&#x2192;</div>
+                            <div style="width: 64px; display: table-cell;"><a href="{{route.link}}"><img src="{{route.icon}}"></a></div>
+                            <div style="width: 150px; text-align: center; vertical-align: middle; font-size:200%; display: table-cell;">&#x2192;</div>
+                            <div class="dogtag">
+                                <div class="dogtag-text"><a href="{{route.targetLink}}">{{route.targetStructureLabel}}</a></div>
+                                <div class="dogtag-image"><a href="{{route.targetLink}}"><img src="{{route.targetIcon}}" /></a></div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+</div>
+
+
+
+

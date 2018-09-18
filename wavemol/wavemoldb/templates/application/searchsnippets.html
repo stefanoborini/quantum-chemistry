@@ -1,0 +1,9 @@
+<div style="display:table-row; width:464px; border: 0px; padding:0px; margin:0px ">
+    <div style="width:64px; height:64px; display: table-cell; vertical-align:top; border: 0px; padding:0px; margin:0px; padding-right: 5px;">
+    {% if icon_url %}<img src="{{ icon_url }}" />
+    {% else %}&nbsp;
+    {% endif %}
+    </div>
+    <div style="width:400px; border: 0px; padding:0px; margin:0px; display: table-cell; vertical-align: top;"><a href="/resources/%7B{{ resource_uuid }}%7D">urn:uuid:{{ resource_uuid }}</a><br />Type: {{ resource_type }}</br> </div>
+</div> 
+    

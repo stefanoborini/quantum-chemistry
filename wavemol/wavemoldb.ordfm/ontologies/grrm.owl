@@ -1,0 +1,544 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY owl2xml "http://www.w3.org/2006/12/owl2-xml#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY grrm "http://ontologies.wavemol.org/database/v1/grrm#" >
+]>
+
+
+<rdf:RDF xmlns="http://ontologies.wavemol.org/database/v1/grrm#"
+     xml:base="http://ontologies.wavemol.org/database/v1/grrm"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:owl2xml="http://www.w3.org/2006/12/owl2-xml#"
+     xmlns:grrm="http://ontologies.wavemol.org/database/v1/grrm#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about=""/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#interconversionEnd -->
+
+    <owl:ObjectProperty rdf:about="#interconversionEnd">
+        <rdfs:domain rdf:resource="#Interconversion"/>
+        <rdfs:range rdf:resource="#InterconversionResult"/>
+        <rdfs:subPropertyOf rdf:resource="#interconversionResult"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#interconversionEndOf -->
+
+    <owl:ObjectProperty rdf:about="#interconversionEndOf">
+        <rdfs:range rdf:resource="#Interconversion"/>
+        <rdfs:domain rdf:resource="#InterconversionResult"/>
+        <owl:inverseOf rdf:resource="#interconversionEnd"/>
+        <rdfs:subPropertyOf rdf:resource="#interconversionResultOf"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#interconversionResult -->
+
+    <owl:ObjectProperty rdf:about="#interconversionResult">
+        <rdfs:domain rdf:resource="#Interconversion"/>
+        <rdfs:range rdf:resource="#InterconversionResult"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#interconversionResultOf -->
+
+    <owl:ObjectProperty rdf:about="#interconversionResultOf">
+        <rdfs:range rdf:resource="#Interconversion"/>
+        <rdfs:domain rdf:resource="#InterconversionResult"/>
+        <owl:inverseOf rdf:resource="#interconversionResult"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#interconversionStart -->
+
+    <owl:ObjectProperty rdf:about="#interconversionStart">
+        <rdfs:domain rdf:resource="#Interconversion"/>
+        <rdfs:range rdf:resource="#InterconversionResult"/>
+        <rdfs:subPropertyOf rdf:resource="#interconversionResult"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#interconversionStartOf -->
+
+    <owl:ObjectProperty rdf:about="#interconversionStartOf">
+        <rdfs:range rdf:resource="#Interconversion"/>
+        <rdfs:domain rdf:resource="#InterconversionResult"/>
+        <rdfs:subPropertyOf rdf:resource="#interconversionResultOf"/>
+        <owl:inverseOf rdf:resource="#interconversionStart"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#interconversionStep -->
+
+    <owl:ObjectProperty rdf:about="#interconversionStep">
+        <rdfs:domain rdf:resource="#Interconversion"/>
+        <rdfs:range rdf:resource="#InterconversionStep"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#interconversionStepOf -->
+
+    <owl:ObjectProperty rdf:about="#interconversionStepOf">
+        <rdfs:range rdf:resource="#Interconversion"/>
+        <rdfs:domain rdf:resource="#InterconversionStep"/>
+        <owl:inverseOf rdf:resource="#interconversionStep"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#nextInterconversionStep -->
+
+    <owl:ObjectProperty rdf:about="#nextInterconversionStep">
+        <rdfs:domain rdf:resource="#InterconversionStep"/>
+        <rdfs:range rdf:resource="#InterconversionStep"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#prevInterconversionStep -->
+
+    <owl:ObjectProperty rdf:about="#prevInterconversionStep">
+        <rdfs:domain rdf:resource="#InterconversionStep"/>
+        <rdfs:range rdf:resource="#InterconversionStep"/>
+        <owl:inverseOf rdf:resource="#nextInterconversionStep"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#runInput -->
+
+    <owl:ObjectProperty rdf:about="#runInput">
+        <rdfs:domain rdf:resource="#Run"/>
+        <rdfs:range rdf:resource="#RunInput"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#runInputOf -->
+
+    <owl:ObjectProperty rdf:about="#runInputOf">
+        <rdfs:range rdf:resource="#Run"/>
+        <rdfs:domain rdf:resource="#RunInput"/>
+        <owl:inverseOf rdf:resource="#runInput"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#runOutput -->
+
+    <owl:ObjectProperty rdf:about="#runOutput">
+        <rdfs:domain rdf:resource="#Run"/>
+        <rdfs:range rdf:resource="#RunOutput"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#runOutputOf -->
+
+    <owl:ObjectProperty rdf:about="#runOutputOf">
+        <rdfs:range rdf:resource="#Run"/>
+        <rdfs:domain rdf:resource="#RunOutput"/>
+        <owl:inverseOf rdf:resource="#runOutput"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#basisSet -->
+
+    <owl:DatatypeProperty rdf:about="#basisSet">
+        <rdfs:domain rdf:resource="#RunData"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#canostPlanar -->
+
+    <owl:DatatypeProperty rdf:about="#canostPlanar">
+        <rdfs:domain rdf:resource="#Molecule"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#canostPlanarCanonical -->
+
+    <owl:DatatypeProperty rdf:about="#canostPlanarCanonical">
+        <rdfs:domain rdf:resource="#Molecule"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#canostSerial -->
+
+    <owl:DatatypeProperty rdf:about="#canostSerial">
+        <rdfs:domain rdf:resource="#Molecule"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#canostSerialCanonical -->
+
+    <owl:DatatypeProperty rdf:about="#canostSerialCanonical">
+        <rdfs:domain rdf:resource="#Molecule"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#charge -->
+
+    <owl:DatatypeProperty rdf:about="#charge">
+        <rdfs:domain rdf:resource="#Molecule"/>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#energy -->
+
+    <owl:DatatypeProperty rdf:about="#energy">
+        <rdfs:domain rdf:resource="#Molecule"/>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#fragments -->
+
+    <owl:DatatypeProperty rdf:about="#fragments">
+        <rdfs:domain rdf:resource="#Molecule"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#fragmentsCanostPlanar -->
+
+    <owl:DatatypeProperty rdf:about="#fragmentsCanostPlanar">
+        <rdfs:domain rdf:resource="#Molecule"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#fragmentsCanostPlanarCanonical -->
+
+    <owl:DatatypeProperty rdf:about="#fragmentsCanostPlanarCanonical">
+        <rdfs:domain rdf:resource="#Molecule"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#fragmentsCanostSerial -->
+
+    <owl:DatatypeProperty rdf:about="#fragmentsCanostSerial">
+        <rdfs:domain rdf:resource="#Molecule"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#fragmentsCanostSerialCanonical -->
+
+    <owl:DatatypeProperty rdf:about="#fragmentsCanostSerialCanonical">
+        <rdfs:domain rdf:resource="#Molecule"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#geometry -->
+
+    <owl:DatatypeProperty rdf:about="#geometry">
+        <rdfs:domain rdf:resource="#Molecule"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#hillFormula -->
+
+    <owl:DatatypeProperty rdf:about="#hillFormula">
+        <rdfs:domain rdf:resource="#Molecule"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#inchi -->
+
+    <owl:DatatypeProperty rdf:about="#inchi">
+        <rdfs:domain rdf:resource="#Molecule"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#job -->
+
+    <owl:DatatypeProperty rdf:about="#job">
+        <rdfs:domain rdf:resource="#RunData"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#mass -->
+
+    <owl:DatatypeProperty rdf:about="#mass">
+        <rdfs:domain rdf:resource="#Molecule"/>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#method -->
+
+    <owl:DatatypeProperty rdf:about="#method">
+        <rdfs:domain rdf:resource="#RunData"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#normalModesEigenvalues -->
+
+    <owl:DatatypeProperty rdf:about="#normalModesEigenvalues">
+        <rdfs:domain rdf:resource="#Molecule"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#smiles -->
+
+    <owl:DatatypeProperty rdf:about="#smiles">
+        <rdfs:domain rdf:resource="#Molecule"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#spin -->
+
+    <owl:DatatypeProperty rdf:about="#spin">
+        <rdfs:domain rdf:resource="#Molecule"/>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#spinMultiplicity -->
+
+    <owl:DatatypeProperty rdf:about="#spinMultiplicity">
+        <rdfs:domain rdf:resource="#Molecule"/>
+        <rdfs:range rdf:resource="&xsd;nonNegativeInteger"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#stepNumber -->
+
+    <owl:DatatypeProperty rdf:about="#stepNumber">
+        <rdfs:domain rdf:resource="#InterconversionStep"/>
+        <rdfs:range rdf:resource="&xsd;nonNegativeInteger"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#structureNumber -->
+
+    <owl:DatatypeProperty rdf:about="#structureNumber">
+        <rdfs:domain rdf:resource="#InterconversionResult"/>
+        <rdfs:range rdf:resource="&xsd;nonNegativeInteger"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#zeroPointVibrationalEnergy -->
+
+    <owl:DatatypeProperty rdf:about="#zeroPointVibrationalEnergy">
+        <rdfs:domain rdf:resource="#InterconversionResult"/>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#BarrierDissociated -->
+
+    <owl:Class rdf:about="#BarrierDissociated">
+        <rdfs:subClassOf rdf:resource="#InterconversionResult"/>
+    </owl:Class>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#BarrierlessDissociated -->
+
+    <owl:Class rdf:about="#BarrierlessDissociated">
+        <rdfs:subClassOf rdf:resource="#InterconversionResult"/>
+    </owl:Class>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#EquilibriumStructure -->
+
+    <owl:Class rdf:about="#EquilibriumStructure">
+        <rdfs:subClassOf rdf:resource="#InterconversionResult"/>
+    </owl:Class>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#Interconversion -->
+
+    <owl:Class rdf:about="#Interconversion">
+        <rdfs:subClassOf rdf:resource="#RunOutput"/>
+    </owl:Class>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#InterconversionResult -->
+
+    <owl:Class rdf:about="#InterconversionResult">
+        <rdfs:subClassOf rdf:resource="#Molecule"/>
+        <owl:disjointWith rdf:resource="#InterconversionStep"/>
+    </owl:Class>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#InterconversionStep -->
+
+    <owl:Class rdf:about="#InterconversionStep">
+        <rdfs:subClassOf rdf:resource="#Molecule"/>
+    </owl:Class>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#Molecule -->
+
+    <owl:Class rdf:about="#Molecule">
+        <rdfs:subClassOf rdf:resource="#RunInput"/>
+        <rdfs:subClassOf rdf:resource="#RunOutput"/>
+    </owl:Class>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#Run -->
+
+    <owl:Class rdf:about="#Run"/>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#RunData -->
+
+    <owl:Class rdf:about="#RunData">
+        <rdfs:subClassOf rdf:resource="#RunInput"/>
+    </owl:Class>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#RunInput -->
+
+    <owl:Class rdf:about="#RunInput"/>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#RunOutput -->
+
+    <owl:Class rdf:about="#RunOutput"/>
+    
+
+
+    <!-- http://ontologies.wavemol.org/database/v1/grrm#TransitionState -->
+
+    <owl:Class rdf:about="#TransitionState">
+        <rdfs:subClassOf rdf:resource="#InterconversionResult"/>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="#Interconversion"/>
+            <rdf:Description rdf:about="#Molecule"/>
+            <rdf:Description rdf:about="#Run"/>
+            <rdf:Description rdf:about="#RunData"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="#BarrierDissociated"/>
+            <rdf:Description rdf:about="#BarrierlessDissociated"/>
+            <rdf:Description rdf:about="#EquilibriumStructure"/>
+            <rdf:Description rdf:about="#TransitionState"/>
+        </owl:members>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 2.2.1.1138) http://owlapi.sourceforge.net -->
+

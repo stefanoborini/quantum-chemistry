@@ -1,0 +1,17 @@
+{% load formatting %}
+<div id="potentialenergycurve">
+    <h1>Potential Energy Curve</h1>
+        <table style="margin-left: auto; margin-right: auto;">
+            <tr>
+                <td style="font-size: 180%"><a href="{{ pluginContext.potentialenergycurve.startUrl }}">{{ pluginContext.potentialenergycurve.startStructureLabel }}<br /><img src="{{ pluginContext.potentialenergycurve.startIcon }}"</a></td>
+                <td><img src="{{ pluginContext.potentialenergycurve.chartUrl }}" /></td>
+                <td style="font-size: 180%"><a href="{{ pluginContext.potentialenergycurve.endUrl }}">{{ pluginContext.potentialenergycurve.endStructureLabel }}<br/><img src="{{pluginContext.potentialenergycurve.endIcon}}"></a></td>
+            <tr>
+            <tr>
+                <td colspan="3" align="center"><img src="{{ pluginContext.potentialenergycurve.connectionRouteIcon }}" /></td>
+            </tr>
+        </table>
+ 
+</div>
+
+

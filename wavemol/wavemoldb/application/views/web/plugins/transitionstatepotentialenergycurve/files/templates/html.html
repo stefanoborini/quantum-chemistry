@@ -1,0 +1,17 @@
+{% load formatting %}
+<div id="transitionstatepotentialenergycurve">
+    <h1>Potential Energy Curve</h1>
+        <table style="margin-left: auto; margin-right: auto;">
+            <tr>
+                <td colspan="3" align="center"><img src="{{ pluginContext.transitionstatepotentialenergycurve.transitionStateIcon }}" /></td>
+            </tr>
+            <tr>
+                <td style="font-size: 180%"><a href="{{ pluginContext.transitionstatepotentialenergycurve.leftEndUrl }}">{{ pluginContext.transitionstatepotentialenergycurve.leftEndStructureLabel }}<br /><img src="{{ pluginContext.transitionstatepotentialenergycurve.leftEndIcon }}"</a></td>
+                <td><img src="{{ pluginContext.transitionstatepotentialenergycurve.chartUrl }}" /></td>
+                <td style="font-size: 180%"><a href="{{ pluginContext.transitionstatepotentialenergycurve.rightEndUrl }}">{{ pluginContext.transitionstatepotentialenergycurve.rightEndStructureLabel }}<br/><img src="{{pluginContext.transitionstatepotentialenergycurve.rightEndIcon}}"></a></td>
+            <tr>
+        </table>
+ 
+</div>
+
+

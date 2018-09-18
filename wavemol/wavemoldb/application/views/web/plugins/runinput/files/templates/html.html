@@ -1,0 +1,22 @@
+{% load formatting %}
+<div id="runinput">
+    {% if pluginContext.runinput.input %}
+    Input of this run is :
+        <div>
+        {% for input in pluginContext.runinput.input %}
+            {% if input.url %}
+                <div style="margin-left:10px; font-weight: bold;"><a href="{{ input.url }}">{{ input.visibleName }} {{ input.uuid }}</a></div>
+            {% else %}
+                <div style="margin-left:10px; font-weight: bold;">{{ input.visibleName }} {{ input.uuid }}</div>
+            {% endif %}
+            {% for k,v in input.data.items %}
+                <div style="margin-left:20px;">{{ k }} = {{ v }}</div> 
+            {% endfor %}
+        {% endfor %} 
+        </div>
+    {% else %}
+    No associated input for this Run
+    {% endif %}
+    <br /><br />
+</div>
+

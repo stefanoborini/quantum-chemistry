@@ -1,0 +1,11 @@
+** current available filters **
+
+rdf__type (1 parameter)
+    all results will belong to a specific rdf:type.
+
+wm__grrm_structure_type (1 parameter)
+    matches all molecules having a given GRRM structure type.
+
+wm__energy_between (2 parameters)
+    matches all molecules whose energy is between two given values, in hartree
+

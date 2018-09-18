@@ -1,0 +1,66 @@
+<script type="text/javascript" src="/applets/jmol/Jmol.js"></script>
+<script type="text/javascript">
+jmolInitialize("/applets/jmol");
+
+Array.prototype.max = function() {
+    var max = this[0];
+    var len = this.length;
+    for (var i = 1; i < len; i++) if (this[i] > max) max = this[i];
+    return max;
+}
+Array.prototype.min = function() {
+var min = this[0];
+var len = this.length;
+for (var i = 1; i < len; i++) if (this[i] < min) min = this[i];
+return min;
+}
+
+function appletVertexClickedCallback(vertex_uuid) {
+    load_string = "load /cache/resources/"+vertex_uuid+"/geometry_"+vertex_uuid+".xyz";
+    document.getElementById("data").innerHTML = "";
+    document.getElementById("jmol").innerHTML = "";
+    document.getElementById("jmol").innerHTML = 
+        "<applet name='jmolApplet0' id='jmolApplet0' code='JmolApplet' archive='JmolApplet0.jar' codebase='/applets/jmol' width='256' height='256'  mayscript='true'>" +
+        "  <param name='syncId' value='449478896696096' />" +
+        "  <param name='progressbar' value='true' />" +
+        "  <param name='progresscolor' value='blue' />" +
+        "  <param name='boxbgcolor' value='black' />" +
+        "  <param name='boxfgcolor' value='white' />" +
+        "  <param name='boxmessage' value='Downloading JmolApplet ...' />" +
+        "  <param name='script' value='"+load_string+"' />" +
+        "</applet>";
+}
+
+function appletEdgeClickedCallback(interconversion_uuid) {
+    document.getElementById("data").innerHTML = "";
+    jQuery.getJSON("/resources/%7B{{ pluginContext.connectivity.resource_uuid}}%7D?type=ajax&receiver_plugin=connectivity&method=getInterconversionEnergy&interconversion_uuid="+interconversion_uuid, {}, plotEnergyData);
+
+    document.getElementById("jmol").innerHTML = "";
+    load_string = "load /cache/resources/"+interconversion_uuid+"/geometry_"+interconversion_uuid+".xyz; anim mode palindrome; anim on";
+    document.getElementById("jmol").innerHTML = 
+        "<applet name='jmolApplet0' id='jmolApplet0' code='JmolApplet' archive='JmolApplet0.jar' codebase='/applets/jmol' width='256' height='256'  mayscript='true'>" +
+        "  <param name='syncId' value='449478896696096' />" +
+        "  <param name='progressbar' value='true' />" +
+        "  <param name='progresscolor' value='blue' />" +
+        "  <param name='boxbgcolor' value='black' />" +
+        "  <param name='boxfgcolor' value='white' />" +
+        "  <param name='boxmessage' value='Downloading JmolApplet ...' />" +
+        "  <param name='script' value='"+load_string+"' />" +
+        "</applet>";
+}
+
+function plotEnergyData(data, status) {
+    document.getElementById("data").innerHTML = "";
+
+    var keys = new Array();
+    var energies = new Array();
+    for (index in data.energies) {
+        keys.push(parseInt(index));
+        energies.push(parseFloat(data.energies[index]));
+    }
+
+    var image_html = "<img src=\"http://chart.apis.google.com/chart?cht=lxy&chs=256x256&chco=3072F3,ff0000,00aaaa&chls=2,4,1&chf=bg,s,F0F0FF&chm=s,FF0000,0,-1,5|s,0000ff,1,-1,5|s,00aa00,2,-1,5&chxt=x,y&chd=t:"+keys.join(",")+"|"+energies.join(",")+"&chds="+keys.min()+","+keys.max()+","+energies.min()+","+energies.max()+"&chxr=0,"+keys.min()+","+keys.max()+"|1,"+energies.min()+","+energies.max()+"\" />";
+    document.getElementById("data").innerHTML=image_html;
+
+}
+</script>

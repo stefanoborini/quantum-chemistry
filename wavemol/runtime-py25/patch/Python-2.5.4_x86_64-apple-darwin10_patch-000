@@ -1,0 +1,145 @@
+diff -Naur Python-2.5.4/Include/pyport.h Python-2.5.4.new/Include/pyport.h
+--- Python-2.5.4/Include/pyport.h	2008-02-14 20:26:18.000000000 +0900
++++ Python-2.5.4.new/Include/pyport.h	2009-11-30 13:38:50.000000000 +0900
+@@ -293,11 +293,26 @@
+ #if defined(PYOS_OS2) && defined(PYCC_GCC)
+ #include <sys/types.h>
+ #endif
++
++#if (defined __APPLE__) && (!defined _POSIX_C_SOURCE)
++#define TEMPORARILY_DEFINING__POSIX_C_SOURCE    /* so we can #undef it later */
++#define _POSIX_C_SOURCE   /* avoid deprecated struct ostat in sys/stat.h */
++#endif
++
+ #include <sys/stat.h>
+ #elif defined(HAVE_STAT_H)
+ #include <stat.h>
+ #endif
+ 
++/* Mac OS X: undefine _POSIX_C_SOURCE if it wasn't defined before */
++#ifdef TEMPORARILY_DEFINING__POSIX_C_SOURCE
++#undef _POSIX_C_SOURCE
++#undef TEMPORARILY_DEFINING__POSIX_C_SOURCE
++#endif
++
++
++
++
+ #if defined(PYCC_VACPP)
+ /* VisualAge C/C++ Failed to Define MountType Field in sys/stat.h */
+ #define S_IFMT (S_IFDIR|S_IFCHR|S_IFREG)
+@@ -544,6 +559,7 @@
+ /* BSDI does not supply a prototype for the 'openpty' and 'forkpty'
+    functions, even though they are included in libutil. */
+ #include <termios.h>
++struct winsize;
+ extern int openpty(int *, int *, char *, struct termios *, struct winsize *);
+ extern int forkpty(int *, char *, struct termios *, struct winsize *);
+ #endif /* !defined(HAVE_PTY_H) && !defined(HAVE_LIBUTIL_H) */
+diff -Naur Python-2.5.4/Lib/cgi.py Python-2.5.4.new/Lib/cgi.py
+--- Python-2.5.4/Lib/cgi.py	2006-08-11 02:41:07.000000000 +0900
++++ Python-2.5.4.new/Lib/cgi.py	2009-11-30 13:39:08.000000000 +0900
+@@ -1,4 +1,4 @@
+-#! /usr/local/bin/python
++#! __PREFIX__/bin/python
+ 
+ # NOTE: the above "/usr/local/bin/python" is NOT a mistake.  It is
+ # intentionally NOT "/usr/bin/env python".  On many systems
+diff -Naur Python-2.5.4/Lib/site.py Python-2.5.4.new/Lib/site.py
+--- Python-2.5.4/Lib/site.py	2006-08-16 14:01:42.000000000 +0900
++++ Python-2.5.4.new/Lib/site.py	2009-11-30 13:40:24.000000000 +0900
+@@ -189,6 +189,7 @@
+             else:
+                 sitedirs = [prefix, os.path.join(prefix, "lib", "site-packages")]
+             if sys.platform == 'darwin':
++                sitedirs.append( os.path.join('__PREFIX__', 'lib', 'python2.5', 'site-packages') )
+                 # for framework builds *only* we add the standard Apple
+                 # locations. Currently only per-user, but /Library and
+                 # /Network/Library could be added too
+diff -Naur Python-2.5.4/Mac/IDLE/Makefile.in Python-2.5.4.new/Mac/IDLE/Makefile.in
+--- Python-2.5.4/Mac/IDLE/Makefile.in	2006-06-08 04:38:53.000000000 +0900
++++ Python-2.5.4.new/Mac/IDLE/Makefile.in	2009-11-30 13:41:32.000000000 +0900
+@@ -21,7 +21,7 @@
+ 
+ BUNDLEBULDER=$(srcdir)/../../Lib/plat-mac/bundlebuilder.py
+ 
+-PYTHONAPPSDIR=/Applications/MacPython $(VERSION)
++PYTHONAPPSDIR=__APPLICATIONS_DIR__/MacPython $(VERSION)
+ 
+ all: IDLE.app
+ 
+diff -Naur Python-2.5.4/Mac/Makefile.in Python-2.5.4.new/Mac/Makefile.in
+--- Python-2.5.4/Mac/Makefile.in	2006-06-12 05:23:29.000000000 +0900
++++ Python-2.5.4.new/Mac/Makefile.in	2009-11-30 13:42:35.000000000 +0900
+@@ -16,7 +16,7 @@
+ 
+ # These are normally glimpsed from the previous set
+ bindir=$(prefix)/bin
+-PYTHONAPPSDIR=/Applications/MacPython $(VERSION)
++PYTHONAPPSDIR=__APPLICATIONS_DIR__/MacPython $(VERSION)
+ APPINSTALLDIR=$(prefix)/Resources/Python.app
+ 
+ # Variables for installing the "normal" unix binaries
+diff -Naur Python-2.5.4/Mac/PythonLauncher/Makefile.in Python-2.5.4.new/Mac/PythonLauncher/Makefile.in
+--- Python-2.5.4/Mac/PythonLauncher/Makefile.in	2006-06-08 04:38:53.000000000 +0900
++++ Python-2.5.4.new/Mac/PythonLauncher/Makefile.in	2009-11-30 13:43:19.000000000 +0900
+@@ -20,7 +20,7 @@
+ 
+ BUNDLEBULDER=$(srcdir)/../../Lib/plat-mac/bundlebuilder.py
+ 
+-PYTHONAPPSDIR=/Applications/MacPython $(VERSION)
++PYTHONAPPSDIR=__APPLICATIONS_DIR__/MacPython $(VERSION)
+ OBJECTS=FileSettings.o MyAppDelegate.o MyDocument.o PreferencesWindowController.o doscript.o main.o
+ 
+ all: Python\ Launcher.app
+@@ -53,7 +53,7 @@
+ 		--resource=$(srcdir)/factorySettings.plist \
+ 		--plist Info.plist \
+ 		build
+-	find "Python Launcher.app" -name '.svn' -print0 | xargs -0 rm -r
++	find "Python Launcher.app" -name '.svn' -print0 | xargs -0 rm -r || :
+ 		
+ 
+ FileSettings.o: $(srcdir)/FileSettings.m
+diff -Naur Python-2.5.4/configure Python-2.5.4.new/configure
+--- Python-2.5.4/configure	2008-12-13 23:13:52.000000000 +0900
++++ Python-2.5.4.new/configure	2009-11-30 13:44:51.000000000 +0900
+@@ -4534,7 +4534,14 @@
+ 	    ;;
+ 	# is there any other compiler on Darwin besides gcc?
+ 	Darwin*)
+-	    BASECFLAGS="$BASECFLAGS -Wno-long-double -no-cpp-precomp -mno-fused-madd"
++        if [[ `/usr/bin/arch` = 'ppc' ]]
++         then
++           BASECFLAGS="$BASECFLAGS -mno-fused-madd -fno-common"
++         else
++           BASECFLAGS="$BASECFLAGS -fno-common"
++         fi
++
++
+ 	    if test "${enable_universalsdk}"; then
+ 		BASECFLAGS="-arch ppc -arch i386 -isysroot ${UNIVERSALSDK} ${BASECFLAGS}"
+ 	    fi
+diff -Naur Python-2.5.4/setup.py Python-2.5.4.new/setup.py
+--- Python-2.5.4/setup.py	2008-10-17 03:58:19.000000000 +0900
++++ Python-2.5.4.new/setup.py	2009-11-30 13:49:50.000000000 +0900
+@@ -391,7 +391,7 @@
+             exts.append( Extension('unicodedata', ['unicodedata.c']) )
+         # access to ISO C locale support
+         data = open('pyconfig.h').read()
+-        m = re.search(r"#s*define\s+WITH_LIBINTL\s+1\s*", data)
++        m = re.search(r"#\s*define\s+(HAVE_LIBINTL_H|WITH_LIBINTL)\s+1\s*", data)
+         if m is not None:
+             locale_libs = ['intl']
+         else:
+@@ -1153,7 +1153,9 @@
+         self.extensions.extend(exts)
+ 
+         # Call the method for detecting whether _tkinter can be compiled
+-        self.detect_tkinter(inc_dirs, lib_dirs)
++        if ("--disable-tk" not in sysconfig.get_config_var("CONFIG_ARGS")):
++            self.detect_tkinter(inc_dirs, lib_dirs)
++
+ 
+     def detect_tkinter_darwin(self, inc_dirs, lib_dirs):
+         # The _tkinter module, using frameworks. Since frameworks are quite

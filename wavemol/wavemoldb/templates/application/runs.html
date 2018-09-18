@@ -1,0 +1,65 @@
+{% extends "application/base.html" %}
+
+{% block stylesheet %}
+    <link type="text/css" rel="stylesheet" href="http://yui.yahooapis.com/2.8.0r4/build/datatable/assets/skins/sam/datatable.css">
+<style>
+#myMarkedUpContainer {
+    text-align:center;
+}
+#myMarkedUpContainer table {
+    margin-left: auto;
+    margin-right: auto;
+}
+</style>
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/element/element-min.js"></script>
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/datasource/datasource-min.js"></script>
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/json/json-min.js"></script>
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/connection/connection-min.js"></script>
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/get/get-min.js"></script>
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/dragdrop/dragdrop-min.js"></script>
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/calendar/calendar-min.js"></script>
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/datatable/datatable-min.js"></script>
+    <script type="text/javascript">
+
+var wmdb = {};
+wmdb.ajaxParseMatchingResources = function(data, status) {
+    wmdb.myDataTable.deleteRows(0, wmdb.myDataTable.getRecordSet().getLength()); 
+    for (var i = 0; i < data.uri_list.length; i++) {
+        wmdb.myDataTable.addRow({ id: data.uri_list[i]});
+    }
+    
+}
+
+jQuery(document).ready( function() {
+    var myDataSource = new YAHOO.util.DataSource(YAHOO.util.Dom.get("myTable"));
+    myDataSource.responseType = YAHOO.util.DataSource.TYPE_HTMLTABLE;
+    myDataSource.responseSchema = {
+        fields: [{key:"id", parser:"number"},
+        ]
+    };
+    var myColumnDefs = [
+        {key:"id", label: "ID", width: 350, formatter: function(elCell, oRecord, oColumn, oData) { elCell.innerHTML = "<pre><a href=\"/resources/%7B"+oData.substring(9)+"%7D\">"+oData+"</a></pre>"; } },
+    ];
+
+    wmdb.myDataTable = new YAHOO.widget.DataTable("myMarkedUpContainer", myColumnDefs, myDataSource);
+    jQuery.getJSON("/search/?type=ajax&filters=0:grrm__type:grrm__run", {}, wmdb.ajaxParseMatchingResources);
+})
+
+</script>
+{% endblock %}
+
+{% block content %}
+<br /><br />
+<div class="yui-skin-sam" style="text-align:center;">
+    <div id="myMarkedUpContainer">
+        <table id="myTable">
+            <thead></thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

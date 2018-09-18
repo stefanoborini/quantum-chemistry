@@ -1,0 +1,67 @@
+{% extends "application/base.html" %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/tabview/assets/skins/sam/tabview.css">
+
+    {% for p in plugins %}
+        {% if p.cssPath %}
+            {% include p.cssPath %}
+        {% endif %}
+    {% endfor %} 
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/element/element-min.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/connection/connection-min.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/tabview/tabview-min.js"></script>
+
+<script type="text/javascript">
+run_functions = []
+</script>
+
+    {% for p in plugins %}
+        {% if p.jsPath %}
+            {% include p.jsPath %}
+        {% endif %}
+    {% endfor %} 
+
+<script type="text/javascript">
+
+function enableTabs() {
+    var myTabs = new YAHOO.widget.TabView("tabs");
+}
+
+run_functions.push(enableTabs) 
+
+jQuery(document).ready( function() {
+    for (f in run_functions) {
+        run_functions[f]();
+    }
+})
+</script>
+{% endblock %}
+
+{% block content %}
+    <div class="yui-skin-sam">
+        <h1 class="resource-header">{{resource.visibleName}} {{ resource.uuid }}</h1>
+        <div id="tabs" class="yui-navset">
+            <ul class="yui-nav">
+            {% for p in plugins %}
+                <li {% if forloop.first%}class="selected"{% endif %}><a href="#tab{{ forloop.counter }}">{{ p.visibleName }}</a></li>
+            {% endfor %} 
+            </ul>
+            <div class="yui-content">
+            {% for p in plugins %}
+                    <div class="pluginoutput">
+                        {% if p.htmlPath %}
+                            {% include p.htmlPath %}
+                        {% endif %}
+                    </div>
+            {% endfor %} 
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

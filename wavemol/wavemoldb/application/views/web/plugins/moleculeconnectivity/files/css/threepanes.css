@@ -1,0 +1,25 @@
+div.threepanes {
+    width: 900px; 
+    margin-left: auto; 
+    margin-right: auto; 
+    display:table;
+}
+
+.threepanes .leftpane {
+    display: table-cell; 
+    width: 300px; 
+    border-right: 1px solid black;
+}
+
+.threepanes .centerpane {
+    display: table-cell; 
+    width: 300px; 
+    vertical-align: middle;
+}
+
+.threepanes .rightpane {
+    display: table-cell; 
+    width: 300px; 
+    border-left: 1px solid black;
+}
+

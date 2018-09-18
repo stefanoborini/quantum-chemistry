@@ -1,0 +1,20 @@
+<div id="fragmentinfo">
+    <div id="fragmentinfo_data">
+        <h1>Fragments information</h1>
+            {% for fragment in pluginContext.fragmentinfo.fragmentInfo %}
+            <h2>Fragment {{ fragment.index }} : {{ fragment.hillFormula }}</h2>
+                <table>
+                    <tr><td style="font-weight: bold;">Atom indices</td><td>{{ fragment.atomIndices|default:"Unavailable" }}</td></tr>
+                    <tr><td style="font-weight: bold;">CANOST planar canonical</td><td>{{ fragment.canostPlanarCanonical|default:"Unavailable"}}</td></tr>
+                    <tr><td style="font-weight: bold;">CANOST serial canonical</td><td>{{ fragment.canostSerialCanonical|default:"Unavailable"}}</td></tr>
+                    <tr><td style="font-weight: bold;">CANOST planar</td><td>{{ fragment.canostPlanar|default:"Unavailable"}}</td></tr>
+                    <tr><td style="font-weight: bold;">CANOST serial</td><td>{{ fragment.canostSerial|default:"Unavailable"}}</td></tr>
+                    {% ifnotequal fragment.links None %}
+                        <tr><td style="font-weight: bold;">Download</td><td>{% ifnotequal fragment.links.xyz None %}<a href="{{ fragment.links.xyz }}">xyz</a>{% endifnotequal %}{% ifnotequal fragment.links.mol None %}<a href="{{ fragment.links.mol}}">mol</a>{% endifnotequal %}</td></tr>
+                    {% endifnotequal %}
+                </table>
+            {% endfor %}
+    </div>
+</div>
+
+

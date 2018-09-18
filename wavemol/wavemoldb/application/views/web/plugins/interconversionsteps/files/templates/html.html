@@ -1,0 +1,29 @@
+{% load formatting %}
+<div id="interconversionsteps">
+    <h1>Interconversion Steps</h1>
+        <table style="margin-left: auto; margin-right: auto; font-size: 150%; border-spacing: 10px;">
+            <tr>
+                <td>{{pluginContext.interconversionsteps.start.label}}</td>
+                <td><a href="{{ pluginContext.interconversionsteps.start.link }}"><img src="{{ pluginContext.interconversionsteps.start.icon }}"></a></td>
+                <td><a href="{{ pluginContext.interconversionsteps.start.link }}"><pre>{{ pluginContext.interconversionsteps.start.uri }}</pre></a></td>
+                <td>{{pluginContext.interconversionsteps.start.energy}} hartree</td>
+            </tr>
+            {% for step in pluginContext.interconversionsteps.steps %}
+            <tr>
+                <td>IC {{step.number}}</td>
+                <td><a href="{{ step.link }}"><img src="{{ step.icon }}"></a></td>
+                <td><a href="{{ step.link }}"><pre>{{ step.uri }}</pre></a></td>
+                <td>{{step.energy}} hartree</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td>{{pluginContext.interconversionsteps.end.label}}</td>
+                <td><a href="{{ pluginContext.interconversionsteps.end.link }}"><img src="{{ pluginContext.interconversionsteps.end.icon }}"></a></td>
+                <td><a href="{{ pluginContext.interconversionsteps.end.link }}"><pre>{{ pluginContext.interconversionsteps.end.uri }}</pre></a></td>
+                <td>{{pluginContext.interconversionsteps.end.energy}} hartree</td>
+            </tr>
+        </table>
+ 
+</div>
+
+

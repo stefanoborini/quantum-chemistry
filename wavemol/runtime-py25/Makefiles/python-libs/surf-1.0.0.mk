@@ -1,0 +1,12 @@
+SURF_VERSION=1.0.0
+SURF_TARGET=$(BUILD_FLAGS_DIR)/surf
+
+surf: $(SURF_TARGET)
+
+$(SURF_TARGET): $(INIT_TARGET) $(DOWNLOAD_DIR)/$(SURF_PACKAGE)
+	export PATH=$(RUNTIME_DIR)/bin:$$PATH PYTHONPATH=$(RUNTIME_DIR)/lib/python2.5/site-packages/; \
+	$(RUNTIME_DIR)/bin/easy_install-2.5 --prefix=$(RUNTIME_DIR) surf==$(SURF_VERSION)
+	touch $(SURF_TARGET)
+
+
+ALL_RUNTIME_TARGETS+=$(SURF_TARGET)
