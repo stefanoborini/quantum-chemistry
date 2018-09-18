@@ -1,0 +1,35 @@
+zmatGenerator creates the zmat files.
+then zmat2input creates the mol files. the option --translate has been used to put the molecule on the plane.
+Also, Generators=1 Z has beed added with sed.
+the md5sum of the name has been used for the dir name because dalton crashes for filenames too long
+
+
+we decided to use only the CAM-b3LYP/6-31G* geometries, computing at HF/6-31G* level the polarizabilities.
+Computed the first optimization with the standard method and daltonCalcs/optimizeGeometryCAMB3LYP20090307
+the obtained geometries are extracted with the following code
+
+for i in `find . -name *.out`; do pushd `dirname $i` >/dev/null; molfile=`basename $i .out|sed 's/run_//'`; cp -i `basename $i` `basename $i`.6-31Gstar-loose; cnrun daltonParsers-3.4.2/dalOut2dalIn `basename $i`.6-31Gstar-loose $molfile".mol"; echo $molfile".mol"; popd >/dev/null; done
+
+the new geometries are then optimized strict with daltonCalcs/optimizeGeometryCAMB3LYP20090717
+
+for i in `find . -name *.mol`; do d=`dirname $i`; molname=`basename $i`; echo "cnrun daltonCalcs-1/optimizeGeometryCAMB3LYP20090717 $molname" >$d/runscript.sh; done
+
+* Running the 1st hyperpol
+
+- realigned the molecules with the following command
+
+for i in `find . -name *.out`; do pushd `dirname $i` >/dev/null; molfile=`basename $i .out|sed 's/run_//'`; cp -i `basename $i` `basename $i`.6-31Gstar-strict; cnrun daltonParsers-3.4.2/dalOut2dalIn --align `basename $i`.6-31Gstar-strict $molfile".mol"; echo $molfile".mol"; popd >/dev/null; done
+
+We don't change the basis set. We want our computations to run with 6-31G* in this case.
+
+- create the runscript.sh as follows
+
+for i in `find . -name *.mol`; do d=`dirname $i`; molname=`basename $i`; echo "cnrun daltonCalcs-1/computeFirstHyperpolHF20090928 --x-only $molname" >$d/runscript.sh; done
+
+* Running the 2nd hyperpol
+
+- copy the molecules from the 1st hyperpol. take care of removing everything but the .mol files (containing already realigned molecules)
+- create the runscript.sh as follows
+
+for i in `find . -name *.mol`; do d=`dirname $i`; molname=`basename $i`; echo "cnrun daltonCalcs-1/computeSecondHyperpolHF20090928 --x-only $molname" >$d/runscript.sh; done
+
