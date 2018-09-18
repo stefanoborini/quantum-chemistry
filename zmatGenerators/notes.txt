@@ -1,0 +1,4 @@
+Scripts to generate polyacetylene molecules input in zmatrix format.
+used in project polyacetylenes
+The output is then passed to zmat2input to be converted into an edible dalton input.
+

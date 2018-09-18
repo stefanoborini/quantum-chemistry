@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="urn:uuid:d195be0c-200a-40a4-9d05-35fdf42eb29f" version="1.0.0">
+    <Meta>
+        <Description>Contains utilities to generate molecules in zmatrix format</Description>
+    </Meta>
+    <Contents>
+        <ExecutableGroup entryPoint="PA_endcap" description="generates polyacetylenes endcap">
+            <Executable>
+                <Platform>noarch</Platform>
+                <Interpreter>bash</Interpreter>
+                <Path type="standard">polyacetylenes_generator.sh</Path>
+            </Executable>
+        </ExecutableGroup>
+        <ExecutableGroup entryPoint="PA_lateral_full" description="generates full combinatorial lateral substituted polyacetylenes">
+            <Executable>
+                <Platform>noarch</Platform>
+                <Interpreter>python</Interpreter>
+                <Path type="standard">lateral_subst_full.py</Path>
+            </Executable>
+        </ExecutableGroup>
+        <ExecutableGroup entryPoint="PA_lateral_one" description="generates combinatorial lateral substituted polyacetylenes (one substituent)">
+            <Executable>
+                <Platform>noarch</Platform>
+                <Interpreter>python</Interpreter>
+                <Path type="standard">lateral_subst_one.py</Path>
+            </Executable>
+        </ExecutableGroup>
+        <ExecutableGroup entryPoint="PA_lateral_two" description="generates combinatorial lateral substituted polyacetylenes (two substituents)">
+            <Executable>
+                <Platform>noarch</Platform>
+                <Interpreter>python</Interpreter>
+                <Path type="standard">lateral_subst_two.py</Path>
+            </Executable>
+        </ExecutableGroup>
+    </Contents>
+</Package>
+
