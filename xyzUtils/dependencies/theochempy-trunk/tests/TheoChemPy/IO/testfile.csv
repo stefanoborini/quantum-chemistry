@@ -1,6 +1,0 @@
-# this is a comment, but it is discarded in general, as csv parsers do not expect comments.
-1,hello,3,10.0
-2, hello ,3,20.0
-3," hello ",3,30.0
-10,"",3,1.0
-11,,3,hello
