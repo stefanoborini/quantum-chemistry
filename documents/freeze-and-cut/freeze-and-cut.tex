@@ -1,0 +1,601 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+\usepackage[italian]{babel}
+\usepackage{graphicx}
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+%% Bold symbol macro for standard LaTeX users
+\newcommand{\boldsymbol}[1]{\mbox{\boldmath $#1$}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+\usepackage{verbatim}
+\usepackage{babel}
+\makeatother
+\begin{document}
+
+
+
+\section{Freeze and cut}
+
+The freeze and cut technique allows to perform a localized CAS optimization on
+a restricted set of atoms.
+The calculation takes place in three steps:
+
+\begin{enumerate}
+\item a large calculation on the molecule as a whole
+\item a small calculation on a reduced subset of the molecule
+\item the optimization procedure
+\end{enumerate}
+
+The first step is needed to generate a localized set of orbitals expressed
+on fewer atoms and the one electron integrals and nuclear repulsion energy
+modified by the freeze (freezing orbitals effectively turns one electron
+integrals concerning these orbitals into costants, which fall into the
+nuclear energy, and two electron integrals into one electron ones).
+
+The second step generates the two electron integrals for the smaller system
+obtained by removing the atoms (cut) and the appropriate overlap.
+
+The third step performs the optimization. Since this step acts into the
+reduced set of atomic basis functions obtained by the cut, this optimization
+cannot involve atoms that were excluded by the previous step.
+
+
+Let's see in more detail each step
+
+\subsection{first step - large system}
+
+The first step needs to perform an SCF evaluation on the complete system,
+thus a seward must be performed and then the SCF evaluation.
+
+\begin{verbatim}
+ &SEWARD  &END
+Title
+ tridequenal
+square
+Basis set
+C.ano-l...2s1p.
+ C1  0.00000000     0.00000000     0.00000000 Angstrom
+ C2 -1.25573684     0.00000000    -0.72500000 Angstrom
+ C3 -2.42487113     0.00000000    -0.05000000 Angstrom
+ C4 -3.68060797     0.00000000    -0.77500000 Angstrom
+ C5 -4.84974226     0.00000000    -0.10000000 Angstrom
+ C6 -6.10547910     0.00000000    -0.82500000 Angstrom
+ C7 -7.27461339     0.00000000    -0.15000000 Angstrom
+End of basis
+Basis set
+O.ano-l...2s1p.
+ O1   0.0000000    0.000000     1.220000  Angstrom
+End of basis
+Basis set
+H.ano-l...1s.
+ H1    0.95262794    0.000000    -0.550000 Angstrom
+ H2   -1.25573684    0.00000000    -1.82500000 Angstrom
+ H3   -2.42487113    0.00000000     1.05000000 Angstrom
+ H4   -3.68060797    0.00000000    -1.87500000 Angstrom
+ H5   -4.84974226    0.00000000     1.00000000 Angstrom
+ H6   -6.10547910    0.00000000    -1.92500000 Angstrom
+ H7   -7.27461339    0.00000000     0.95000000 Angstrom
+End of basis
+Basis set
+C.ano-l...2s1p.
+ C8 -8.53035023     0.00000000    -0.87500000 Angstrom
+ C9 -9.69948452     0.00000000    -0.20000000 Angstrom
+ C10 -10.95522136     0.00000000    -0.92500000 Angstrom
+ C11 -12.12435565     0.00000000    -0.25000000 Angstrom
+ C12 -13.38009249     0.00000000    -0.97500000 Angstrom
+ C13 -14.54922678     0.00000000    -0.30000000 Angstrom
+End of basis
+Basis set
+H.ano-l...1s.
+ H8   -8.53035023    0.00000000    -1.97500000 Angstrom
+ H9  -9.69948452     0.00000000     0.90000000 Angstrom
+ H10  -10.95522136     0.00000000    -2.02500000 Angstrom
+ H11  -12.12435565     0.00000000     0.85000000 Angstrom
+ H12  -13.38009249     0.00000000    -2.07500000 Angstrom
+ H131  -14.54922678     0.00000000     0.80000000 Angstrom
+ H132  -15.50185473     0.00000000    -0.85000000 Angstrom
+End of basis
+End of input
+\end{verbatim}
+
+\begin{verbatim}
+ &SCF &END
+Title
+ tridequenal
+occupied
+50
+end of input
+\end{verbatim}
+
+Using molcas, the produced files must be passed to our chain, so a molcost
+transformation must be performed
+
+\begin{verbatim}
+ &cost prefix='tridequenal.',molcas=54,
+ fermi= 50,
+ /
+\end{verbatim}
+
+The schmuds chain is now invoked. schmudorb provides the localized orbitals,
+proj\_scf performs the projection of these orbitals on the SCF ones to obtain
+localized SCF orbitals and schmudort performs a hierarchical class based
+orthogonalization.
+
+
+\begin{verbatim}
+ &smufil prefix='tridequenal.',progr='MOLCAS' /
+ &smu nprint=1
+ orb='tridequenal.ScfOrb' /
+
+ &oao /
+C* 1s(1) pr=1
+C* 1s(2) pr=2
+C* 2px(1) pr=2
+C* 2py(1) pr=2
+C* 2pz(1) pr=2
+O* 1s(1) pr=1
+O* 1s(2) pr=2
+O* 2px(1) pr=2
+O* 2py(1) pr=2
+O* 2pz(1) pr=2
+H* 1s(1) pr=2
+fin
+
+ &orb /
+G_O1 O1 1s(1) (1 0)
+G_C1 C1 1s(1) (1 0)
+G_C2 C2 1s(1) (1 0)
+G_C3 C3 1s(1) (1 0)
+G_C4 C4 1s(1) (1 0)
+G_C5 C5 1s(1) (1 0)
+G_C6 C6 1s(1) (1 0)
+G_C7 C7 1s(1) (1 0)
+G_C8 C8 1s(1) (1 0)
+G_C9 C9 1s(1) (1 0)
+G_C10 C10 1s(1) (1 0)
+G_C11 C11 1s(1) (1 0)
+G_C12 C12 1s(1) (1 0)
+G_C13 C13 1s(1) (1 0)
+G_C3C4 C3 1s(2) 2p(1) : C4 1s(2) 2p(1) (1 1)
+G_C4C5 C4 1s(2) 2p{x,z}(1) : C5 1s(2) 2p{x,z}(1) (1 1)
+G_C5C6 C5 1s(2) 2p(1) : C6 1s(2) 2p(1) (1 1)
+G_C6C7 C6 1s(2) 2p{x,z}(1) : C7 1s(2) 2p{x,z}(1) (1 1)
+G_C7C8 C7 1s(2) 2p(1) : C8 1s(2) 2p(1) (1 1)
+G_C8C9 C8 1s(2) 2p{x,z}(1) : C9 1s(2) 2p{x,z}(1) (1 1)
+G_C9C10 C9 1s(2) 2p(1) : C10 1s(2) 2p(1) (1 1)
+G_C10C11 C10 1s(2) 2p{x,z}(1) : C11 1s(2) 2p{x,z}(1) (1 1)
+G_C11C12 C11 1s(2) 2p(1) : C12 1s(2) 2p(1) (1 1)
+G_C12C13 C12 1s(2) 2p{x,z}(1) : C13 1s(2) 2p{x,z}(1) (1 1)
+G_C4C5 C4 2py(1) : C5 2py(1) (1 1)
+G_C6C7 C6 2py(1) : C7 2py(1) (1 1)
+G_C8C9 C8 2py(1) : C9 2py(1) (1 1)
+G_C10C11 C10 2py(1) : C11 2py(1) (1 1)
+G_C12C13 C12 2py(1) : C13 2py(1) (1 1)
+G_C3H3 C3 1s(2) 2p(1) : H3 1s(1) (1 1)
+G_C4H4 C4 1s(2) 2p(1) : H4 1s(1) (1 1)
+G_C5H5 C5 1s(2) 2p(1) : H5 1s(1) (1 1)
+G_C6H6 C6 1s(2) 2p(1) : H6 1s(1) (1 1)
+G_C7H7 C7 1s(2) 2p(1) : H7 1s(1) (1 1)
+G_C8H8 C8 1s(2) 2p(1) : H8 1s(1) (1 1)
+G_C9H9 C9 1s(2) 2p(1) : H9 1s(1) (1 1)
+G_C10H10 C10 1s(2) 2p(1) : H10 1s(1) (1 1)
+G_C11H11 C11 1s(2) 2p(1) : H11 1s(1) (1 1)
+G_C12H12 C12 1s(2) 2p(1) : H12 1s(1) (1 1)
+G_C13H131 C13 1s(2) 2p(1) : H131 1s(1) (1 1)
+G_C13H132 C13 1s(2) 2p(1) : H132 1s(1) (1 1)
+O_C1C2 C1 1s(2) 2p(1) : C2 1s(2) 2p(1) (1 1)
+O_C2C3 C2 1s(2) 2p{x,z}(1) : C3 1s(2) 2p{x,z}(1) (1 1)
+A_C2C3 C2 2py(1) : C3 2py(1) (1 1)
+O_O1 O1 1s(2) 2p(1) (2 0) Ref 1
+O_O1C1 C1 1s(2) 2p{x,z}(1) : O1 1s(2) 2p{x,z}(1) (3 1) Proj 1
+A_O1C1 C1 2py(1) : O1 2py(1) (1 1)
+O_C1H1 C1 1s(2) 2p(1) : H1 1s(1) (1 1)
+O_C2H2 C2 1s(2) 2p(1) : H2 1s(1) (1 1)
+fin
+
+ &ort /
+ &pscf prefix='tridequenal.'  /
+
+\end{verbatim}
+
+
+as we can see from the input we are going to freeze a big chunk of the
+molecule. remember that proj\_scf produces a file called NONORLOC\_scf which
+must be moved to NONORLOC before running the orthogonalization schmudort.
+
+Now we run troncat, the central point for the cut part of the technique.
+
+\begin{verbatim}
+ &TRONCAT prefix='tridequenal.'
+ nprint_hieror=-1,
+ keepl='C1C2','C2C3','O1','O1C1','C1H1','C2H2'
+ keep='O1','C1','C2','C3'
+ 'H1','H2' /
+\end{verbatim}
+
+As we can see, the list of bonds to keep must be specified (everything else
+is considered and marked frozen) and the list of atoms which will
+characterize the reduced system.
+
+troncat procudes a lot of interesting data. from the output
+
+\begin{verbatim}
+ Kept Atomic Orbitals
+C1  1s   | C1  1s   | C1  2px  | C1  2py  | 
+C1  2pz  | C2  1s   | C2  1s   | C2  2px  |
+C2  2py  | C2  2pz  | C3  1s   | C3  1s   |
+C3  2px  | C3  2py  | C3  2pz  | O1  1s   |
+O1  1s   | O1  2px  | O1  2py  | O1  2pz  |
+H1  1s   | H2  1s   | 
+ Eliminated Atomic Orbitals
+C4  1s   | C4  1s   | C4  2px  | C4  2py  |
+C4  2pz  | C5  1s   | C5  1s   | C5  2px  |
+C5  2py  | C5  2pz  | C6  1s   | C6  1s   |
+C6  2px  | C6  2py  | C6  2pz  | C7  1s   |
+C7  1s   | C7  2px  | C7  2py  | C7  2pz  |
+H3  1s   | H4  1s   | H5  1s   | H6  1s   |
+H7  1s   | C8  1s   | C8  1s   | C8  2px  |
+C8  2py  | C8  2pz  | C9  1s   | C9  1s   |
+C9  2px  | C9  2py  | C9  2pz  | C10 1s   |
+C10 1s   | C10 2px  | C10 2py  | C10 2pz  |
+C11 1s   | C11 1s   | C11 2px  | C11 2py  |
+C11 2pz  | C12 1s   | C12 1s   | C12 2px  |
+C12 2py  | C12 2pz  | C13 1s   | C13 1s   |
+C13 2px  | C13 2py  | C13 2pz  | H8  1s   |
+H9  1s   | H10 1s   | H11 1s   | H12 1s   |
+H1311s   | H1321s   | 
+
+
+....
+
+ Overlap with non-truncated Orb          Norm
+      O_C1C2   42        1.000815        1.002692
+      O_C2C3   43        1.025093        1.031652
+        O_O1   44        0.999967        1.000058
+        O_O1   45        1.000352        1.000458
+      O_O1C1   46        1.000463        1.000624
+      O_C1H1   47        1.000205        1.000488
+      O_C2H2   48        1.003978        1.007743
+      A_C2C3   49        0.986023        0.994496
+      A_O1C1   50        0.998465        0.999312
+      A_C2C3   51        0.967466        1.015485
+      A_O1C1   52        0.995299        0.998864
+      O_C1C2   53        1.000765        1.006009
+      O_C2C3   54        1.005900        1.034265
+      O_O1C1   55        1.000776        1.001562
+      O_C1H1   56        1.000241        1.001147
+      O_C2H2   57        0.999536        1.002313
+
+\end{verbatim}
+
+It's important to note that the norm can be greater than 1 because we are
+working in a nonorthogonal basis due to the cut.
+
+\begin{verbatim}
+ ngo,nngo,nngv,ngv    41  9  7  27
+         16  orbitales moleculaires locales gardees
+          22  orbitales atomiques gardees
+\end{verbatim}
+
+Here we can note that we froze 41 core orbitals and 27 virtual orbitals. Our
+reduced system will have 16 orbitals, expressed on 22 atom basis. 
+For these orbitals, the expression on atomic basis different from the kept
+ones is set to zero, and the submatrix is extracted. We obtain two
+matrices: the first one (stored in TRONCORBG) has the full dimensionality
+but coefficient set to zero, and the other one (stored in TRONCORBP) has the
+reduced dimensionality.
+For compatiblity reasons with molcas, which is used to perform AO/MO
+transformation, we cannot feed a rectangular matrix to motra. For this
+reason, the 16x22 matrix is squared with other 6 orbitals marked as G\_BID
+with no coefficients. The strategy is to trick motra to ignore these fake
+orbitals passing an appropriate delete parameter.
+Troncat also produces other important files: a .Mono file for the reduced
+system, named TRONCP\_MONO, which contains the AO overlap for the reduced
+basis set; two input files for the subsequent hieriarchical
+orthonormalization, hierinp and hiering, and a MASK file which is used to
+reinsert the small matrix 16x22 into the large one. This MASK reproduces the
+geometry of the large matrix, and has a 1 for each element which belongs to
+the small one, or a 0 elsewhere. 
+
+Then we need to run hieror for both the systems. Important to note is that
+hieror expect the orbitals in INPORB and the .Mono in MONO, so an
+appropriate copy must be performed for TRONCORBP (along with TRONCP\_MONO)
+and TRONCORBG (with the original .Mono from the first molcost). hieror
+produces a ORTORB file which is renamed to ORTORBP or ORTORBG for small and
+large.
+
+The first part is finished, except for a final step: we need to create the
+integrals in MO basis from the new orbitals on the complete basis
+
+\begin{verbatim}
+ &MOTRA &END
+Title
+ tridequenal
+LumOrb
+Frozen
+41
+Delete
+27
+Onel
+End of input
+\end{verbatim}
+
+and the obvious conversion into the cost format
+
+\begin{verbatim}
+ &cost prefix='tridequenal.',molcas=54,
+ fermi=9, frozen=41, oneonly=T,
+ /
+\end{verbatim}
+
+obviously we convert only the one-electron integrals because we are
+interested only in this object.
+
+
+\subsection{Second step - small system}
+
+for the small system we need to perform the same step as before,
+transforming the AO integrals from the reduced system in MO basis.
+We perform a seward on our reduced system
+
+\begin{verbatim}
+ &SEWARD  &END
+Title
+ tridequenal
+square
+Basis set
+C.ano-l...2s1p.
+ C1  0.00000000     0.00000000     0.00000000 Angstrom
+ C2 -1.25573684     0.00000000    -0.72500000 Angstrom
+ C3 -2.42487113     0.00000000    -0.05000000 Angstrom
+End of basis
+Basis set
+O.ano-l...2s1p.
+ O1   0.0000000    0.000000     1.220000  Angstrom
+End of basis
+Basis set
+H.ano-l...1s.
+ H1    0.95262794    0.000000    -0.550000 Angstrom
+ H2   -1.25573684    0.00000000    -1.82500000 Angstrom
+End of basis
+End of input
+\end{verbatim}
+
+and then we transform the integrals with the orbitals from ORTORBP, not
+forgetting that we need to drop the fake orbitals to have a square matrix
+(to satisfy motra).
+
+\begin{verbatim}
+ &MOTRA &END
+Title
+ Tridequenal
+LumOrb
+delete
+6
+End of input
+\end{verbatim}
+
+and then we perform the usual molcost step
+
+\begin{verbatim}
+ &cost prefix='tridequenal.', molcas=54,
+ fermi=9,
+ /
+\end{verbatim}
+
+And the second step is finished.
+
+
+\subsection{third step - optimization}
+
+The third step uses the files provided by the first two steps in order to
+perform the optimization.
+
+The troncoptimizer script is a bash script that needs files in appropriate
+subdirectories of a base directory (which must be changed inside the script)
+inside the scratch
+
+\begin{verbatim}
+basedir/start
+basedir/seward-large
+basedir/seward-small
+\end{verbatim}
+
+seward-large is a directory which must contain the seward binary files obtained from the
+molcas run on the complete system. seward-small contains the seward  binary files
+from the reduced system.
+
+start must contain
+\begin{itemize}
+\item ORTORBP, ORTORBG and MASK
+\item the .Mono and Info files obtained at the end of the first step,
+renamed as .Mono.large and .Info.large
+\item the .Mono and Info files obtained at the end of the second step,
+renamed as .Mono.small and .Info.small
+\item the .ijcl file obtained at the end of the second step.
+\end{itemize}
+
+with this setup, the troncoptimizer script is ready to run. This script
+performs a high number of steps and iterates to improve the orbitals at each
+iteration. The core of the behavior is to improve the ORTORBP small
+matrix. At each iteration, the improved matrix is reinserted inside the
+large ORTORBG using the MASK, and a new integral transformation must be
+performed both on the large system (for one el) and small system (for two
+el). The procedure automatically obtains a new set of files like the ones
+provided by the user in the start directory, and a new iteration begins. The
+stop criterium is on the variation of the energy. If the energy is constant
+for two iterations, the procedure stops.
+
+The input files needed for this step are
+\begin{verbatim}
+SCH_FERMI
+tridequenal.casdi.in
+tridequenal.molcost-bi.in
+tridequenal.motra-bi.in
+tridequenal.casdi-cas.in
+tridequenal.locnats.in
+tridequenal.molcost-mono.in
+tridequenal.motra-mono.in
+\end{verbatim}
+
+Each file will be discussed along the following explanation.
+
+The optimization procedure works as follows: first the .Mono from large and
+small are mixed together to obtain a new .Mono. This mix is required since
+we need the one electron integrals from the large calculation but the
+AO overlap which is contained inside this file is relative to a large basis
+set. We need the overlap on the reduced basis set to perform correctly, so
+the utility program mixmono perform this mixing.
+Also, we need to mix the .Info, because the nuclear energy evaluated for the
+small system is fake (we need the nuclear energy corrected by the frozen
+contribution which is held inside the .Info.large). This mixing is performed
+by a simple internal function in troncoptimizer.
+
+Now everything we need to perform the SuperCI evaluation is available: we run
+casdet/casdi to perform a CAS+S evaluation, using this tridequenal.casdi.in
+
+\begin{verbatim}
+ &cdfil prefix='tridequenal.',
+  det1='DET001',  /
+ &cd gener='CAS+S',noac=4,numac=8,9,10,11,
+ nelac=4,ms2=0,is0=1,  /
+ &cdifil prefix='tridequenal.',
+ det1='DET001', davec='DAVEC001',
+ dens1='DENS001',  /
+ &dav nvec=1,syspin='+',iprec=6, /
+\end{verbatim}
+
+in this case, a CAS 4/4 is defined and a CAS+S evaluation is performed,
+providing the energy. Since it's a CAS+S optimization, the CAS optimized
+wavefunction is obtained when there's no interaction with the singles
+excitations of the multireference wavefunction (extended brillouin theorem
+EBT).
+When this is verified, no variation of the energy occurs adding the single
+excitations. The convergence criterium is to check this energy when it
+becomes constant against the iterations.
+The procedure creates a file named tridequenal.DAVEC001, which the
+troncoptimized moves to ESS001 to feed the subsequent locnats. Also, the
+ORTORBP file is copied to INPORB.
+locnats is now able to perform the localized optimization
+
+\begin{verbatim}
+&locn
+  prefix='tridequenal.'
+  ngel=0,
+  ndel=6,
+  fermi=9,
+  nmat=1,
+  seuil= 0.000100000000000,
+  densmat='DENS001',
+  netat=1,
+  metat=1,
+  coef=1.0d0,
+  orbv='INPORB',
+  orbn='LOCORB2',
+  nprint=5,
+  yverif=T,
+ /
+\end{verbatim}
+
+also using the provided SCH\_FERMI
+
+\begin{verbatim}
+&ferm fermi= 9, /
+\end{verbatim}
+
+please note that the fermi level is always specified relative to the reduced
+non-frozen system of orbitals, thus the 9.
+the locnats input is relative to ORTORBP, so the number of frozen orbitals
+is zero (because the small matrix has no "core" removed orbitals) and the
+number of deleted orbitals (the "virtual" removed orbitals) is the number of
+fake orbitals in the ORTORBP matrix.
+
+The result is provided by locnats in the file LOCORB2.
+
+The troncoptimizer now has what it needs: an improved set of orbitals on the
+small system. At this point, to recover the starting position it needs to
+retransform integrals from AO to MO with the new orbitals. To recreate the
+two electron integrals, it needs only the seward-small and the LOCORB2
+(moved to INPORB), and run motra and then molcost.
+
+\begin{verbatim}
+ &MOTRA &END
+Title
+ tridequenal
+LumOrb
+Delete
+6
+End of input
+\end{verbatim}
+
+\begin{verbatim}
+ &cost prefix='tridequenal.',molcas=54,
+ fermi= 9,
+ /
+\end{verbatim}
+
+To recreate the one electron .Mono and .Info for the large system we need a
+previous step: reinsertion of the small matrix into the old large matrix,
+replacing only the elements interested in optimization, and not touching the
+remaining part. The program expandat performs this service, taking the
+ORTORBP, ORTORBG and MASK and creating a file MIXORB. No user intervention
+is needed. The troncoptimizer now copy MIXORB to INPORB and motra/molcost is
+performed to obtain the .Mono and .Info
+
+here is the motra-mono.in
+
+\begin{verbatim}
+ &MOTRA &END
+Title
+ tridequenal
+LumOrb
+Frozen
+41
+Delete
+27
+Onel
+print
+10
+End of input
+\end{verbatim}
+
+and the molcost-mono.in
+
+\begin{verbatim}
+ &cost prefix='tridequenal.',molcas=54,
+ fermi=9, frozen=41, oneonly=T,
+ /
+\end{verbatim}
+
+All the staring files have been created. They can be collected and a new
+iteration can begin. When the EBT is verified, the energy given by casdi
+does not change, the last iteration collects all files and start the
+postprocessing procedure, which is a standard CAS evaluation
+
+\begin{verbatim}
+ &cdfil prefix='tridequenal.'  /
+ &cd gener='CAS',noac=4,numac=8,9,10,11,
+ nelac=4,ms2=0,is0=1,  /
+ &cdifil prefix='tridequenal.'  /
+ &dav nvec=1, syspin='+', iprec=6 /
+\end{verbatim}
+
+As a reference, this is the output of the energies for the represented
+example
+
+\begin{verbatim}
+Iteration 1: -573.88893768
+Iteration 2: -573.88905028
+Iteration 3: -573.88904383
+Iteration 4: -573.88904334
+Iteration 5: -573.88904326
+Iteration 6: -573.88904326
+\end{verbatim}
+
+
+\end{document}
