@@ -1,0 +1,215 @@
+\documentclass[a4paper]{article}
+\begin{document}
+
+strategy:
+
+for each of the molecules formaldehyde, acetaldehyde, acetone, we need to compute
+
+1) vertical energies for excited states n->pi* and pi->pi* singlet and triplet
+2) adiabatic energies (need geometry optimization... need to solve)
+
+Strategy for the active space is here depicted: for each of the excited states
+we compute, with the localization strategy, an average between the ground and
+the excited state. The active space must be the minimal to achieve a good description
+for the excitation. For this reason, we target at ny,pi* localized space and pi,pi*
+localized space for our excitations.
+
+We need also to evaluate the transitions at the DDCI and CAS+SD level.
+
+Problem n.1: the localized optimization procedure converges at a minimum that is not
+the CASSCF minimum, due to the uncontracted approach for the CAS+S strategy. Also,
+to submit our orbitals to nevpt, we need a canonization. We will use this procedure:
+
+1) Localization chain to obtain localized optimized orbitals (they aren't the CASSCF
+   orbitals, but they are really near)
+
+2) RASSCF calculation (with molcas) using this orbital set to converge to the
+   CASSCF orbitals plus canonization. This should indeed delocalize the orbitals,
+   but it shouldn't corrupt the nature of the active space (we hope)
+
+3) NEVPT chain with CASSCF+canonize orbitals
+
+Problem n. 2: localization can optimize for an average of states with
+different symmetry, but molcas does not. This lead to the problem that doing
+an average optimization between the ground state and the n->pi* state, the
+obtained energy (and orbitals) are not optimized for the ground nor for the
+excited. The subsequent molcas treatment (needed as long as we need canonized
+casscf orbitals) converges at the ground \underline{or} at the excited, which leads to
+heavy delocalization and corruption of the cas space nature. To target this
+point there are three strategies:
+
+1) embed the canonization in the optimization procedure in noscf. not
+feasible.
+
+2) skip the average optimization and locally optimize for each state.
+This strategy forces to an SCF for the ground state, since there's no
+need for static correlation, and recover the dynamic correlation with a simple
+MP2 treatment. 
+
+3) completely remove the symmetry.
+In this case, after obtaining the optimized orbitals for the average for the
+ground and excited state, we need to converge at the average casscf solution
+with molcas (now the states are on the same symmetry, so it's no longer a
+problem), then extract each state with a rasci+canonize and feed these
+canonized orbitals into the nevpt2 chain.
+
+Also, check the geometries! our geometries were optimized at CAS(6/5) level.
+bby assumption, we can trust them as a fixed point for comparison against
+lara's data.
+
+
+1(n->pi*)
+---------
+n and pi* in CAS
+
+* CAS2/2-loc+NEVPT2 average\_CAS nosymm
+
+ground
+CAS -113.89828957
+SC  -114.26953357
+PC  -114.26954271
+
+
+excited
+
+CAS -113.76781143 (3.55)
+SC  -114.12343397 (3.98)
+PC  -114.12343900 (3.98)
+
+* CAS2/2-deloc+NEVPT2 average\_CAS nosymm
+
+ground
+CAS  -113.89828954
+SC   -114.26953357
+PC   -114.26954271
+
+excited
+CAS  -113.76781143 (3.55)
+SC   -114.12343391 (3.98)
+PC   -114.12343894 (3.98)
+
+
+1(pi->pi*)
+----------
+pi and pi* in cas
+
+CAS2/2-loc+NEVPT2 average\_CAS nosymm
+
+there are problems in convergence, due to the fact that the n->pi* state lays
+under the pi->pi* one. For this reason, the optimization procedure tries to
+include this state, and at the end of the optimization there are pi and pi* as
+active space, but the small coefficients on the n->pi* one are dramatic for
+the subsequent casscf procedure. For this reason, a change of strategy is
+needed. We set the active space to 4 electrons / 3 orbitals, including n,pi
+and pi* orbitals. The procedure is the same.
+
+
+CAS3/4-loc+NEVPT2 average\_CAS nosymm
+
+           ground          n->pi*                 pi->pi*
+
+CAS   -113.93011520    -113.78485967 (3.95)   -113.51725460 (11.23)
+SC    -114.25832978    -114.10849912 (4.08)   -113.91406971 (9.37)
+PC    -114.25922520    -114.11001484 (4.06)   -113.92883896 (8.99)
+
+
+Doing the same calculation without localization we obtain the same values, so
+we cannot address the problem for the wrong evaluation of the pi->pi* to the
+localization procedure.
+
+Also, a CAS+SD evaluation has been performed:
+
+-114.25206281 -114.10725960 (3.94) -113.88372567 (10.02)
+
+
+
+The same calculations on acetone gives
+
+CAS   -192.04587952    -191.88416488 (4.40)   -191.64643339 (10.87)
+SC    -192.68869092    -192.52241498 (4.52)   -192.35751421 (9.01)
+PC    -192.68966691    -192.52404599 (4.51)   -192.37131301 (8.66)
+
+
+why the discrepancy ? maybe the NEVPT results are heavily affected by the
+presence of the sigma and sigma* orbitals?
+since we cannot build a localized space with 6/5 (due to problem in
+convergence with orbitals that are nearly empty) nor hold a 6/5 space without
+localization and symmetry (since we need to do average cas, and we need to
+remove symmetry to do the average with molcas), we try another strategy and
+reimpose symmetry, then we calculate the energy for the pi/pi* state with the
+sigma/sigma* and without. An average cas between the ground and the pi->pi*
+state is performed.
+
+ 
+with sigma, these energies are obtained
+
+ground   -113.96386577           -114.24543946           -114.24875572
+pi->pi*  -113.57819232 (10.49)   -113.87946329 (9.95)    -113.89230612 (9.70)
+
+without sigma
+
+ground   -113.92447070           -114.25828560           -114.25904939
+pi->pi*  -113.53112610 (10.70)   -113.90099214 (9.72)    -113.91291415 (9.41)
+
+
+Weighting differently the ground and pi->pi* we obtain
+
+(4.0 1.0 4.0)
+
+CAS  -113.92696969      -113.77210112 (4.21)     -113.52753067 (10.86)
+SC   -114.25865170      -114.11161686 (4.00)     -113.90448914 (9.63)
+PC   -114.25945931      -114.11376198 (3.96)     -113.91757130 (9.30)
+
+(6.0 1.0 6.0)
+
+CAS  -113.92628054      -113.76945857 (4.27)     -113.52876723 (10.81)
+SC   -114.25854600      -114.11207177 (3.98)     -113.90327035 (9.66)
+PC   -114.25934502      -114.11434733 (3.94)     -113.91608013 (9.34)
+
+(10 1 10)
+ 
+CAS  -113.92563500      -113.76697632 (4.32)     -113.52974165 (10.77)
+SC   -114.25841376      -114.11244304 (3.97)     -113.90227226 (9.69)
+PC   -114.25920633      -114.11484368 (3.93)     -113.91483356 (9.37)
+ 
+(20 1 20)
+
+CAS  -113.92508294      -113.76483878 (4.36)     -113.53045290 (10.73)
+SC   -114.25828242      -114.11273840 (3.96)     -113.90151306 (9.71)
+PC   -114.25907005      -114.11524762 (3.91)     -113.91386163 (9.39)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

@@ -1,0 +1,402 @@
+\documentclass[a4paper,11pt]{report}
+\begin{document}
+We start with a suited basis for this type of calculations.
+
+\begin{verbatim}
+ &SEWARD  &END
+Title
+ He2
+nopack
+Basis set
+He...1s.1s. / Inline
+          2.   0
+    2    2
+ 2.0 1.0
+1.0 0.0
+0.0 1.0
+ He1         0.0000000000            0.0000000000            0.0
+ He2        0.0                     0.0                     4.0
+End of basis
+End of input
+\end{verbatim}
+
+quite crude but effective. The procedure wants a seward run, then an scf run
+(with pror 2 100.0 to see all the orbitals) then we need a motra and finally
+a molcost with these options
+
+\begin{verbatim}
+ &cost prefix='He2.',molcas=54, ycl=T,
+ fermi=2,
+ /
+\end{verbatim}
+
+the ycl=T write a plain text file which contains the bielectronic integrals
+in the form
+
+i j k l val
+
+NB: they are (ij|kl), \underline{not} <ij|kl>
+
+and the monoelectonic integrals in the form
+
+i j 0 0 val
+
+please note that these integrals are in molecular basis. 
+
+Given these SCF energies
+
+\begin{verbatim}
+   Orb  Occ    Energy  Couls-En    Coefficients
+
+                                   1 1s      1 1s
+
+   1.1   2     -.5473   -2.7908   .848136   .163390
+
+   2.1   0     3.6801    4.8728 -2.333286  2.477686
+
+                                   1 1s      1 1s
+
+   1.5   2     -.5439   -2.7853   .843844   .168207
+
+   2.5   0     3.7096    4.9319 -2.339678  2.481088
+\end{verbatim}
+ 
+
+and these integrals with 4 MO
+
+\begin{verbatim}
+    .722797277824      1  1  1  1
+    .133337162690      2  1  1  1
+    .997625951561E-01  2  1  2  1
+    .671586006568      2  2  1  1
+    .128286296598      2  2  2  1
+    .651038659027      2  2  2  2
+    .723420689773      3  3  1  1
+    .133785838520      3  3  2  1
+    .672166564680      3  3  2  2
+    .724046282009      3  3  3  3
+    .133196061119      4  3  1  1
+    .997697624408E-01  4  3  2  1
+    .128256409400      4  3  2  2
+    .133644309237      4  3  3  3
+    .997783402296E-01  4  3  4  3
+    .671313370894      4  4  1  1
+    .128056124251      4  4  2  1
+    .650736469959      4  4  2  2
+    .671893916713      4  4  3  3
+    .128023486515      4  4  4  3
+    .650441542605      4  4  4  4
+    .473418991739      3  1  3  1
+    .134550641683      3  2  3  1
+    .100308940682      3  2  3  2
+    .132430570474      4  1  3  1
+    .997680032311E-01  4  1  3  2
+    .992367078345E-01  4  1  4  1
+    .421737772393      4  2  3  1
+    .129117300189      4  2  3  2
+    .127193246067      4  2  4  1
+    .400736619309      4  2  4  2
+   -2.24350979593      1  1  0  0
+   -.266358195975      2  1  0  0
+    1.19268086390      2  2  0  0
+   -2.24138695266      3  3  0  0
+   -.267605863011      4  3  0  0
+    1.22222567017      4  4  0  0
+    1.00000000000      0  0  0  0
+\end{verbatim}
+
+and these integrals at 3 MO
+
+\begin{verbatim}
+    .651038659027      1  1  1  1
+    .672166564680      2  2  1  1
+    .724046282009      2  2  2  2
+    .128256409400      3  2  1  1
+    .133644309237      3  2  2  2
+    .997783402296E-01  3  2  3  2
+    .650736469959      3  3  1  1
+    .671893916713      3  3  2  2
+    .128023486515      3  3  3  2
+    .650441542605      3  3  3  3
+    .100308940682      2  1  2  1
+    .129117300189      3  1  2  1
+    .400736619309      3  1  3  1
+    2.43609028188      1  1  0  0
+   -1.26796456486      2  2  0  0
+   -.133644311247      3  2  0  0
+    2.46561570412      3  3  0  0
+   -2.76422231404      0  0  0  0
+\end{verbatim}
+
+The value for (1|1) in 3 MO can be evaluated as the
+subsequent values from 4MO
+
+$
+(2|2)+2*(22|11) - (21|21)
+$
+$
+1.19268086390+2*.671586006568-.997625951561E-01
+$
+
+this because the orbitals are renumbered. In the 3 MO calculations the
+orbital n. 1 was the 2nd in the 4 MO calculation.
+
+In the 0 0 0 0 term (the nuclear repulsion energy) goes the whole mono and
+bielectronic part for the core orbitals. Here the value is (indicating with
+(0|0) the nuclear repulsion energy)
+
+$
+(0|0)_{3mo} = (0|0)+2*(1|1)+2*(11|11)-(11|11)
+$
+$
+1.0 + 2*(-2.24350979593)+.722797277824
+$
+this is because, if we write down the expression for the electronic
+hamiltonian in spinless formulation
+
+$
+H = \sum_{pq} (p|q) E_{pq} + \frac{1}{2} \sum_{pqrs} (pq|rs) (E_{pq}E_{rs} -
+\delta_{qr} E_{ps}
+$
+
+and remembering that
+$
+E_{pq} = a^{+}_{p\alpha}a_{q\alpha} + a^{+}_{p\beta}a_{q\beta}
+$
+
+the application of the latter on a single determinant gives
+\begin{eqnarray}
+\left< HF \left| E_{pq} \right| HF \right> & = & \left< HF \left|
+a^{+}_{p\alpha}a_{q\alpha} \right| HF \right> + \left< HF \left|
+a^{+}_{p\beta}a_{q\beta} \right| HF \right> \\
+& = & \delta_{pq} + \delta_{pq} \\
+& = & 2 \delta_{pq} 
+\end{eqnarray}
+
+and then our hamiltonian operator can be partitioned in sums with indices
+that run on the frozen orbitals and indices that run on the other orbitals.
+As we can see, the monoelectronic term gives a constant (where both p and q
+belongs to a frozen) which will be added to the new nuclear repulsion energy,
+two mixed frozen-nonfrozen sums that evaluates always as zero
+(because the action of the operator is on different class of orbitals) and
+finally a nonfrozen-nonfrozen term that is a real monoelectronic term.
+Doing the same for the bielectronic sum, we obtain 16 contributions. Most of
+them are zero. The term with the four indices that run on frozen is a
+constant and is also merged to the nuclear repulsion energy.
+For the others ... (FIXME continue)
+
+To calculate the HF energy, we need to compute, with the 4 MO integrals, the
+sum over the occupied orbitals. Please note that the order is 1,3 occupied,
+2,4 virtual
+
+$
+(1|1)+(11|11)+2*(33|11)-(31|31)
+$
+$
+-2.24350979593+.722797277824+2*.723420689773-.473418991739 = -0.5472901
+$
+for the scf energy of a virtual orbital, we say
+
+$
+(2|2)+2*(22|11)-(21|21)+2*(33|22)-(32|32)
+$
+$
+1.19268086390+2*.671586006568-.997625951561E-01+2*.672166564680-.100308940682
+$
+Let's try a more difficult calculation. Suppose we have an N2 molecule. This
+is the input for molpro
+
+\begin{verbatim}
+ ***, N2
+ memory,6,m
+ int;x,y,z;
+ a1,N,0.0,0.0,1.5;
+ s,1,roos;3c;
+ p,1,roos;1c;
+ -;
+
+ hf;
+ occ,3,1,1,0,2,0,0,0;
+ orbprint,6;
+
+ fci;
+ core,2,0,0,0,2,0,0,0;
+ dump
+\end{verbatim}
+
+The basis set is 3s1p ano basis. The final orbital energies are
+
+\begin{verbatim}
+   Orb  Occ    Energy  Couls-En    Coefficients
+   
+                                   1 1s      1 1s      1 1s      1 2pz
+   1.1   2   -15.8083  -42.5719   .999943   .000132   .000180  -.001101
+   2.1   2    -1.2403   -9.2615  -.020179   .839029  -.040488  -.201442
+   3.1   2     -.5610   -7.5635   .026630   .416299   .064796   .910053
+   4.1   0      .4230   -4.1078  -.037609  -.218839   .865665  -.054656
+   
+                                   1 2px
+   1.2   2     -.4908   -7.3221   .918502
+   
+                                   1 2py
+   1.3   2     -.4908   -7.3221   .918502
+   
+                                   1 1s      1 1s      1 1s      1 2pz
+   1.5   2   -15.8077  -42.5719  1.000125   .001044   .001135  -.001405
+   2.5   2     -.9255   -8.3026   .008110  1.033540  -.021625   .197562
+   3.5   0      .2076   -7.1786  -.049957  -.614440   .118351  1.192354
+   4.5   0      .7374   -4.0818   .122885  1.075876  1.709992  -.774165
+
+                                   1 2px
+   1.6   0     -.0357   -7.1433  1.107922
+
+                                   1 2py
+   1.7   0     -.0357   -7.1433  1.107922
+\end{verbatim}
+ 
+
+let's try to evaluate the energy for the first orbital. we have
+
+\begin{eqnarray}
+(1|1)&+&(11|11) \\
+  &+&2*(22|11)-(21|21) \\
+  &+&2*(33|11)-(31|31) \\
+  &+&2*(55|11)-(51|51) \\
+  &+&2*(66|11)-(61|61) \\
+  &+&2*(77|11)-(71|71) \\
+  &+&2*(88|11)-(81|81)
+\end{eqnarray}
+
+
+the order for the orbitals is:
+\begin{verbatim}
+1.1 -> 1    2.1 -> 2    3.1 -> 3    4.1 -> 4   1.2 -> 5
+1.3 -> 6    1.5 -> 7    2.5 -> 8    3.5 -> 9
+4.5 -> 10   1.6 -> 11   1.7 -> 12
+\end{verbatim}
+
+occupied orbitals are 1 2 3 5 6 7 8 
+
+\begin{verbatim}
+    2.22985979346      1  1  1  1
+    .300875029048E-01  2  1  2  1
+    .670739004262      2  2  1  1
+    .146710493852E-01  3  1  3  1 
+    .619586217862      3  3  1  1
+    .596164398969      5  5  1  1
+    .122817637216E-01  5  1  5  1
+    .596164398969      6  6  1  1  
+    .122817637216E-01  6  1  6  1
+    2.23008190655      7  7  1  1 
+    1.89671151159      7  1  7  1
+    .650259273947      8  8  1  1  
+    .344929011568E-01  8  1  8  1
+   -26.7636283326      1  1  0  0
+    16.3333333333      0  0  0  0
+\end{verbatim}
+
+\begin{eqnarray}
+-26.7636283326 & + & 2.22985979346 \\
+ &+&2*.670739004262-.300875029048E-01 \\
+ &+&2*.619586217862-.146710493852E-01 \\
+ &+&2*.596164398969-.122817637216E-01 \\
+ &+&2*.596164398969-.122817637216E-01 \\
+ &+&2*2.23008190655-1.89671151159 \\
+ &+&2*.650259273947-.344929011568E-01 \\
+&=& -15.808305
+\end{eqnarray}
+
+so far so good. Let's try our real game.
+first of all: the renumeration.
+
+\begin{verbatim}
+ occ,3,1,1,0,2,0,0,0;
+core,2,0,0,0,2,0,0,0;
+\end{verbatim}
+
+so it means that the orbitals marked as 1,2,7,8 are no more in play.
+For this reason, the remaining active orbitals should be
+
+\begin{verbatim}
+3  ->  1 (in mo restricted)
+4  ->  2 ( " )
+5  ->  3 ( " )
+6  ->  4 ( " )
+9  ->  5 ( " )
+10 ->  6 ( " )
+11 ->  7 ( " )
+12 ->  8 ( " )
+\end{verbatim}
+
+(check ORBSYM=1,1,2,3,5,5,6,7 from output... it is coherent. ok)
+
+so the value for (1|1) in the small MO evaluation should be
+
+(3|3)+2*(33|11) - (31|31)
+     +2*(33|22) - (32|32)
+     +2*(33|77) - (37|37)
+     +2*(33|88) - (38|38)
+
+which should evaluate as 
+
+ -2.79916184443      1  1  0  0
+
+
+
+ -7.00255791386 + 2*.443886537843 - .146710493852E-01
+                + 2*.488633828559 - .693573270881E-01
+
+                + 2*.619590157014 - .143434456282E-01
+                + 2*.490734169087 - .135320853512
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The nuclear repulsion energy contribution for the 0 frozen case evaluates
+as 16.3333333333, whereas the same value for 4 frozen is -98.8640342995.
+This should be
+
+$
+(0|0) restricted = (0|0) + \sum_{i=1,2,7,8} 2*(i|i) + \sum_{i,j=1,2,7,8} 2*(ii|jj) - (ij|ij)
+$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Appendix A}
+
+Demonstration of the sums can be given here.
+Being this the hamiltonian, written in spatial orbital formulation
+
+$
+H = \sum_{pq} (p|q) E_{pq} + \frac{1}{2} \sum_{pqrs} (pq|rs) (E_{pq}E_{rs} -
+\delta_{qr} E_{ps}
+$
+
+and remembering that
+$
+E_{pq} = a^{+}_{p\alpha}a_{q\alpha} + a^{+}_{p\beta}a_{q\beta}
+$
+
+and so the application of the latter on a single determinant gives
+\begin{eqnarray}
+\left< HF \left| E_{pq} \right| HF \right> & = & \left< HF \left|
+a^{+}_{p\alpha}a_{q\alpha} \right| HF \right> + \left< HF \left|
+a^{+}_{p\beta}a_{q\beta} \right| HF \right> \\
+& = & \delta_{pq} + \delta_{pq} \\
+& = & 2 \delta_{pq} 
+\end{eqnarray}
+
+and then our hamiltonian operator can be partitioned in sums with indices
+that run on the frozen orbitals and indices that run on the other orbitals.
+As we can see, the monoelectronic term gives a constant (where both p and q
+belongs to a frozen) which will be added to the new nuclear repulsion energy,
+two mixed frozen-nonfrozen sums that evaluates always as zero
+(because the action of the operator is on different class of orbitals) and
+finally a nonfrozen-nonfrozen term that is a real monoelectronic term.
+Doing the same for the bielectronic sum, we obtain 16 contributions. Most of
+them are zero. The term with the four indices that run on frozen is a
+constant and is also merged to the nuclear repulsion energy.
+For the others ... (FIXME continue)
+
+\end{document}

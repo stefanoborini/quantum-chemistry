@@ -1,0 +1,217 @@
+%% LyX 1.3 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+\usepackage[italian]{babel}
+\usepackage{graphicx}
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+%% Bold symbol macro for standard LaTeX users
+\newcommand{\boldsymbol}[1]{\mbox{\boldmath $#1$}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+\usepackage{verbatim}
+\usepackage{babel}
+\makeatother
+\begin{document}
+
+\title{Uso della catena di localizzazione}
+
+\maketitle
+
+L'uso della catena di localizzazione prevede:
+
+\begin{enumerate}
+\item un calcolo CAS per generare lo spazio dei determinanti (file04)
+\item un calcolo HF per generare la matrice densita' ad una particella
+\item un calcolo utilizzando il programma \textit{schmuds} per generare il
+guess di partenza come orbitali localizzati.
+\end{enumerate}
+
+Il calcolo CAS per generare lo spazio dei determinanti prevede di effettuare
+un calcolo senza simmetria, utilizzando lo switch INTERFACE e DETERMINANTS.
+per l'esempio si e' fatto uso della molecola di benzaldeide, secondo questi
+file di input
+\begin{verbatim}
+cat<<EOF>$Project.mol
+ATOMBASIS
+ $Project
+ ano basis
+    3    0
+      8.     1 ano-1 3 2 1
+O1         0.0043716913           -0.0343242164            0.0000000000
+       6.     7 ano-1 3 2 1
+C1         2.2815322365           -0.0177311117            0.0000000000
+C2         3.8476364616            2.3112571884            0.0000000000
+C3         6.4783602476            2.0947264271            0.0000000000
+C4         7.9938438923            4.2615581716            0.0000000000
+C5         6.8676457326            6.6460769596            0.0000000000
+C6         4.2269336945            6.8676900157            0.0000000000
+C7         2.7192947406            4.7107444955            0.0000000000
+       1.     6 ano-1 2 1
+H1         7.3440036099            0.2440600759            0.0000000000
+H2        10.0279217052            4.0851343463            0.0000000000
+H3         8.0311340082            8.3244443945            0.0000000000
+H4         3.3599702136            8.7164731110            0.0000000000
+H5         0.6849733871            4.8549694770            0.0000000000
+H6         3.3349722213           -1.8061464581            0.0000000000
+EOF
+
+cat<<EOF>$Project.dal
+**DALTON INPUT
+!.OPTIMIZE
+.RUN WAVE FUNCTION
+**INTEGRALS
+!.NOTWO
+**WAVE FUNCTIONS
+.HF
+.MP2
+.MCSCF
+.INTERFACE
+*HF INPUT
+.HF OCC
+28
+*AUXILLIARY INPUT
+.NOSUPMAT
+*CONFIGURATION INPUT
+.SYMMETRY
+ 1
+.SPIN MUL
+ 1
+.INACTIVE
+ 26
+.ELECTRONS
+ 4
+.CAS SPACE
+ 4
+*ORBITAL
+.NOSUPSYM
+!.MOSTART
+! NEWORB
+*OPTIMIZATION
+.DETERMINANTS
+.CI PHP MATRIX
+300
+.MAX MACRO ITERATIONS
+100
+.MAX CI
+150
+*CI VECTOR
+.PLUS COMBINATIONS
+*END OF INPUT
+EOF
+\end{verbatim}
+
+Vengono creati una serie di file che servono nelle successive fasi. La fase
+successiva e' creare un file04 che descriva i determinanti dello spazio cas
+generato. per fare questo si fa uso di ijkldali e cipselx, con il seguente
+input
+
+\begin{verbatim}
+/home/renzo/bin/ijkldali5<<EOF> $OutputDir/ijkldal.out
+ &LEGGI
+   DIR='$WorkDir/',
+   MCORE=400,IOCC=28,MOLAB='CASTOCIP',
+   DALTOCIP=T,   &END
+EOF
+fi
+
+/home/renzo/bin/cipselx <<EOF >$OutputDir/cip.conf.sel.out 2>&1
+ &FILES FILE04='$WorkDir/file04',
+        FILE03='$WorkDir/file03',
+        FILE44='$WorkDir/FILE04',
+        FILE25='$WorkDir/FILE25',   &END
+ &ICINP ISZ=0,TEST=0.0000,SIGMA=0.10,ZAUTO=T,ZOLD=T,ZBIN=T, &END
+EOF
+\end{verbatim}
+
+una volta effettuato questo step, e' necessario generare la matrice densita'
+ad una particella lanciando un conto HF
+
+\begin{verbatim}
+cat<<EOF>$Project.dal
+**DALTON INPUT
+.RUN WAVE FUNCTION
+**INTEGRALS
+.NOTWO
+**WAVE FUNCTIONS
+.HF
+.INTERFACE
+*HF INPUT
+.HF OCC
+28
+*AUXILLIARY INPUT
+.NOSUPMAT
+*ORBITAL
+.NOSUPSYM
+*END OF INPUT
+EOF
+\end{verbatim}
+
+ed ora si genera il guess localizzato facendo uso del programma schmuds. In
+questo file si deve descrivere lo scheletro molecolare legame per legame.
+
+\begin{verbatim}
+/home/cele/bin/schmuds <<EOF >$OutputDir/schmuds.out
+&smufil prefix='$Project.' /
+ &smu nprint=3, orb='$Project.ScfOrb' /
+&oao /
+ c* 1s(1) pr=1
+ o* 1s(1) pr=1
+ c* 1s(2) pr=2
+ h* 1s(1) pr=2
+ o* 1s(2) pr=2
+ o* 2px(1) pr=2
+ o* 2py(1) pr=2
+ o* 2pz(1) pr=2
+ c* 2px(1) pr=2
+ c* 2py(1) pr=2
+ c* 2pz(1) pr=2
+fin
+ &orb  /
+ c o1 1s(1) (1 0)
+ c c1 1s(1) (1 0)
+ c c2 1s(1) (1 0)
+ c c3 1s(1) (1 0)
+ c c4 1s(1) (1 0)
+ c c5 1s(1) (1 0)
+ c c6 1s(1) (1 0)
+ c c7 1s(1) (1 0)
+ o o1 2py(1) (1 0)
+ o c1 1s(2) 2px(1) 2py(1) : c2 1s(2) 2px(1) 2py(1) (1 1)
+ o c2 1s(2) 2px(1) 2py(1) : c3 1s(2) 2px(1) 2py(1) (1 1)
+ o c3 1s(2) 2px(1) 2py(1) : c4 1s(2) 2px(1) 2py(1) (1 1)
+ o c4 1s(2) 2px(1) 2py(1) : c5 1s(2) 2px(1) 2py(1) (1 1)
+ o c5 1s(2) 2px(1) 2py(1) : c6 1s(2) 2px(1) 2py(1) (1 1)
+ o c6 1s(2) 2px(1) 2py(1) : c7 1s(2) 2px(1) 2py(1) (1 1)
+ o c7 1s(2) 2px(1) 2py(1) : c2 1s(2) 2px(1) 2py(1) (1 1)
+ o c3 2pz(1) : c4 2pz(1) : c5 2pz(1) : c6 2pz(1) : c7 2pz(1) : c2 2pz(1) (3
+3)
+ o h1 1s(1) : c3 1s(2) 2px(1) 2py(1) (1 1)
+ o h2 1s(1) : c4 1s(2) 2px(1) 2py(1) (1 1)
+ o h3 1s(1) : c5 1s(2) 2px(1) 2py(1) (1 1)
+ o h4 1s(1) : c6 1s(2) 2px(1) 2py(1) (1 1)
+ o h5 1s(1) : c7 1s(2) 2px(1) 2py(1) (1 1)
+ o h6 1s(1) : c1 1s(2) 2px(1) 2py(1) (1 1)
+ a c1 1s(2) 2px(1) : o1 1s(2) 2px(1) (2 1)
+ a c1 2pz(1) : o1 2pz(1) (1 1)
+fin
+
+
+
+
+\end{verbatim}
+
+
+
+
+
+
+
+
+
+\end{document}

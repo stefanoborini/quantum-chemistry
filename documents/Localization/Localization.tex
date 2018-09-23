@@ -1,0 +1,350 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+\usepackage[italian]{babel}
+\usepackage{graphicx}
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+%% Bold symbol macro for standard LaTeX users
+\newcommand{\boldsymbol}[1]{\mbox{\boldmath $#1$}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+\usepackage{verbatim}
+\usepackage{babel}
+\makeatother
+\begin{document}
+
+
+
+\section{How to use localization}
+
+The localization chain is bound to molcas through the molcost interface.
+molcost takes the output from molcas and convert it in a file format useful for
+the localization chain. An analogous program could be implemented for
+dalton, named dalcost.
+
+The normal procedure is given by
+
+\begin{itemize}
+\item seward 
+\item scf
+\item molcost
+\item schmudorb
+\item proj\_scf
+\item schmudort
+\item noscf
+\end{itemize}
+
+The seward input defines everything as usual. Only a couple of things should be
+kept in mind. first: you need ANO basis, second: the label for each atom is
+important for the subsequent steps, so keep them different one from each other,
+and coherent to recover them in the next steps.
+
+The SCF input is quite simple. You need to specify the occupation for each
+symmetry. Nothing complicated.
+
+Then it cames molcost. The input is also really simple. You need to specify
+only the fermi level
+
+\begin{verbatim}
+ &cost prefix='pentenal.' , molcas=54,
+ fermi=19,3,
+ /
+\end{verbatim}
+
+Probably molcost will complain about a missing file, but it's not
+important. At the first run, you need only to create the .Info file that
+will be used in subsequent steps. Molcost generates 3 files: .Info is a
+namelist that holds various informations about the calculation done, .Mono
+holds the AO overlap matrix and the monoelectronic MO integrals, .ijcl holds
+the MO bielectronic integrals.
+
+After this you need to run schmudorb. This code generates the localized guess.
+This is for the case of penthenal
+
+\begin{verbatim}
+ &smufil prefix='pentenal.',progr='MOLCAS' /
+ &smu nprint=1
+ orb='pentenal.ScfOrb' /
+
+ &oao /
+C* 1s(1) pr=1
+C* 1s(2) pr=2
+C* 2p(1) pr=2
+O* 1s(1) pr=1
+O* 1s(2) pr=2
+O* 2p(1) pr=2
+H* 1s(1) pr=2
+fin
+
+ &orb numac=57,60  /
+C_C1 C1 1s(1) (1 0)
+C_C2 C2 1s(1) (1 0)
+C_C3 C3 1s(1) (1 0)
+C_C4 C4 1s(1) (1 0)
+C_C5 C5 1s(1) (1 0)
+C_O1 O1 1s(1) (1 0)
+O_O1 O1 1s(2) 2p(1) (2 0) Ref 1
+A_O1C1 C1 1s(2) 2p(1) : O1 1s(2) 2p(1) (4 2) Proj 1
+O_C1C2 C1 1s(2) 2p(1) : C2 1s(2) 2p(1) (1 1)
+O_C2C3 C2 1s(2) 2p(1) : C3 1s(2) 2p(1) (2 2)
+O_C3C4 C3 1s(2) 2p(1) : C4 1s(2) 2p(1) (1 1)
+O_C4C5 C4 1s(2) 2p(1) : C5 1s(2) 2p(1) (2 2)
+O_C1H1 C1 1s(2) 2p(1) : H1 1s(1) (1 1)
+O_C2H2 C2 1s(2) 2p(1) : H2 1s(1) (1 1)
+O_C3H3 C3 1s(2) 2p(1) : H3 1s(1) (1 1)
+O_C4H4 C4 1s(2) 2p(1) : H4 1s(1) (1 1)
+O_C5H51 C5 1s(2) 2p(1) : H51 1s(1) (1 1)
+O_C5H52 C5 1s(2) 2p(1) : H52 1s(1) (1 1)
+fin
+\end{verbatim}
+
+The oao section specifies the atomic orbital specification. For each atom you
+need to specify the "priority" for the orbital lowdin orthogonalization. Please
+note that:
+
+1) the * matches numbers, not characters. This to clarify that C* does
+\underline{not} match a Cr (chromium) atom.  This is against the bash common
+behaviour for pattern globbing. Using C* matches every carbon atom. This
+recall us the point that in seward the denomination must follow a consistent
+rule.
+
+2) For the specification of atomic orbitals, the 1s orbital is named 1s(1), the
+2s is 1s(2) and so on.  The 2p is 2p(1), the 3p is 2p(2) and so on.
+
+The \&orb section specifies the molecular orbitals that we want to build. The
+first label of each line is made to recall the specification in seward. Also,
+the first character of this label must be one of the follows
+
+C for core orbitals
+O for occupied
+A for active
+G for frozen
+
+the frozen option is used to freeze the orbitals. no computation will be carried
+over these orbitals and they will be taken as specified. Also, The subsequent
+codes use components from molcas, and the specified orbitals will be tagged
+with the Frozen molcas keyword. Frozing is useful when doing very large
+molecules.
+
+Core are orbitals that are deep in the orbital energy progression. They don't
+produce virtual orbitals.
+
+\begin{verbatim}
+C_C1 C1 1s(1) (1 0)
+\end{verbatim}
+
+on this line, is specified that the 1s orbital for the C1 atom is core, and it
+creates (1 0), 1 completely filled orbital and 0 virtual orbitals. the same for
+other atoms.
+
+Then it comes the lines
+
+\begin{verbatim}
+O_O1 O1 1s(2) 2p(1) (2 0) Ref 1
+A_O1C1 C1 1s(2) 2p(1) : O1 1s(2) 2p(1) (4 2) Proj 1
+\end{verbatim}
+
+the first line tags an occupied group. There is a lot of stuff to keep in mind
+here:
+
+in the first line, the n type orbitals for the oxygen are tagged as occupied.
+since we specified 2p(1), the px, py and pz are all kept to generate the
+submatrix. For this reason, a 4x4 matrix will be extracted. Each column
+represent the ny, nz, the half sigma and half pi orbitals that arise from the
+combination, respectively. We say half because the bond is not specified, and
+so in these orbitals goes only one electron. Then, we take out as occupied the
+first two (which have a nearly 2.0 occupation) and tag as occupied.
+
+Then it comes the A line. On that line we specify the C1 - O1 bond. we use 4
+orbitals from the carbon and 4 orbitals from the oxygen, then a 8x8 matrix will
+be extracted. In this matrix we found columns for the ny and nz oxygen
+orbitals, the sigma CO bond, the sigma* CO bond, the pi CO bond, the pi* CO
+bond, and finally two half bonds from the carbon to other atoms of the
+molecule. We take out 4 nearly 2.0 occupated orbitals (ny, nz, pi, sigma) and 2
+nearly 0.0 occupated orbitals (pi*, sigma*), and we drop the half bonds.
+
+Please note that ny and nz are redundant, and also specified as Active, in this
+case. Here comes two important notions: 1) the earlier specification of these
+orbitals as occupied superimpose that indeed these orbitals \underline{are} occupied, not
+active. 2) we can improve the cleanness of these n orbitals doing a projection
+with the keywords Proj and Ref. The subsequent number is a tag, which says
+"project the orbitals obtained from this line on the orbitals described at the
+line tagged with Ref <same number>".
+
+Finally, we can narrow again the choice of the active orbitals with the initial
+numac keyword. Supposing we need the pi and pi* orbitals as active, we can do a
+first run without numac, and then choose the appropriate number and rerun the
+schmudorb picking out only the needed orbitals.
+
+The other lines don't report differences. It's a simple creation of the
+remaining bonds of the molecule.
+
+Then it comes the program proj\_scf. the input is simple:
+
+\begin{verbatim}
+ &pscf prefix='pentenal.', /
+\end{verbatim}
+
+this projects the obtained guess over an scf calculation. This gives out
+orbitals that are SCF in nature but localized. This improves the energy of our
+orbitals, that is rather poor if not projected.  The code produces an output,
+NONORLOC\_scf, that must be copied in NONORLOC
+
+The program schmudort orthogonalizes the obtained orbitals. The input is rather
+simple
+
+\begin{verbatim}
+ &ort
+\end{verbatim}
+
+and produces an output named LOCORB. This is copied to INPORB and fed to the
+noscf chain, a sort of wrapper for various molcas programs. noscf calls motra,
+molcost, casdi etc, to produce an improved (via variational) density matrix. At
+Ferrara, we use a perturbative approach to create a perturbative density matrix
+correction which is merged with the actual density matrix. This produces
+improved orbitals, and the stop criteria is the convergence for the energy
+value.
+
+for noscf this is the input
+
+\begin{verbatim}
+ &nofil prefix='pentenal.'  /
+ &no data='AUTO',r=' > ', MOLCAS=54,
+ nmat=2,netat=2*1,metat=2*1,coef=2*1.d0 /
+ &casdi syspin='+',gener='CAS+S',
+ nelac=2,iprec=6,   /
+ &casdi syspin='+',gener='CAS+S',
+ nelac=2,iprec=6,is0=2   /
+DAV1
+ nvec=1
+ / 
+FIN
+DAV2
+ nvec=1
+ /
+FIN
+\end{verbatim}
+
+
+the first label is data='AUTO'. Another choice is MANUAL, but is used only to
+test the chain.  r=' > ' command the writeout mode. with an > files with
+incremental numbers for each step will be created. With \#, a single file with
+all the steps will be written.
+syspin is for the choice of the spin symmetry. When you specify is2=0 (which
+is the default, for singlet) you also generate the zero component for the
+triplet, quintet and so on. syspin = '+' match only the zero component for
+the singlet.
+
+then it comes the state specification keywords. nmat is the number of density
+matrices we use.  netat is the number of states for each symmetry, metat is the
+progressive number of the states we are interested to and coef are the
+coefficients for each state.
+
+Let's suppose we want to do a single state calculation, on the third state of
+the first symmetry.  Then we need only one density matrix (nmat=1), the states
+we want is one (netat=1), the state progressive number is 3 (metat=3), and the
+weight is coef=1.0d0.
+
+Suppose we want to do 4 states of the same symmetry. so we need nmat=1 (one
+density matrix), netat=4 (four states) metat=1,2,3,4, and coef=4*1.0d0 (which
+is equivalent to coef=1.0d0,1.0d0,1.0d0,1.0d0)
+
+Suppose we want to do 2 states of different symmetry: for the first symmetry we
+want the first state and for the fourth symmetry we want the third state. we
+need to do nmat=2 (we need two density matrices since the symmetries of the
+states is different) netat=1,1 (one of a symmetry, one of another symmetry,
+please note that there's no evidence that the symmetries are the first and the
+fourth, not yet), metat=1,4, coef=2*1.0d0
+
+Then, subsequent \&casdi entries must be given for each of the states specified.
+gener is the generator (CAS+S = CAS + singles) nelac = number of active
+electrons. iprec= precision for the writeout of the results. is0 = the symmetry
+we are interested to (in the precedent case, 1 or 4). ms2=the spin
+multiplicity.
+
+DAVn match the casdi entries.
+
+
+Remember: check in the last molcost.out that the enumeration of orbitals has
+changed or not. This must be checked since if you need to do subsequent
+calculations the correct orbital number must be extracted for the active
+space, and the given procedure can change the enumeration. Normally the
+progression of the orbitals is made as: all G, all C, O occupied, A
+occupied, A virtual, O virtual
+Also: the target for localization is keeping the active space as little as
+possible. Bear in mind that inserting in the active space orbitals that have
+occupation number near 2 (or 0) a heavy coupling between these orbitals and
+the core (or virtual) orbitals happens. For this reason, a lot of
+convergence problems can arise. always keep the active space as little as
+you can to describe the physic of your problem, and never enlarge it too
+much.
+
+For this reason, doing a ground state for the excitation energy evaluation
+is better obtained with a single reference calculation (HF), and a CAS 2/2
+for the excited state can be ok. A problem arise here: doing a CAS+S on the
+excited state and comparing this energy with the HF energy can give negative
+transition energy. This is a direct consequence that the excited state is
+described better than the ground state. An averaged calculation must be done
+to ensure a correct behaviour.
+
+\section{Post optimization calculations}
+
+After the optimization has taken place, the obtained orbitals can be found
+in a file named LOCORB2, in the scratch file.
+ok... now let's suppose we did an averaged treatment on ground and excited
+states. We optimized the orbitals for both the states
+These orbitals can be used to do subsequent evaluations at various level of
+theory. Here we expose a CAS+SD treatment. The LOCORB2 file is taken and fed
+to motra
+
+cp \$CurrDir/LOCORB2 \$WorkDir/INPORB
+molcas run motra   \$CurrDir/\$Project.motra.in >\$CurrDir/\$Project.motra.out
+
+nothing dark magic here
+
+ \&MOTRA \&END
+Title
+ acrolein
+LumOrb
+Frozen
+ 0 0 0 0
+End of input
+
+then we do a molcost
+
+\&cost prefix='acrolein.',
+ fermi=13,2,
+/
+
+then we run
+
+casdet <  \$CurrDir/\$Project.casdi-ground.in > \$CurrDir/\$Project.casdi-ground.out
+casdi <   \$CurrDir/\$Project.casdi-ground.in >> \$CurrDir/\$Project.casdi-ground.out
+
+casdet generates the new space, with this input, and casdi computes the
+energy value for the new wavefunction. This is the cumulated input
+
+ \&cdfil prefix='acrolein.'  /
+ \&cd gener='CAS+SD',noac=2,numac=13,39,
+ nelac=2,is0=2,  /
+ \&cdifil prefix='acrolein.'  /
+ \&dav nvec=1,syspin='+' /
+
+please \underline{note} that syspin goes into \&dav section, not \&cd section
+in resemble to the input for noscf. This is an error that for singlet excited states
+can produce the triplet, because the default for syspin is '0'!
+Also, note that the enumeration of active orbitals can change, so check them
+against the molcost output, taking out the numbers that are assigned to A\_
+labelled orbitals.
+casdi does not need the orbitals. It needs only the MO mono and bi
+integrals. The AO integrals remain always the same (they are calculated at
+the beginning, with seward) but for every calculation we use MO integrals,
+which \underline{depend} on orbitals through the transformation achieved
+with motra. Every post treatment does not need references to AO values, but
+only mono and bi MO integrals (normally).
+
+\end{document}
