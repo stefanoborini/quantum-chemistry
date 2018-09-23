@@ -1,0 +1,183 @@
+#This file was created by <tesi> Mon Sep  3 14:32:40 2001
+#LyX 1.0 (C) 1995-1999 Matthias Ettrich and the LyX Team
+\lyxformat 2.15
+\textclass article
+\papersize a4paper
+\paperfontsize 11
+\begin_preamble
+\title{Appunti di preparazione alla tesi}
+\author{Stefano Borini}
+\usepackage[italian]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amssymb}
+
+\include{macros}
+\end_preamble
+
+\layout Section
+
+Stati elettronici
+\layout Standard
+
+Ci interesseremo come primo punto delle transizioni elettroniche, focalizzando
+ in seguito la nostra attenzione su un gruppo cromoforo di particolare importanz
+a
+ in chimica organica, il carbonile.
+\layout Standard
+
+Come e' noto, il momento angolare totale di spin di una molecola e' rappresentat
+o
+ dal numero quantico S, o momento di spin totale.
+ Tale grandezza vettoriale puo' essere calcolata come somma dei singoli
+ contributi elettronici: se in un semplicistico caso bielettronico, le due
+ particelle possiedono spin opposti, il momento di spin totale sara' 
+\begin_inset Formula \(  \half - \half = 0 \)
+\end_inset 
+
+.
+ Se invece le due particelle possiedono spin parallelo, il numero quantico
+ totale S sara' 
+\begin_inset Formula \(  \half + \half = 1 \)
+\end_inset 
+
+.
+ Dal momento che la molteplicita' dello stato e' valutabile in 
+\begin_inset Formula \(  2 S + 1 \)
+\end_inset 
+
+, ne consegue che per il primo caso si avra' uno stato di 
+\series bold 
+singoletto
+\series default 
+, mentre nel secondo uno stati di 
+\series bold 
+tripletto
+\series default 
+.
+\layout Standard
+
+La stragrande maggioranza delle molecole organiche ha uno stato base di
+ closed shell, quindi uno stato di singoletto (
+\begin_inset Formula \( S_{0}\)
+\end_inset 
+
+).
+ Eccitazioni elettroniche della molecola possono condurre sia a stati di
+ tripletto 
+\begin_inset Formula \( T_{1}\)
+\end_inset 
+
+ sia a stati di singoletto 
+\begin_inset Formula \( S_{1}\)
+\end_inset 
+
+ , a seconda che l'eccitazione conduca o meno all'inversione dello spin.
+\layout Standard
+
+Le transizioni 
+\begin_inset Formula \(  S \rightarrow T \)
+\end_inset 
+
+ sono virtualmente proibite, dal momento che nell'integrale di transizione
+ per la sola parte elettronica
+\layout Standard
+
+
+\latex latex 
+
+\backslash beqa
+\newline 
+
+\latex default 
+
+\latex latex 
+
+\backslash int{}
+\latex default 
+
+\latex latex 
+
+\backslash psi
+\latex default 
+_el'
+\latex latex 
+
+\backslash overrightarrow{}
+\latex default 
+d_e
+\latex latex 
+
+\backslash psi
+\latex default 
+_el = 
+\latex latex 
+ 
+\backslash int{}
+\latex default 
+
+\latex latex 
+
+\backslash phi{}
+\latex default 
+
+\latex latex 
+ 
+\backslash eeqa
+\latex default 
+
+\layout Standard
+
+Fluorescenza : prende origine da una diseccitazione di uno stato eccitato
+ che ha la stessa molteplicita' di spin dello stato base.
+\layout Standard
+
+Fosforescenza : spin diverso (es tripletto -> singoletto)
+\layout Standard
+
+Internal Conversion : conversione tra stati a medesima molteplicita' Intersystem
+ Crossing : conversione tra stati a diversa molteplicita'
+\layout Section
+
+Reazioni fotochimiche del carbonile
+\layout Standard
+
+L'assorbimento del carbonile sottoposto ad eccitazione elettronica si attesta
+ intorno ai 280-300 nm per le aldeidi e 200-220 nm per gli acidi carbossilici.
+ Per entrambe le classi di composti gli assorbimenti derivano dalla transizione
+ proibita 
+\begin_inset Formula \(  n \rightarrow \pistar \)
+\end_inset 
+
+.
+ Lo stato 
+\begin_inset Formula \(  ( n , \pistar ) \)
+\end_inset 
+
+ di tripletto che si ottiene ha le caratteristiche chimico - fisiche di
+ un diradicale.
+\layout Standard
+
+La differenza di energia tra lo stato di singoletto e di tripletto 
+\i \'{e}
+ relativamente pi
+\i \u{'}
+ bassa di quella degli eteni, ma l'intersystem crossing in alcuni casi 
+\i \'{e}
+ sufficientemente lento da consentire reazioni fotochimiche.
+ Dal momento che le energie di tripletto e singoletto sono comparabili,
+ le reazioni avvengono a partire da un qualsiasi di questi stati.
+\layout Standard
+
+Sostituenti elettron-donatori stabilizzano lo stato di tripletto 
+\begin_inset Formula \(  ( \pi
+, \pistar ) \)
+\end_inset 
+
+ e destabilizzano lo stato di tripletto 
+\begin_inset Formula \(  ( n , \pistar )
+\)
+\end_inset 
+
+.
+\the_end

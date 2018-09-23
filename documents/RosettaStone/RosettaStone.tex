@@ -1,0 +1,65 @@
+\documentclass[a4paper,11pt]{report}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+\setlength\parskip{\medskipamount}
+\setlength\parindent{0pt}
+\newcommand{\beqa}{\begin{eqnarray*}}
+\newcommand{\eeqa}{\end{eqnarray*}}
+
+\begin{document}
+\section{Rosetta Stone}
+
+bielectronic integrals over spin orbitals, in phys notation and chem
+notation
+$$
+\left< ij \left|\right. kl \right> = \left( ik \left| \right. jl \right)
+$$
+\beqa
+\left< ij \left|\right. kl \right> &=& \left< ji \left|\right. lk \right>\\
+\left( ik \left|\right. jl \right) &=& \left( jl \left|\right. ik \right)
+\eeqa
+\beqa
+\left< ij \left|\right. kl \right> &=&\left< kl \left|\right. ij \right>^{*} \\
+\left( ik \left|\right. jl \right) &=& \left( ki \left|\right. lj \right)^{*}
+\eeqa
+
+with real spinorbitals we have
+\beqa
+\left< ij \left|\right. kl \right> = \left< ji \left|\right. lk \right> = \left< kj \left|\right. il \right> = \left< il \left|\right. kj \right> = \left< kl \left|\right. ij \right> \\
+\left( ij \left|\right. kl \right) = \left( kl \left|\right. ij \right) = \left( ji \left|\right. kl \right) = \left( ij \left|\right. lk \right) = \left( ji \left|\right. lk \right) 
+\eeqa
+
+antisymmetrized integral
+\beqa
+\left< ij \left|\right| kl \right> =  \left< ij \left|\right. kl \right> - \left< ij \left|\right. lk \right> = \left( ik \left|\right. jl \right) - \left( il \left|\right. jk \right) 
+\eeqa
+
+note that:
+\beqa
+\left< ij \left|\right| kk \right> =  \left< ij \left|\right. kk \right> - \left< ij \left|\right. kk \right> = 0
+\eeqa
+\beqa
+\left< ji \left|\right| lk \right>=\left< ji \left|\right. lk \right> - \left< ji \left|\right. kl \right>   =\left< ij \left|\right. kl \right> - \left< ij \left|\right. lk \right>   =\left< ij \left|\right| kl \right>
+\eeqa
+\beqa
+\left< ij \left|\right| lk \right>= \left< ij \left|\right. lk \right> - \left< ij \left|\right. kl \right> = - \left< ij \left|\right| kl \right>
+\eeqa
+
+
+Two electron operator:
+
+\beqa
+\frac{1}{2}\sum_{ijkl} \left<ij\left|\right.kl\right> a^+_i a^+_j  a_l a_k =
+\frac{1}{4}\sum_{ijkl} \left<ij\left|\right|kl\right> a^+_i a^+_j  a_l a_k
+\eeqa
+
+\section{Molecular orbitals on an atomic basis set}
+
+The expansion coefficients give orbitals on a non orthogonal basis.
+However, with orbMat per column
+
+
+matmul(orbMat,s) * matmul(transpose(s),transpose(orbMat))
+
+
+\end{document}
